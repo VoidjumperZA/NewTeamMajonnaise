@@ -23,14 +23,21 @@ public class StationaryBoatState : AbstractBoatState {
 	
 	public override void Update ()
     {
-
-        if (Dragging() && mouseAboveHalf() == true) SetState(boat.BoatState.Move);
-
-        if (Dragging())
+        //This condition stops the boat from moving until the tutorial explains that the boat can move
+        if (TutorialUI.GetTouchedReelUp())
         {
-            if (TutorialUI.GetTouchedReelUp()) SetState(boat.BoatState.Move);
-        }
+            if (Dragging() && mouseAboveHalf() == true)
+            {
+                TutorialUI.SetMovedBoat(true);
+                SetState(boat.BoatState.Move);
+            }
 
+            if (Dragging())
+            {
+                TutorialUI.SetMovedBoat(true);
+                if (TutorialUI.GetTouchedReelUp()) SetState(boat.BoatState.Move);
+            }
+        }
     }
 
     private bool mouseAboveHalf()

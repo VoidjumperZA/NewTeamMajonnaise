@@ -41,7 +41,16 @@ public class SetFreeHookState : AbstractHookState {
         GameManager.Boat.SetState(boat.BoatState.Stationary);
         //GameManager.Radar.SetState(radar.RadarState.Pulse);
         SetState(hook.HookState.None);
-    }
+
+        //This needs to be here otherwise the deployhookbutton only activates when you press the reel up button and the reel up doesn't deactivate
+        if (TutorialUI.touchedScreen)
+        {
+            TutorialUI.DeployActive = true;
+            TutorialUI.ReelUpActive = false;
+        }
+        
+        
+}
     public override void Update()
     {
     }
@@ -56,4 +65,5 @@ public class SetFreeHookState : AbstractHookState {
     {
         return hook.HookState.SetFree;
     }
+
 }

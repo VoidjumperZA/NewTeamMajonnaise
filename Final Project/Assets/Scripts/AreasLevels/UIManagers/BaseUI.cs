@@ -8,6 +8,7 @@ public class BaseUI : MonoBehaviour {
     public GameObject ScoreUI; //the appearing score ui
     public GameObject ScoreUIPosition; //where are we spawning that ui
 
+
     public virtual void Start () {
         //Debug.Log("BaseUI - Start();");
     }
@@ -23,7 +24,7 @@ public class BaseUI : MonoBehaviour {
     {
 
     }
-    public void SetActive(bool pBool, params GameObject[] pGameObjects)
+    public static void SetActive(bool pBool, params GameObject[] pGameObjects)
     {
         foreach (GameObject gO in pGameObjects) gO.SetActive(pBool);
     }
@@ -34,5 +35,13 @@ public class BaseUI : MonoBehaviour {
     public virtual void HookScoreToggle(bool pBool)
     {
 
+    }
+    public virtual void HookSwipeAnimToggle(bool pBool)
+    {
+
+    }
+    public virtual void HandClickToggle(bool pBool)
+    {
+      
     }
 }

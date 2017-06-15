@@ -80,7 +80,16 @@ public class FishHookState : AbstractHookState
             }*/
             SetState(hook.HookState.Reel);
             //basic.combo.ClearPreviousCombo(false);
-			//GameObject.Instantiate (basic.HookHit, _hook.HookTip.position, Quaternion.identity);
+            //GameObject.Instantiate (basic.HookHit, _hook.HookTip.position, Quaternion.identity);
+            if (!TutorialUI.GetFirstTimeReelUp() && !TutorialUI.GetTouchedReelUp())
+            {
+                TutorialUI.SetReelUpHook(true);
+
+            }
+            TutorialUI.SetFirstTimeReelUp(false);
+            ToggleHookSwipeAnim(false);
+           
+
         } 
         //On contact with a fish
         if (other.gameObject.CompareTag("Fish"))
@@ -142,5 +151,13 @@ public class FishHookState : AbstractHookState
 
         }
 
+    }
+    public void ToggleHookSwipeAnim(bool pBool)
+    {
+        if (GameManager.Levelmanager._baseUI) GameManager.Levelmanager._baseUI.HookSwipeAnimToggle(pBool);
+    }
+    public void ToggleHandClick(bool pBool)
+    {
+        if (GameManager.Levelmanager._baseUI) GameManager.Levelmanager._baseUI.HandClickToggle(pBool);
     }
 }
