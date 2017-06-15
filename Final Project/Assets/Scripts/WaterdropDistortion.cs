@@ -8,16 +8,21 @@ public class WaterdropDistortion : MonoBehaviour
     private float scrollSpeed;
     [SerializeField]
     private float fadeSpeed;
-    private float offset;
+    [SerializeField]
+    private bool nonUniformDropMovement;
     private bool activated;
-    private Renderer renderer;
+    private MeshRenderer renderer;
+    float offset;
 
     // Use this for initialization
     void Start()
     {
         activated = false;
-        renderer = gameObject.GetComponent<Renderer>();
+        renderer = gameObject.GetComponent<MeshRenderer>();
         renderer.enabled = false;
+       offset = 0.0f;
+        // renderer.material.GetTexture("_MainTex").wrapMode = TextureWrapMode.Repeat;
+        // renderer.material.GetTexture("_BumpMap").wrapMode = TextureWrapMode.Repeat;
     }
 
     // Update is called once per frame
@@ -25,8 +30,29 @@ public class WaterdropDistortion : MonoBehaviour
     {
         if (activated == true)
         {
-            offset += scrollSpeed * Time.deltaTime;
-            renderer.material.SetTextureOffset("_MainTex", new Vector2(offset, 0.0f));
+            
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                offset += scrollSpeed;
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                offset -= scrollSpeed;
+            }
+            
+            if (nonUniformDropMovement == true)
+            {
+                offset += Time.deltaTime * Random.Range(0.01f, scrollSpeed);//(0.0001f, 0.007f);
+            }
+            else
+            {
+                offset += (Time.deltaTime * scrollSpeed);
+            }
+           
+            renderer.material.SetTextureOffset("_MainTex", new Vector2(0.0f, offset));
+            renderer.material.SetTextureOffset("_BumpMap", new Vector2(0.0f, offset));
+
+            Debug.Log("Offset = " + offset);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -46,6 +72,5 @@ public class WaterdropDistortion : MonoBehaviour
         yield return new WaitForSeconds(fadeSpeed);
         renderer.enabled = false;
         activated = false;
-        offset = 0.0f;
     }
 }
