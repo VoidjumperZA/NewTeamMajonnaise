@@ -8,16 +8,22 @@ public class Rope : MonoBehaviour
     private Transform[] links;
     [SerializeField]
     private float distance;
+    [SerializeField]
+    private float minDistance;
+    [SerializeField]
+    private float maxDistance;
     private LineRenderer lineRenderer;
     private GameObject activeCube;
     private int activeLink;
     delegate void CalculationType();
     private CalculationType calculationType;
     private Vector3 previousPoint;
+    private int linkRenderLength;
     // Use this for initialization
     void Start()
     {
-        activeLink = 0; 
+        activeLink = 0;
+        linkRenderLength = links.Length;
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = links.Length;
         calculationType = calculateFor;
@@ -26,6 +32,22 @@ public class Rope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            distance -= 0.1f;
+            if (distance < minDistance)
+            {
+                distance = minDistance;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            distance += 0.1f;
+            if (distance > maxDistance)
+            {
+                distance = maxDistance;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             activeLink = 0;
@@ -82,7 +104,7 @@ public class Rope : MonoBehaviour
     private void renderLineTrail()
     {
         float time = Time.time;
-        for (int i = 0; i < links.Length; i++)
+        for (int i = 0; i < linkRenderLength; i++)
         {
             lineRenderer.SetPosition(i, links[i].transform.position);
         }
