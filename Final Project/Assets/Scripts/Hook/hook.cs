@@ -57,6 +57,11 @@ public class hook : general
     public override void FixedUpdate()
     {
         _abstractState.Update();
+        float distanceToBoat = Vector3.Distance(gameObject.transform.position, GameManager.Boat.gameObject.transform.position);
+        if (distanceToBoat % GameManager.rope.GetLinkDistance() == 0)
+        {
+            GameManager.rope.AddLink();
+        }
         //Debug.Log(_abstractState.StateType());
     }
     public void SetState(HookState pState)
