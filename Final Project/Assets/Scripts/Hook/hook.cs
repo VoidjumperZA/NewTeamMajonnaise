@@ -17,7 +17,9 @@ public class hook : general
     // Class references
     private GameObject _manager;
     private InputTimer _inputTimer;
-   
+    [SerializeField]
+    private Rope rope;
+
     private GlobalUI _globalUI;
     private Camera _mainCamera;
     // Components
@@ -58,9 +60,17 @@ public class hook : general
     {
         _abstractState.Update();
         float distanceToBoat = Vector3.Distance(gameObject.transform.position, GameManager.Boat.gameObject.transform.position);
-        if (distanceToBoat % GameManager.rope.GetLinkDistance() == 0)
+        if (distanceToBoat % rope.GetLinkDistance() == 0)
         {
-            GameManager.rope.AddLink();
+            if (_hookState == HookState.Fish)
+            {
+                rope.AddLink();
+            }
+            else if(_hookState == HookState.Reel)
+            {
+                rope.RemoveLink();
+            }
+            
         }
         //Debug.Log(_abstractState.StateType());
     }
