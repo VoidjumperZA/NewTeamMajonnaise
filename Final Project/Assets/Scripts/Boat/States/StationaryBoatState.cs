@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StationaryBoatState : AbstractBoatState {
 
@@ -24,18 +25,21 @@ public class StationaryBoatState : AbstractBoatState {
 	public override void Update ()
     {
         //This condition stops the boat from moving until the tutorial explains that the boat can move
-        if (TutorialUI.GetTouchedReelUp())
+        //JOSH: ^ The first part of this check makes sure you're ONLY in the tutorial scence, elsewise this was happening in other scenes
+        if (SceneManager.GetActiveScene().buildIndex == 1 && TutorialUI.GetTouchedReelUp())
         {
             if (Dragging() && mouseAboveHalf() == true)
             {
                 TutorialUI.SetMovedBoat(true);
                 SetState(boat.BoatState.Move);
             }
-
-            if (Dragging())
+        }
+        else 
+        {
+            if (Dragging() && mouseAboveHalf() == true)
             {
                 TutorialUI.SetMovedBoat(true);
-                if (TutorialUI.GetTouchedReelUp()) SetState(boat.BoatState.Move);
+                SetState(boat.BoatState.Move);
             }
         }
     }
