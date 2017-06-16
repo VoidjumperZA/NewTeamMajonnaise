@@ -17,25 +17,24 @@ public class LevelManager : MonoBehaviour {
     [Header("References")]
 
     public BaseUI _baseUI;
-    [SerializeField]
-    protected FishSpawn _fishSpawner;
+    [SerializeField] protected FishSpawn _fishSpawner;
 
-    [SerializeField]
-    protected ShoppingList _shoppingList;
-    [SerializeField]
-    protected JellyFishSpawn _jellyFishSpawn;
+    [SerializeField] protected ShoppingList _shoppingList;
+    [SerializeField] protected JellyFishSpawn _jellyFishSpawn;
+    [SerializeField] protected Combo _combo;
     public virtual void Start()
     {
         SetUpCamera();
         SetUpBoat();
 
         GameManager.Fishspawner = _fishSpawner;
-        _shoppingList.GenerateShoppingList();
         GameManager.ShopList = _shoppingList;
         GameManager.JellyFishSpawner = _jellyFishSpawn;
-
+        GameManager.combo = _combo;
 
         GameManager.Levelmanager = this;
+
+        _shoppingList.GenerateShoppingList();
         //Debug.Log("LevelManager - Start();");
     }
 	public virtual void Update () {

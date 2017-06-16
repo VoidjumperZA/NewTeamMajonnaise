@@ -4,20 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelUI : BaseUI {
-    private bool _onEnterScene = true;
-    private bool _onLeaveScene = true;
-    [Header("Controls")]
-    [SerializeField] private Button _dropHook;
-    [SerializeField] private Button _reelHook;
-    [Header("Game Time")]
-    [SerializeField] private Image _gameTimerBoard;
-    [SerializeField] private Text _gameTimerText;
-    [Header("Score")]
-    [SerializeField] private Image _totalScoreBoard;
-    [SerializeField] private Text _totalScoreText;
-    [SerializeField] private Text _hookScoreText;
-    [Header("Shopping List")]
-    [SerializeField] private Image _shoppingList;
 
     public override void Start () {
         // Controls
@@ -28,6 +14,8 @@ public class LevelUI : BaseUI {
         SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
+        // Combo
+        SetActive(false, ComboUI);
         //Debug.Log("LevelUI - Start();");
     }
     public override void Update()
@@ -71,6 +59,8 @@ public class LevelUI : BaseUI {
         SetActive(true, _totalScoreBoard.gameObject, _totalScoreText.gameObject);
         // Shopping List
         SetActive(true, _shoppingList.gameObject);
+        // Combo
+        SetActive(true, ComboUI);
 
 
 
@@ -91,6 +81,8 @@ public class LevelUI : BaseUI {
         SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
+        // Combo
+        SetActive(false, ComboUI);
 
         _onEnterScene = false;
     }
