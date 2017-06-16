@@ -1,74 +1,15 @@
 fileFormatVersion: 2
-guid: 6d3a233c825bde74cb74de3bf4a61d62
-timeCreated: 1497609491
+guid: 5d5940a3d230c5242a92dcb94f27971b
+timeCreated: 1497603373
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Anchor
-    100002: //RootNode
-    100004: Boat_Reel
-    100006: Buoi
-    100008: Chimney
-    100010: Fishing_Wood
-    100012: Flag
-    100014: Hook
-    100016: Lamp
-    100018: Main_Boat
-    100020: polySurface1
-    100022: polySurface2
-    100024: Propeller
-    100026: Rope
-    400000: Anchor
-    400002: //RootNode
-    400004: Boat_Reel
-    400006: Buoi
-    400008: Chimney
-    400010: Fishing_Wood
-    400012: Flag
-    400014: Hook
-    400016: Lamp
-    400018: Main_Boat
-    400020: polySurface1
-    400022: polySurface2
-    400024: Propeller
-    400026: Rope
-    2300000: Anchor
-    2300002: Boat_Reel
-    2300004: Buoi
-    2300006: Chimney
-    2300008: Fishing_Wood
-    2300010: Flag
-    2300012: Hook
-    2300014: Lamp
-    2300016: polySurface1
-    2300018: polySurface2
-    2300020: Propeller
-    2300022: Rope
-    3300000: Anchor
-    3300002: Boat_Reel
-    3300004: Buoi
-    3300006: Chimney
-    3300008: Fishing_Wood
-    3300010: Flag
-    3300012: Hook
-    3300014: Lamp
-    3300016: polySurface1
-    3300018: polySurface2
-    3300020: Propeller
-    3300022: Rope
-    4300000: Buoi
-    4300002: Flag
-    4300004: Propeller
-    4300006: Anchor
-    4300008: Chimney
-    4300010: Rope
-    4300012: Boat_Reel
-    4300014: Fishing_Wood
-    4300016: Hook
-    4300018: Lamp
-    4300020: polySurface1
-    4300022: polySurface2
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Cliff:Group2
     9500000: //RootNode
   materials:
     importMaterials: 1
