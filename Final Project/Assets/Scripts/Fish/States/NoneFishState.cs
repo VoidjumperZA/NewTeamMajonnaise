@@ -11,7 +11,7 @@ public class NoneFishState : AbstractFishState {
     }
     public override void Start()
     {
-        Debug.Log("Swim!");
+        //Debug.Log("Swim!");
         SetState(fish.FishState.Swim);
     }
     public override void Update()
