@@ -23,7 +23,7 @@ public class Sonar : MonoBehaviour
     void Start()
     {
         pingLock = false;
-        Debug.Log("Scanning = " + _scanning);
+       // Debug.Log("Scanning = " + _scanning);
     }
 
     void Update()
