@@ -54,6 +54,7 @@ public class SetFreeHookState : AbstractHookState {
     public override void Update()
     {
     }
+
     public override void Refresh()
     {
         _hook.FishOnHook = null;

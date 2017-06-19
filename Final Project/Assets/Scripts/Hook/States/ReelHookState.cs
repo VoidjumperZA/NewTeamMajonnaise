@@ -6,9 +6,9 @@ using UnityEngine;
 public class ReelHookState : AbstractHookState {
     private boat _boat;
     private Rope rope;
-    private float _reelSpeed;
+    private int _reelSpeed;
 
-	public ReelHookState(hook pHook, boat pBoat, float pReelSpeed) : base(pHook)
+	public ReelHookState(hook pHook, boat pBoat, int pReelSpeed) : base(pHook)
     {
         _boat = pBoat;
         _reelSpeed = pReelSpeed;
@@ -17,17 +17,21 @@ public class ReelHookState : AbstractHookState {
     {
         rope = GameObject.Find("Rope").GetComponent<Rope>();
         rope.SwitchActiveLink(rope.GetLinks().Count - 1, true, rope.GetLinks()[0].transform, rope.GetObjectToFollow().transform);
+       // _boat.StartCoroutine(counter());
     }
+
     public override void Update()
     {
         //float step = _reelSpeed;
         //Vector3 differenceVector = (_boat.gameObject.transform.position - _hook.gameObject.transform.position);
         //if (differenceVector.magnitude >= step) _hook.gameObject.transform.Translate(differenceVector.normalized * step);
-        float boatTrailingLinkDiff = Vector3.Distance(rope.GetLinks()[rope.GetNumberOfLinks() - 1].position, GameManager.Boat.gameObject.transform.position);
-        Debug.Log("Line length: " + rope.GetLineLength() + "(" + Mathf.FloorToInt(rope.GetLineLength()) + ")\t|\tNumber of Links: " + rope.GetNumberOfLinks());
-        _boat.StartCoroutine(counter());
-                
-
+        //float boatTrailingLinkDiff = Vector3.Distance(rope.GetLinks()[rope.GetNumberOfLinks() - 1].position, GameManager.Boat.gameObject.transform.position);
+        //Debug.Log("Line length: " + rope.GetLineLength() + "(" + Mathf.FloorToInt(rope.GetLineLength()) + ")\t|\tNumber of Links: " + rope.GetNumberOfLinks());
+        for (int i = 0; i < _reelSpeed; i++)
+        {
+            rope.RemoveLink();
+        }
+        
 
         if (rope.GetLinks().Count == 3)
         {
@@ -48,7 +52,7 @@ public class ReelHookState : AbstractHookState {
     private IEnumerator counter()
     {
         yield return new WaitForSeconds(_reelSpeed);
-        rope.RemoveLink();
+        
         Debug.Log("Removing links!");
     }
 }

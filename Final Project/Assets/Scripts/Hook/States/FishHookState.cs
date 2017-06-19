@@ -33,6 +33,7 @@ public class FishHookState : AbstractHookState
             ApplyVelocity(-_fallSpeed, mouse.Touching());
         }
     }
+
     //
     public override void Refresh()
     {

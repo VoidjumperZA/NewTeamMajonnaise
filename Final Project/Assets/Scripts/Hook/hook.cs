@@ -34,7 +34,7 @@ public class hook : general
     [SerializeField] private float _sideSpeed;
     [SerializeField] private float _downSpeed;
     [SerializeField] private float _fallSpeed;
-    [SerializeField] private float _reelSpeed;
+    [SerializeField] private int _reelSpeedLinksPerFrame;
     [SerializeField] private float _xOffsetDamping;
 
     private Vector3 _xyOffset;
@@ -90,7 +90,7 @@ public class hook : general
         _stateCache[HookState.None] = new NoneHookState(this);
         _stateCache[HookState.FollowBoat] = new FollowBoatHookState(this, GameManager.Boat);
         _stateCache[HookState.Fish] = new FishHookState(this, _sideSpeed, _downSpeed, _fallSpeed);
-        _stateCache[HookState.Reel] = new ReelHookState(this, GameManager.Boat, _reelSpeed);
+        _stateCache[HookState.Reel] = new ReelHookState(this, GameManager.Boat, _reelSpeedLinksPerFrame);
         _stateCache[HookState.SetFree] = new SetFreeHookState(this);
         SetState(_hookState);
     }
