@@ -11,7 +11,6 @@ public class ScoreHandler : MonoBehaviour {
     [SerializeField] Color flashColour;  //which colour the text flashes when it updates
     [SerializeField] private float colourFlashTime; //how long does it flash that colour
     [Header("Visual Values")]
-    [SerializeField] private GameObject ComboUISpawnPosition; //where are we spawning the combo notifier ui
     [SerializeField] private float minimumUIScale; //our size is random, what is the minimum bound for scaling
     [SerializeField] private float maximumUIScale; //maximum bound for scaling
     [SerializeField] private float UIRotationAngle; //rotating our ui a little for effect
@@ -39,7 +38,6 @@ public class ScoreHandler : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        ComboUIPosition = ComboUISpawnPosition.transform;
         HookScore = 0;
         BankedScore = 0;
         timeColourHasBeenFlashing = 0.0f;
