@@ -107,7 +107,6 @@ public class CameraHandler : MonoBehaviour
         {
             ToggleBelowWater(true);
             ToggleHookScoreText(true);
-            GameManager.combo.CreateNewCombo();
         }
         else if (!_isAboveWater && _camera.transform.position.y >= val)
         {
@@ -118,7 +117,7 @@ public class CameraHandler : MonoBehaviour
     public void ToggleBelowWater(bool pBool)
     {
         // Combo
-        if (GameManager.combo) GameManager.combo.CreateNewCombo();
+        if (!pBool && GameManager.combo) GameManager.combo.CreateNewCombo();
         // Fog
         _globalFog.enabled = pBool;
         //RenderSettings.fog = pBool;

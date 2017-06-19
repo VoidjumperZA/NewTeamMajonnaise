@@ -9,7 +9,7 @@ public class LevelUI : BaseUI {
         // Controls
         SetActive(false, _dropHook.gameObject, _reelHook.gameObject);
         // Game Time
-        SetActive(false, _gameTimerBoard.gameObject, _gameTimerText.gameObject);
+        SetActive(false, _gameTimerText.gameObject);
         // Score
         SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);
         // Shopping List
@@ -53,7 +53,7 @@ public class LevelUI : BaseUI {
         SetActive(true, _dropHook.gameObject);
         // Game Time
         GameManager.Gametimer.BeginCountdown();
-        SetActive(true, _gameTimerBoard.gameObject, _gameTimerText.gameObject);
+        SetActive(true, _gameTimerText.gameObject);
 
         // Score
         SetActive(true, _totalScoreBoard.gameObject, _totalScoreText.gameObject);
@@ -76,7 +76,7 @@ public class LevelUI : BaseUI {
         // Controls
         SetActive(false, _dropHook.gameObject);
         // Game Time
-        SetActive(false, _gameTimerBoard.gameObject, _gameTimerText.gameObject);
+        SetActive(false, _gameTimerText.gameObject);
         // Score
         SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);
         // Shopping List

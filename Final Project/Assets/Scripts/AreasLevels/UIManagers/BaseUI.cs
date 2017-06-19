@@ -11,7 +11,6 @@ public class BaseUI : MonoBehaviour {
     [SerializeField] protected Button _dropHook;
     [SerializeField] protected Button _reelHook;
     [Header("Game Time")]
-    [SerializeField] protected Image _gameTimerBoard;
     [SerializeField] protected Text _gameTimerText;
     [Header("Score")]
     [SerializeField] protected Image _totalScoreBoard;
