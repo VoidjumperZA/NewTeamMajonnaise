@@ -33,7 +33,7 @@ public class LevelManager : MonoBehaviour {
         GameManager.combo = _combo;
 
         GameManager.Levelmanager = this;
-        GameManager.Scorehandler.SetOriginalColours();
+        if (UI) GameManager.Scorehandler.SetOriginalColours();
 
         UI.EnterSceneTransition();
         _shoppingList.GenerateShoppingList();
