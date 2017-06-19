@@ -98,6 +98,7 @@ public class FishHookState : AbstractHookState
             if (!theFish || !theFish.Visible) return;
             theFish.SetState(fish.FishState.FollowHook);
             GameManager.ShopList.CollectFish((int)theFish.GetFishType());
+            GameManager.combo.Collect((int)theFish.GetFishType());
             GameManager.Scorehandler.AddScore(theFish.GetFishType(), true, true);
             /*if (!basic.GlobalUI.InTutorial)
             {

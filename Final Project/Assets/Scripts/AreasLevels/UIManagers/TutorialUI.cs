@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class TutorialUI : BaseUI
 {
-    private bool _onEnterScene = true;
-    private bool _onLeaveScene = true;
 
     [Header("Animations")]
     [SerializeField]
@@ -18,12 +16,6 @@ public class TutorialUI : BaseUI
     [SerializeField]
     private Image _handClickNoDrops;
 
-    [Header("Controls")]
-    [SerializeField]
-    public Button _dropHook;
-    [SerializeField]
-    public Button _reelHook;
-
     private Animator _dropHookAnim;
     private Animator _reelHookAnim;
     [SerializeField]
@@ -32,20 +24,8 @@ public class TutorialUI : BaseUI
     [Header("Game Time")]
     [SerializeField]
     private Image _gameTimerBoard;
-    [SerializeField]
-    private Text _gameTimerText;
-
-    [Header("Score")]
-    [SerializeField]
-    private Image _totalScoreBoard;
-    [SerializeField]
-    private Text _totalScoreText;
-    [SerializeField]
-    private Text _hookScoreText;
-
-    [Header("Shopping List")]
-    [SerializeField]
-    private Image _shoppingList;
+ 
+   
 
     //Conditions for showing UI in order
     private bool boatStopped = false;
