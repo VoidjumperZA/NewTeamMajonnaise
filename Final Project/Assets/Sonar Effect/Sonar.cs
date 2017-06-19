@@ -57,8 +57,7 @@ public class Sonar : MonoBehaviour
             if (IsInput() == true && Vector3.Distance(ScannerOrigin.position, ScannerBoundary.transform.position) <= ScanDistance)
             {
                 FirePulse();
-            }
-           
+            }           
         }
 
 
