@@ -103,7 +103,7 @@ Shader "Hidden/ScannerEffect"
 				float dist = distance(worldspacePosition, _WorldSpaceScannerPos);
 
 				//is frag inside distance and range of scan?
-				if (dist < _ScanDistance && dist > _ScanDistance - _ScanWidth/* && linearDepth < 1*/)
+				if (dist < _ScanDistance && dist > _ScanDistance - _ScanWidth && linearDepth < 1)
 				{
 					//distance of scan - fragment's distance and div by width to get 0 - 1 value
 					float diff = 1 - (_ScanDistance - dist) / (_ScanWidth);
