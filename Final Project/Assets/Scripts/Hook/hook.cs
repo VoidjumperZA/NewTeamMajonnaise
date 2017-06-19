@@ -34,7 +34,7 @@ public class hook : general
     [SerializeField] private float _sideSpeed;
     [SerializeField] private float _downSpeed;
     [SerializeField] private float _fallSpeed;
-    [SerializeField] private float _reelSpeed;
+    [SerializeField] private int _reelSpeedLinksPerFrame;
     [SerializeField] private float _xOffsetDamping;
 
     private Vector3 _xyOffset;
@@ -60,21 +60,23 @@ public class hook : general
     {
         _abstractState.Update();
         float distanceToBoat = Vector3.Distance(gameObject.transform.position, GameManager.Boat.gameObject.transform.position);
-        if (distanceToBoat % rope.GetLinkDistance() == 0)
+        float boatTrailingLinkDiff = Vector3.Distance(rope.GetLinks()[rope.GetNumberOfLinks() - 1].position, GameManager.Boat.gameObject.transform.position);
+        Debug.Log("Line length: " + rope.GetLineLength() + "(" + Mathf.FloorToInt(rope.GetLineLength()) + ")\t|\tNumber of Links: " + rope.GetNumberOfLinks());
+        if (/*(Mathf.FloorToInt(rope.GetLineLength()) +*/ boatTrailingLinkDiff / rope.GetNumberOfLinks() > rope.GetLinkDistance() / 10.0f)
         {
             if (_abstractState is FishHookState)
             {
                 rope.AddLink();
+                rope.ResetLastLinkPosition();
                 Debug.Log("Adding links!");
             }
-            else if(_abstractState is ReelHookState)
+            else if (_abstractState is ReelHookState)
             {
-                rope.RemoveLink();
-                Debug.Log("Removing links!");
+                //rope.RemoveLink();
+                //Debug.Log("Removing links!");
             }
-            
+
         }
-        //Debug.Log(_abstractState.StateType());
     }
     public void SetState(HookState pState)
     {
@@ -88,7 +90,7 @@ public class hook : general
         _stateCache[HookState.None] = new NoneHookState(this);
         _stateCache[HookState.FollowBoat] = new FollowBoatHookState(this, GameManager.Boat);
         _stateCache[HookState.Fish] = new FishHookState(this, _sideSpeed, _downSpeed, _fallSpeed);
-        _stateCache[HookState.Reel] = new ReelHookState(this, GameManager.Boat, _reelSpeed);
+        _stateCache[HookState.Reel] = new ReelHookState(this, GameManager.Boat, _reelSpeedLinksPerFrame);
         _stateCache[HookState.SetFree] = new SetFreeHookState(this);
         SetState(_hookState);
     }

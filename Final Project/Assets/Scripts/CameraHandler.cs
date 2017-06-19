@@ -120,7 +120,7 @@ public class CameraHandler : MonoBehaviour
         if (!pBool && GameManager.combo) GameManager.combo.CreateNewCombo();
         // Fog
         _globalFog.enabled = pBool;
-        //RenderSettings.fog = pBool;
+        RenderSettings.fog = pBool;
         // Color Correction Profile ?
         _cameraPostProcessing.profile = pBool ? _underWaterProfile : _aboveWaterProfile;
         //if (_aboveWaterProfile) _cameraPostProcessing.profile = _aboveWaterProfile;
