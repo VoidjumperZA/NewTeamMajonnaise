@@ -16,6 +16,7 @@ public class TutorialManager : LevelManager
 
 
         GameManager.Levelmanager = this;
+        _baseUI.EnterSceneTransition();
         //Debug.Log("LevelManager - Start();");
     }
     public override void Update()

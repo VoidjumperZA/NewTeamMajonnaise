@@ -78,7 +78,7 @@ public class FishHookState : AbstractHookState
                 basic.GlobalUI.ShowHandSwipe(false);
                 basic.GlobalUI.SwipehandCompleted = true;
             }*/
-            SetState(hook.HookState.Reel);
+            GameManager.Levelmanager._baseUI.OnReelHook();
             //basic.combo.ClearPreviousCombo(false);
             //GameObject.Instantiate (basic.HookHit, _hook.HookTip.position, Quaternion.identity);
             if (!TutorialUI.GetFirstTimeReelUp() && !TutorialUI.GetTouchedReelUp())
