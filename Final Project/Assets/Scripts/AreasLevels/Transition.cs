@@ -36,7 +36,7 @@ public class Transition : MonoBehaviour {
     }
     private IEnumerator SetAnimation(bool pDownWards)
     {
-        yield return !pDownWards ? null: new WaitForSeconds(2);
+        yield return !pDownWards ? null: new WaitForSeconds(3);
         if (!_animator.enabled) _animator.enabled = true;
         _animator.SetBool("Down", pDownWards);
         //_animator.enabled = false;

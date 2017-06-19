@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScoreHandler : MonoBehaviour {
     [SerializeField] private Canvas _canvas;
@@ -41,15 +42,22 @@ public class ScoreHandler : MonoBehaviour {
         ComboUIPosition = ComboUISpawnPosition.transform;
         HookScore = 0;
         BankedScore = 0;
-        //timeColourHasBeenFlashing = 0.0f;
-        //originalHookScoreColour = currentHookScore.color;
-        //colourFlashing = false;   
+        timeColourHasBeenFlashing = 0.0f;
+        originalHookScoreColour = GameManager.Levelmanager.GetComponent<BaseUI>().GetHookScoreText().color;
+        originalTotalScoreColour = GameManager.Levelmanager.GetComponent<BaseUI>().GetTotalScoreText().color;
+        colourFlashing = false;   
 	}
 	public Vector3 HookScorePosition()
     {
         Vector3 hookPosOnScreen = Camera.main.WorldToScreenPoint(GameManager.Hook.transform.position);
         Vector3 offsetPosition = new Vector3(hookPosOnScreen.x + hookScoreXOffset, hookPosOnScreen.y + hookScoreYOffset, 0.0f);
         return offsetPosition;
+    }
+
+    public void SetTextColours(Text pHookScore, Text pBankedScore)
+    {
+        originalHookScoreColour = pHookScore.color;
+        originalTotalScoreColour = pBankedScore.color;
     }
 	// Update is called once per frame
 	void Update () 
@@ -107,11 +115,12 @@ public class ScoreHandler : MonoBehaviour {
         }
 
         //Briefly switch the colour and start a counter to switch it back for visual feedback
-        //timeColourHasBeenFlashing = colourFlashTime;
-        //colourFlashing = true;
-        //currentHookScore.color = flashColour;
-        //flashTextHolder = currentHookScore;
-        //originalColourHolder = originalHookScoreColour;
+        timeColourHasBeenFlashing = colourFlashTime;
+        colourFlashing = true;
+        Text currentHookScore = GameManager.Levelmanager.GetComponent<BaseUI>().GetHookScoreText();
+        currentHookScore.color = flashColour;
+        flashTextHolder = currentHookScore;
+        originalColourHolder = originalHookScoreColour;
     }
     public void AddScore(int pScore, bool pCreatUIAnnouncement, bool pCaughtAFish)
     {
@@ -126,11 +135,12 @@ public class ScoreHandler : MonoBehaviour {
         }
 
         //Briefly switch the colour and start a counter to switch it back for visual feedback
-        //timeColourHasBeenFlashing = colourFlashTime;
-        //colourFlashing = true;
-        //currentHookScore.color = flashColour;
-        //flashTextHolder = currentHookScore;
-        //originalColourHolder = originalHookScoreColour;
+        timeColourHasBeenFlashing = colourFlashTime;
+        colourFlashing = true;
+        Text currentHookScore = GameManager.Levelmanager.GetComponent<BaseUI>().GetHookScoreText();
+        currentHookScore.color = flashColour;
+        flashTextHolder = currentHookScore;
+        originalColourHolder = originalHookScoreColour;
     }
 
     public void AddComboScore()
@@ -149,11 +159,12 @@ public class ScoreHandler : MonoBehaviour {
         //totalScore.text = BankedScore + "";
 
         //Briefly switch the colour and start a counter to switch it back for visual feedback
-        //timeColourHasBeenFlashing = colourFlashTime;
-        //colourFlashing = true;
-        //totalScore.color = flashColour;
-        //flashTextHolder = totalScore;
-        //originalColourHolder = originalTotalScoreColour;
+        timeColourHasBeenFlashing = colourFlashTime;
+        colourFlashing = true;
+        Text totalScore = GameManager.Levelmanager.GetComponent<BaseUI>().GetTotalScoreText();
+        totalScore.color = flashColour;
+        flashTextHolder = totalScore;
+        originalColourHolder = originalTotalScoreColour;
     }
 
     //Instantiate a UI instance

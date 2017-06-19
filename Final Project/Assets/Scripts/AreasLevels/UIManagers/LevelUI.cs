@@ -17,6 +17,7 @@ public class LevelUI : BaseUI {
         // Combo
         SetActive(false, ComboUI);
         //Debug.Log("LevelUI - Start();");
+        GameManager.Scorehandler.SetTextColours(_hookScoreText, _totalScoreText);
     }
     public override void Update()
     {
