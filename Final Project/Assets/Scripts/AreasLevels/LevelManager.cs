@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] protected Transform _endCamHolder;
     [Header("References")]
 
-    public BaseUI _baseUI;
+    public BaseUI UI;
     [SerializeField] protected FishSpawn _fishSpawner;
 
     [SerializeField] protected ShoppingList _shoppingList;
@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour {
         GameManager.Levelmanager = this;
         GameManager.Scorehandler.SetOriginalColours();
 
-        _baseUI.EnterSceneTransition();
+        UI.EnterSceneTransition();
         _shoppingList.GenerateShoppingList();
         _combo.CreateNewCombo();
         //Debug.Log("LevelManager - Start();");
@@ -65,20 +65,20 @@ public class LevelManager : MonoBehaviour {
     }
     public virtual void UIOnEnterScene()
     {
-        if (_baseUI) _baseUI.OnEnterScene();
+        if (UI) UI.OnEnterScene();
         else Debug.Log("LevelUI not assigned to LevelManager script");
     }
     public virtual void UIOnLeaveScene()
     {
-        if (_baseUI)
+        if (UI)
         {
-            _baseUI.OnLeaveScene();
-            _baseUI.LeaveSceneTransition();
+            UI.OnLeaveScene();
+            UI.LeaveSceneTransition();
         }
     }
     public Canvas Canvas()
     {
-        if (_baseUI.canvas) return _baseUI.canvas;
+        if (UI.canvas) return UI.canvas;
         return null;
     }
 }

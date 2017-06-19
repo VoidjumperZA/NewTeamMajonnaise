@@ -24,15 +24,34 @@ public class Combo : MonoBehaviour
 
     public void Initialize()
     {
-        GameManager.Levelmanager._baseUI.ComboUI.SetActive(true);
+        GameManager.Levelmanager.UI.ComboUI.SetActive(true);
         CreateNewCombo();
+        //ToggleCurrentState("Next", true);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         if (Input.GetKeyDown(KeyCode.L)) CreateNewCombo();
+
+    }
+    private void ToggleCurrentState(string pState, bool pBool)
+    {
+        if (!(_current < _comboSize - 1)) return;
+        if (_comboSize == 3)
+        {
+            GameManager.Levelmanager.UI.ThreeIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Animator>().SetBool(pState, pBool);
+        }
+        if (_comboSize == 4)
+        {
+            GameManager.Levelmanager.UI.FourIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Animator>().SetBool(pState, pBool);
+        }
+        if (_comboSize == 5)
+        {
+            GameManager.Levelmanager.UI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Animator>().SetBool(pState, pBool);
+        }
+
     }
     public void Collect(int pFishType)
     {
@@ -41,39 +60,56 @@ public class Combo : MonoBehaviour
             if (_comboSize == 3)
             {
                 // Fills
-                GameManager.Levelmanager._baseUI.ThreeFills[_current].enabled = true;
-                if (_current > 0) GameManager.Levelmanager._baseUI.ThreeFills[_current - 1].enabled = false;
+                GameManager.Levelmanager.UI.ThreeFills[_current].enabled = true;
+                if (_current > 0) GameManager.Levelmanager.UI.ThreeFills[_current - 1].enabled = false;
                 // Icons
-                GameManager.Levelmanager._baseUI.ThreeIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
-                GameManager.Levelmanager._baseUI.ThreeIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
-                GameManager.Levelmanager._baseUI.ThreeIcons[_current].sprite = _afterCaught[pFishType];
+                // Highlight
+                /*GameManager.Levelmanager._baseUI.ThreeIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
+                GameManager.Levelmanager._baseUI.ThreeIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
+                GameManager.Levelmanager._baseUI.ThreeIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().sprite = _beforeCaught[pFishType];*/
+                // Fore Icon
+                GameManager.Levelmanager.UI.ThreeIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
+                GameManager.Levelmanager.UI.ThreeIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
+                GameManager.Levelmanager.UI.ThreeIcons[_current].sprite = _afterCaught[pFishType];
             }
             if (_comboSize == 4)
             {
                 // Fills
-                GameManager.Levelmanager._baseUI.FourFills[_current].enabled = true;
-                if (_current > 0) GameManager.Levelmanager._baseUI.FourFills[_current - 1].enabled = false;
+                GameManager.Levelmanager.UI.FourFills[_current].enabled = true;
+                if (_current > 0) GameManager.Levelmanager.UI.FourFills[_current - 1].enabled = false;
                 // Icons
-                GameManager.Levelmanager._baseUI.FourIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
-                GameManager.Levelmanager._baseUI.FourIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
-                GameManager.Levelmanager._baseUI.FourIcons[_current].sprite = _afterCaught[pFishType];
+                // Highlight
+                /*GameManager.Levelmanager._baseUI.FourIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
+                GameManager.Levelmanager._baseUI.FourIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
+                GameManager.Levelmanager._baseUI.FourIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().sprite = _beforeCaught[pFishType];*/
+                // Fore Icon
+                GameManager.Levelmanager.UI.FourIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
+                GameManager.Levelmanager.UI.FourIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
+                GameManager.Levelmanager.UI.FourIcons[_current].sprite = _afterCaught[pFishType];
             }
             if (_comboSize == 5)
             {
                 // Fills
-                GameManager.Levelmanager._baseUI.FiveFills[_current].enabled = true;
-                if (_current > 0) GameManager.Levelmanager._baseUI.FiveFills[_current - 1].enabled = false;
+                GameManager.Levelmanager.UI.FiveFills[_current].enabled = true;
+                if (_current > 0) GameManager.Levelmanager.UI.FiveFills[_current - 1].enabled = false;
                 // Icons
-                GameManager.Levelmanager._baseUI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
-                GameManager.Levelmanager._baseUI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
-                GameManager.Levelmanager._baseUI.FiveIcons[_current].sprite = _afterCaught[pFishType];
+                // Highlight
+                /*GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
+                GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
+                GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().sprite = _beforeCaught[pFishType];*/
+                // Fore Icon
+                GameManager.Levelmanager.UI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
+                GameManager.Levelmanager.UI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
+                GameManager.Levelmanager.UI.FiveIcons[_current].sprite = _afterCaught[pFishType];
             }
-
+            //ToggleCurrentState("Next", false);
             _current += 1;
+            //ToggleCurrentState("Next", true);
         }
         else CreateNewCombo();
         if (_current == _comboSize)
         {
+            //ToggleCurrentState("Next", false);
             GameManager.Scorehandler.AddComboScore();
             StartCoroutine(CreateNewComboCoroutine(1));
         }
@@ -82,6 +118,7 @@ public class Combo : MonoBehaviour
     {
         yield return new WaitForSeconds(pTime);
         CreateNewCombo();
+        //ToggleCurrentState("Next", true);
     }
     public void CreateNewCombo()
     {
@@ -98,56 +135,83 @@ public class Combo : MonoBehaviour
         {
             for (int i = 0; i < _comboSize; i++)
             {
-                GameManager.Levelmanager._baseUI.ThreeIcons[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _beforeCaught[_typeSet[i]].rect.width);
+                SetIcon(GameManager.Levelmanager.UI.ThreeIcons, i);
+                /*GameManager.Levelmanager._baseUI.ThreeIcons[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _beforeCaught[_typeSet[i]].rect.width);
                 GameManager.Levelmanager._baseUI.ThreeIcons[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _beforeCaught[_typeSet[i]].rect.height);
                 GameManager.Levelmanager._baseUI.ThreeIcons[i].sprite = _beforeCaught[_typeSet[i]];
-                GameManager.Levelmanager._baseUI.ThreeIcons[i].enabled = true;
+                GameManager.Levelmanager._baseUI.ThreeIcons[i].enabled = true;*/
             }
         }
         if (_comboSize == 4)
         {
             for (int i = 0; i < _comboSize; i++)
             {
-                GameManager.Levelmanager._baseUI.FourIcons[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _beforeCaught[_typeSet[i]].rect.width);
+                SetIcon(GameManager.Levelmanager.UI.FourIcons, i);
+                /*GameManager.Levelmanager._baseUI.FourIcons[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _beforeCaught[_typeSet[i]].rect.width);
                 GameManager.Levelmanager._baseUI.FourIcons[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _beforeCaught[_typeSet[i]].rect.height);
                 GameManager.Levelmanager._baseUI.FourIcons[i].sprite = _beforeCaught[_typeSet[i]];
-                GameManager.Levelmanager._baseUI.FourIcons[i].enabled = true;
+                GameManager.Levelmanager._baseUI.FourIcons[i].enabled = true;*/
             }
         }
         if (_comboSize == 5)
         {
             for (int i = 0; i < _comboSize; i++)
             {
-                GameManager.Levelmanager._baseUI.FiveIcons[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _beforeCaught[_typeSet[i]].rect.width);
+                SetIcon(GameManager.Levelmanager.UI.FiveIcons, i);
+                /*GameManager.Levelmanager._baseUI.FiveIcons[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _beforeCaught[_typeSet[i]].rect.width);
                 GameManager.Levelmanager._baseUI.FiveIcons[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _beforeCaught[_typeSet[i]].rect.height);
                 GameManager.Levelmanager._baseUI.FiveIcons[i].sprite = _beforeCaught[_typeSet[i]];
-                GameManager.Levelmanager._baseUI.FiveIcons[i].enabled = true;
+                GameManager.Levelmanager._baseUI.FiveIcons[i].enabled = true;*/
             }
         }
         Debug.Log(_comboSize + " Combosize " + _typeSet.Count);
     }
-    
+    private void SetIcon(Image[] pIcons, int pIndex)
+    {
+        // HighLight
+       /* pIcons[pIndex].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _beforeCaught[_typeSet[pIndex]].rect.width);
+        pIcons[pIndex].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _beforeCaught[_typeSet[pIndex]].rect.height);
+        pIcons[pIndex].gameObject.transform.parent.gameObject.GetComponent<Image>().sprite = _beforeCaught[_typeSet[pIndex]];
+        pIcons[pIndex].gameObject.transform.parent.gameObject.GetComponent<Image>().enabled = false;*/
+        // Fore Image
+        pIcons[pIndex].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _beforeCaught[_typeSet[pIndex]].rect.width);
+        pIcons[pIndex].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _beforeCaught[_typeSet[pIndex]].rect.height);
+        pIcons[pIndex].sprite = _beforeCaught[_typeSet[pIndex]];
+        pIcons[pIndex].enabled = true;
+    }
     private void HideFillsAndIcons()
     {
         // Fills
-        foreach (Image img in GameManager.Levelmanager._baseUI.ThreeFills) img.enabled = false;
-        foreach (Image img in GameManager.Levelmanager._baseUI.FourFills) img.enabled = false;
-        foreach (Image img in GameManager.Levelmanager._baseUI.FiveFills) img.enabled = false;
+        foreach (Image img in GameManager.Levelmanager.UI.ThreeFills) img.enabled = false;
+        foreach (Image img in GameManager.Levelmanager.UI.FourFills) img.enabled = false;
+        foreach (Image img in GameManager.Levelmanager.UI.FiveFills) img.enabled = false;
         // Icons
-        foreach (Image img in GameManager.Levelmanager._baseUI.ThreeIcons)
+        foreach (Image img in GameManager.Levelmanager.UI.ThreeIcons)
         {
+            // Fore Image
             img.preserveAspect = true;
             img.enabled = false;
+            // Highlight
+            //img.gameObject.transform.parent.gameObject.GetComponent<Image>().preserveAspect = true;
+            //img.gameObject.transform.parent.gameObject.GetComponent<Image>().enabled = false;
         }
-        foreach (Image img in GameManager.Levelmanager._baseUI.FourIcons)
+        foreach (Image img in GameManager.Levelmanager.UI.FourIcons)
         {
+            // Fore Image
             img.preserveAspect = true;
             img.enabled = false;
+            // Highlight
+            //img.gameObject.transform.parent.gameObject.GetComponent<Image>().preserveAspect = true;
+            //img.gameObject.transform.parent.gameObject.GetComponent<Image>().enabled = false;
         }
-        foreach (Image img in GameManager.Levelmanager._baseUI.FiveIcons)
+        foreach (Image img in GameManager.Levelmanager.UI.FiveIcons)
         {
+            // Fore Image
             img.preserveAspect = true;
             img.enabled = false;
+            // Highlight
+            //img.gameObject.transform.parent.gameObject.GetComponent<Image>().preserveAspect = true;
+            //img.gameObject.transform.parent.gameObject.GetComponent<Image>().enabled = false;
         }
     }
     /*public void CheckComboProgress(fish.FishType pFishType)
