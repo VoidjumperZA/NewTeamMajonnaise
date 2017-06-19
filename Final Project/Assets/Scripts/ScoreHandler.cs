@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class ScoreHandler : MonoBehaviour {
     [SerializeField] private Canvas _canvas;
 
-    [Header("UI Pieces")]
-    [SerializeField] private GameObject comboScoreUI;
-
     [Header("Flashing")]
     [SerializeField] Color flashColour;  //which colour the text flashes when it updates
     [SerializeField] private float colourFlashTime; //how long does it flash that colour
@@ -21,18 +18,13 @@ public class ScoreHandler : MonoBehaviour {
     [SerializeField] private float hookScoreYOffset;
     [Header("Score Values")]
     [SerializeField] private int comboScoreValue;
-    [SerializeField]
-    private int smallFishScoreValue;
-    [SerializeField]
-    private int mediumFishScoreValue;
-    [SerializeField]
-    private int largeFishScoreValue;
-    [SerializeField]
-    private int trashPercentageModifier;
-    [SerializeField]
-    private float jellyfishPenaltyPercentage = 0.25f;
+    [SerializeField] private int smallFishScoreValue;
+    [SerializeField] private int mediumFishScoreValue;
+    [SerializeField] private int largeFishScoreValue;
+    [SerializeField] private int trashPercentageModifier;
+    [SerializeField] private float jellyfishPenaltyPercentage = 0.25f;
     private Transform ComboUIPosition;
-    [HideInInspector]public float HookScore;
+    [HideInInspector] public float HookScore;
     [HideInInspector] public float BankedScore;
     private float timeColourHasBeenFlashing;
     private Color originalHookScoreColour;
@@ -143,6 +135,7 @@ public class ScoreHandler : MonoBehaviour {
 
     public void AddComboScore()
     {
+        BankedScore += comboScoreValue;
         //createComboScoreUI();
     }
 
@@ -190,7 +183,7 @@ public class ScoreHandler : MonoBehaviour {
 
     private void createComboScoreUI()
     {
-        GameObject newComboScoreInstance = Instantiate(comboScoreUI, ComboUIPosition);
+        /*GameObject newComboScoreInstance = Instantiate(comboScoreUI, ComboUIPosition);
 
         //Activate it because our instantiated object is in world, but deactivated. 
         newComboScoreInstance.SetActive(true);
@@ -199,7 +192,7 @@ public class ScoreHandler : MonoBehaviour {
         //float angle = Random.Range(-UIRotationAngle, UIRotationAngle);
         //float scale = Random.Range(minimumUIScale, maximumUIScale);
         //newScoreInstance.GetComponent<ScoreUIAnimation>().SetSpawnParametres(angle, scale);
-        newComboScoreInstance.GetComponent<ComboScoreUIAnimation>().SetScoreText(comboScoreValue);
+        newComboScoreInstance.GetComponent<ComboScoreUIAnimation>().SetScoreText(comboScoreValue);*/
     }
 
     public int GetComboScoreValue()
