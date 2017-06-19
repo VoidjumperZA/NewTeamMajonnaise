@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
     public static FishSpawn Fishspawner { get; set; }
     public static ShoppingList ShopList { get; set; }
     public static JellyFishSpawn JellyFishSpawner { get; set; }
+    public static Combo combo { get; set; }
 
     private void Start () {
         DontDestroyOnLoad(gameObject);

@@ -116,6 +116,8 @@ public class CameraHandler : MonoBehaviour
     }
     public void ToggleBelowWater(bool pBool)
     {
+        // Combo
+        if (!pBool && GameManager.combo) GameManager.combo.CreateNewCombo();
         // Fog
         _globalFog.enabled = pBool;
         RenderSettings.fog = pBool;
