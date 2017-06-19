@@ -67,4 +67,14 @@ public class BaseUI : MonoBehaviour {
     {
       
     }
+
+    public Text GetHookScoreText()
+    {
+        return _hookScoreText;
+    }
+
+    public Text GetTotalScoreText()
+    {
+        return _totalScoreText;
+    }
 }
