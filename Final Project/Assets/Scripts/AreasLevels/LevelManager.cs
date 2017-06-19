@@ -34,8 +34,8 @@ public class LevelManager : MonoBehaviour {
 
         GameManager.Levelmanager = this;
         GameManager.Scorehandler.SetOriginalColours();
+
         _baseUI.EnterSceneTransition();
-        
         _shoppingList.GenerateShoppingList();
         _combo.CreateNewCombo();
         //Debug.Log("LevelManager - Start();");

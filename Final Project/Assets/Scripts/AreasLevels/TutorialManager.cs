@@ -9,14 +9,17 @@ public class TutorialManager : LevelManager
     {
         SetUpCamera();
         SetUpBoat();
+
         GameManager.Fishspawner = _fishSpawner;
-        _shoppingList.GenerateShoppingList();
         GameManager.ShopList = _shoppingList;
-        //GameManager.JellyFishSpawner = _jellyFishSpawn;
-
-
+        GameManager.JellyFishSpawner = _jellyFishSpawn;
+        GameManager.combo = _combo;
         GameManager.Levelmanager = this;
+        GameManager.Scorehandler.SetOriginalColours();
+
         _baseUI.EnterSceneTransition();
+        _shoppingList.GenerateShoppingList();
+        _combo.CreateNewCombo();
         //Debug.Log("LevelManager - Start();");
     }
     public override void Update()

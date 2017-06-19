@@ -187,6 +187,8 @@ public class TutorialUI : BaseUI
         SetActive(true, _gameTimerText.gameObject);
         // Score
         SetActive(true, _totalScoreBoard.gameObject, _totalScoreText.gameObject);
+        // Combo
+        SetActive(false, ComboUI);
         boatStopped = true;
         _onEnterScene = false;
     }
@@ -206,6 +208,8 @@ public class TutorialUI : BaseUI
         SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
+        // Combo
+        SetActive(false, ComboUI);
 
         _onLeaveScene = false;
     }

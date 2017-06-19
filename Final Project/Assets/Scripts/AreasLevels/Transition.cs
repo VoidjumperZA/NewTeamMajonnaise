@@ -12,6 +12,7 @@ public class Transition : MonoBehaviour {
 
 	void Start () {
         _animator = GetComponent<Animator>();
+        gameObject.SetActive(true);
     }
 	
 	// Update is called once per frame
