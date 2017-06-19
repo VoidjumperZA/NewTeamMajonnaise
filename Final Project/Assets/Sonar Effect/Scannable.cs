@@ -15,7 +15,7 @@ public class Scannable : MonoBehaviour
 
     public void Ping()
     {
-        Debug.Log("Ping");
+        //Debug.Log("Ping");
 
         if (gameObject.transform.parent.gameObject.GetComponent<fish>()) gameObject.transform.parent.gameObject.GetComponent<general>().Visible = true;
         gameObject.GetComponent<cakeslice.Outline>().enabled = true;

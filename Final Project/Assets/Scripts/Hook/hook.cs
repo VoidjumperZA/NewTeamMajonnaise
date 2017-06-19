@@ -62,13 +62,15 @@ public class hook : general
         float distanceToBoat = Vector3.Distance(gameObject.transform.position, GameManager.Boat.gameObject.transform.position);
         if (distanceToBoat % rope.GetLinkDistance() == 0)
         {
-            if (_hookState == HookState.Fish)
+            if (_abstractState is FishHookState)
             {
                 rope.AddLink();
+                Debug.Log("Adding links!");
             }
-            else if(_hookState == HookState.Reel)
+            else if(_abstractState is ReelHookState)
             {
                 rope.RemoveLink();
+                Debug.Log("Removing links!");
             }
             
         }
