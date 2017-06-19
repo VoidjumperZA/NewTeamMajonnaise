@@ -143,9 +143,9 @@ public class Rope : MonoBehaviour
         {
             int removePos;
             removePos = activeLink == 0 ? (activeLink + 1) : (activeLink - 1);
-            Debug.Log("Trying to remove link " + removePos);
+            //Debug.Log("Trying to remove link " + removePos);
             links.RemoveAt(removePos);
-            Debug.Log("Successfully removed link. Active link is " + activeLink + " while count is " + links.Count + " while active should be " + (links.Count - 1));
+            //Debug.Log("Successfully removed link. Active link is " + activeLink + " while count is " + links.Count + " while active should be " + (links.Count - 1));
             //make sure to update the active link
         }
         lineRenderer.positionCount = links.Count;
@@ -175,7 +175,7 @@ public class Rope : MonoBehaviour
             //links[activeLink].transform.position = originalParent.transform.position;
         //}
         activeLink = pNewActiveLink;
-        Debug.Log("Switching link to " + activeLink);
+        //Debug.Log("Switching link to " + activeLink);
         //if (parentToObjectOnStart == true)
         //{
             //links[activeLink].transform.parent = objectToParent.transform;

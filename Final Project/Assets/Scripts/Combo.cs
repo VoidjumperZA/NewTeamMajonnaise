@@ -124,7 +124,7 @@ public class Combo : MonoBehaviour
                 GameManager.Levelmanager._baseUI.FiveIcons[i].enabled = true;
             }
         }
-        Debug.Log(_comboSize + " Combosize " + _typeSet.Count);
+        //Debug.Log(_comboSize + " Combosize " + _typeSet.Count);
     }
     
     private void HideFillsAndIcons()

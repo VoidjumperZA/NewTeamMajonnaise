@@ -61,14 +61,14 @@ public class hook : general
         _abstractState.Update();
         float distanceToBoat = Vector3.Distance(gameObject.transform.position, GameManager.Boat.gameObject.transform.position);
         float boatTrailingLinkDiff = Vector3.Distance(rope.GetLinks()[rope.GetNumberOfLinks() - 1].position, GameManager.Boat.gameObject.transform.position);
-        Debug.Log("Line length: " + rope.GetLineLength() + "(" + Mathf.FloorToInt(rope.GetLineLength()) + ")\t|\tNumber of Links: " + rope.GetNumberOfLinks());
+        //Debug.Log("Line length: " + rope.GetLineLength() + "(" + Mathf.FloorToInt(rope.GetLineLength()) + ")\t|\tNumber of Links: " + rope.GetNumberOfLinks());
         if (/*(Mathf.FloorToInt(rope.GetLineLength()) +*/ boatTrailingLinkDiff / rope.GetNumberOfLinks() > rope.GetLinkDistance() / 10.0f)
         {
             if (_abstractState is FishHookState)
             {
                 rope.AddLink();
                 rope.ResetLastLinkPosition();
-                Debug.Log("Adding links!");
+                //Debug.Log("Adding links!");
             }
             else if (_abstractState is ReelHookState)
             {
