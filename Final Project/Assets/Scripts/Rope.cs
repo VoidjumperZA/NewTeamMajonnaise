@@ -32,6 +32,8 @@ public class Rope : MonoBehaviour
     [SerializeField]
     private bool parentToObjectOnStart;
     [SerializeField]
+    private bool switchParentToChildOnActiveSwap;
+    [SerializeField]
     private GameObject objectToParent;
     private GameObject originalParent;
 
@@ -139,13 +141,16 @@ public class Rope : MonoBehaviour
     {
         if (links.Count > 3)
         {
-            int insertPos;
-            insertPos = activeLink == 0 ? (activeLink + 1) : (activeLink - 1);
-            links.RemoveAt(insertPos);
+            int removePos;
+            removePos = activeLink == 0 ? (activeLink + 1) : (activeLink - 1);
+            Debug.Log("Trying to remove link " + removePos);
+            links.RemoveAt(removePos);
+            Debug.Log("Successfully removed link. Active link is " + activeLink + " while count is " + links.Count + " while active should be " + (links.Count - 1));
+            //make sure to update the active link
+            lineRenderer.positionCount = links.Count;
+            SwitchActiveLink(activeLink == 0 ? activeLink : links.Count - 1);
         }
-        lineRenderer.positionCount = links.Count;
-        //make sure to update the active link
-        SwitchActiveLink(activeLink == 0 ? activeLink : links.Count - 1);
+       
     }
 
     /// <summary>
@@ -154,18 +159,23 @@ public class Rope : MonoBehaviour
     /// <param name="pNewActiveLink"></param>
     private void SwitchActiveLink(int pNewActiveLink)
     {
-        if (parentToObjectOnStart == true)
+        if (switchParentToChildOnActiveSwap == true && activeLink != pNewActiveLink)
         {
-            links[activeLink].transform.parent = originalParent.transform;
-            links[activeLink].transform.position = originalParent.transform.position;
+            links[activeLink].transform.parent = null;
+            objectToParent.transform.parent = links[activeLink].transform;
         }
+        //if (parentToObjectOnStart == true)
+        //{
+            //links[activeLink].transform.parent = originalParent.transform;
+            //links[activeLink].transform.position = originalParent.transform.position;
+        //}
         activeLink = pNewActiveLink;
         Debug.Log("Switching link to " + activeLink);
-        if (parentToObjectOnStart == true)
-        {
-            links[activeLink].transform.parent = objectToParent.transform;
-            links[activeLink].transform.position = objectToParent.transform.position;
-        }
+        //if (parentToObjectOnStart == true)
+        //{
+            //links[activeLink].transform.parent = objectToParent.transform;
+            //links[activeLink].transform.position = objectToParent.transform.position;
+        //}
     }
 
     //Process our calculations using a for loop
