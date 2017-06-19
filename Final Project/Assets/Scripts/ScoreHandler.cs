@@ -43,10 +43,13 @@ public class ScoreHandler : MonoBehaviour {
         HookScore = 0;
         BankedScore = 0;
         timeColourHasBeenFlashing = 0.0f;
-        originalHookScoreColour = GameManager.Levelmanager.GetComponent<BaseUI>().GetHookScoreText().color;
-        originalTotalScoreColour = GameManager.Levelmanager.GetComponent<BaseUI>().GetTotalScoreText().color;
         colourFlashing = false;   
 	}
+    public void SetOriginalColours()
+    {
+        originalHookScoreColour = GameManager.Levelmanager._baseUI.GetHookScoreText().color;
+        originalTotalScoreColour = GameManager.Levelmanager._baseUI.GetTotalScoreText().color;
+    }
 	public Vector3 HookScorePosition()
     {
         Vector3 hookPosOnScreen = Camera.main.WorldToScreenPoint(GameManager.Hook.transform.position);

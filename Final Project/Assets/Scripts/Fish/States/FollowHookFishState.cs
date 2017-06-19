@@ -17,7 +17,8 @@ public class FollowHookFishState : AbstractFishState
 
         _fish.Animator.enabled = false;
         //_fish.Animator.SetBool("Death", true);*/
-       // _fish.ToggleOutliner(false);
+        // _fish.ToggleOutliner(false)
+        GameObject.Destroy(_fish.gameObject.GetComponent<BoxCollider>());
         HandleJointsRigidBodies();
 
 

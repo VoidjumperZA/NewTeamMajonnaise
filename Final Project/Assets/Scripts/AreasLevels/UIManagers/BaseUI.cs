@@ -31,7 +31,6 @@ public class BaseUI : MonoBehaviour {
     public Image[] ThreeIcons;
     [Header("Transition")]
     public GameObject TransitionCurtain;
-    public Image TransitionAnchor;
 
 
 
@@ -86,5 +85,13 @@ public class BaseUI : MonoBehaviour {
     public virtual void LeaveSceneTransition()
     {
 
+    }
+    public Text GetHookScoreText()
+    {
+        return _hookScoreText;
+    }
+    public Text GetTotalScoreText()
+    {
+        return _totalScoreText;
     }
 }
