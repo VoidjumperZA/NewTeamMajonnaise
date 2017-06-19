@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class TutorialUI : BaseUI
 {
-    private bool _onEnterScene = true;
-    private bool _onLeaveScene = true;
 
     [Header("Animations")]
     [SerializeField]
@@ -17,35 +15,15 @@ public class TutorialUI : BaseUI
     private Image _handMove;
     [SerializeField]
     private Image _handClickNoDrops;
-
-    [Header("Controls")]
-    [SerializeField]
-    public Button _dropHook;
-    [SerializeField]
-    public Button _reelHook;
+    
 
     private Animator _dropHookAnim;
     private Animator _reelHookAnim;
     [SerializeField]
     private Sprite _bubbleImage;
-
-    [Header("Game Time")]
-    [SerializeField]
-    private Image _gameTimerBoard;
-    [SerializeField]
-    private Text _gameTimerText;
-
-    [Header("Score")]
-    [SerializeField]
-    private Image _totalScoreBoard;
-    [SerializeField]
-    private Text _totalScoreText;
-    [SerializeField]
-    private Text _hookScoreText;
-
-    [Header("Shopping List")]
-    [SerializeField]
-    private Image _shoppingList;
+    
+    
+    
 
     //Conditions for showing UI in order
     private bool boatStopped = false;
@@ -83,7 +61,7 @@ public class TutorialUI : BaseUI
         // Controls
         SetActive(false, _dropHook.gameObject, _reelHook.gameObject);
         // Game Time
-        SetActive(false, _gameTimerBoard.gameObject, _gameTimerText.gameObject);
+        SetActive(false, _gameTimerText.gameObject);
         // Score
         SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);
         // Shopping List
@@ -159,7 +137,7 @@ public class TutorialUI : BaseUI
             }
         }
     }
-    public void OnDropHook()
+    public override void OnDropHook()
     {
         if (!GameManager.Boat.CanDropHook()) return;
 
@@ -184,7 +162,7 @@ public class TutorialUI : BaseUI
         }
         GameManager.Boat.SetState(boat.BoatState.Fish);
     }
-    public void OnReelHook()
+    public override void OnReelHook()
     {
         touchedReelUpHook = true; 
         DeployActive = true;
@@ -206,9 +184,11 @@ public class TutorialUI : BaseUI
 
         // Game Time
         GameManager.Gametimer.BeginCountdown();
-        SetActive(true, _gameTimerBoard.gameObject, _gameTimerText.gameObject);
+        SetActive(true, _gameTimerText.gameObject);
         // Score
         SetActive(true, _totalScoreBoard.gameObject, _totalScoreText.gameObject);
+        // Combo
+        SetActive(false, ComboUI);
         boatStopped = true;
         _onEnterScene = false;
     }
@@ -223,13 +203,15 @@ public class TutorialUI : BaseUI
         DeployActive = false;
         //SetActive(false, _dropHook.gameObject);
         // Game Time
-        SetActive(false, _gameTimerBoard.gameObject, _gameTimerText.gameObject);
+        SetActive(false, _gameTimerText.gameObject);
         // Score
         SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
+        // Combo
+        SetActive(false, ComboUI);
 
-        _onEnterScene = false;
+        _onLeaveScene = false;
     }
     public override void HookScoreToggle(bool pBool)
     {
@@ -277,6 +259,14 @@ public class TutorialUI : BaseUI
     public static void SetMovedBoat(bool moved)
     {
         movedBoat = moved;
+    }
+    public override void LeaveSceneTransition()
+    {
+        TransitionCurtain.GetComponent<Transition>().DownWards();
+    }
+    public override void EnterSceneTransition()
+    {
+        TransitionCurtain.GetComponent<Transition>().UpWards();
     }
     /*private void AnimateSwipeHand(float position)
     {

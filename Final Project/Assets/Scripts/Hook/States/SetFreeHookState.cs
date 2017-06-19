@@ -18,8 +18,8 @@ public class SetFreeHookState : AbstractHookState {
             GameManager.Fishspawner.QueueFishAgain(_hook.FishOnHook[i], false, true, true); //_hook.FishOnHook[i].SetState(fish.FishState.PiledUp);
         }
         _hook.FishOnHook.Clear();
-        /*for (int i = 0; i < _hook.TrashOnHook.Count; i++) _hook.TrashOnHook[i].SetState(trash.TrashState.PiledUp);
-        _hook.TrashOnHook.Clear();*/
+        for (int i = 0; i < _hook.TrashOnHook.Count; i++) _hook.TrashOnHook[i].SetState(trash.TrashState.PiledUp);
+        _hook.TrashOnHook.Clear();
 
         /*if (basic.GlobalUI.GetInTutorial() == true)
         {

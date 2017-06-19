@@ -54,8 +54,8 @@ public class Combo : MonoBehaviour
                 GameManager.Levelmanager._baseUI.FourFills[_current].enabled = true;
                 if (_current > 0) GameManager.Levelmanager._baseUI.FourFills[_current - 1].enabled = false;
                 // Icons
-                GameManager.Levelmanager._baseUI.ThreeIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
-                GameManager.Levelmanager._baseUI.ThreeIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
+                GameManager.Levelmanager._baseUI.FourIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
+                GameManager.Levelmanager._baseUI.FourIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
                 GameManager.Levelmanager._baseUI.FourIcons[_current].sprite = _afterCaught[pFishType];
             }
             if (_comboSize == 5)
@@ -64,8 +64,8 @@ public class Combo : MonoBehaviour
                 GameManager.Levelmanager._baseUI.FiveFills[_current].enabled = true;
                 if (_current > 0) GameManager.Levelmanager._baseUI.FiveFills[_current - 1].enabled = false;
                 // Icons
-                GameManager.Levelmanager._baseUI.ThreeIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
-                GameManager.Levelmanager._baseUI.ThreeIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
+                GameManager.Levelmanager._baseUI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
+                GameManager.Levelmanager._baseUI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
                 GameManager.Levelmanager._baseUI.FiveIcons[_current].sprite = _afterCaught[pFishType];
             }
 

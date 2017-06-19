@@ -23,6 +23,7 @@ public class MenuUI : BaseUI {
         GameManager.Camerahandler.Play();
         GameManager.Boat.SetState(boat.BoatState.LeaveScene);
         SetActiveButtons(false, _playTutorial, _skipTutorial);
+        LeaveSceneTransition();
     }
     public void OnSkipTutorialClick()
     {
@@ -33,5 +34,10 @@ public class MenuUI : BaseUI {
         //GameManager.Camerahandler.Play();
         GameManager.Boat.SetState(boat.BoatState.LeaveScene);
         SetActiveButtons(false, _playTutorial, _skipTutorial);
+        LeaveSceneTransition();
+    }
+    public override void LeaveSceneTransition()
+    {
+        TransitionCurtain.GetComponent<Transition>().DownWards();
     }
 }

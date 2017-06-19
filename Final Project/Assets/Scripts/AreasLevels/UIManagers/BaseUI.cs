@@ -29,10 +29,13 @@ public class BaseUI : MonoBehaviour {
     public Image[] FourIcons;
     public Image[] ThreeFills;
     public Image[] ThreeIcons;
+    [Header("Transition")]
+    public GameObject TransitionCurtain;
 
 
 
-    public virtual void Start () {
+    public virtual void Start ()
+    {
         //Debug.Log("BaseUI - Start();");
     }
     public virtual void Update()
@@ -66,5 +69,29 @@ public class BaseUI : MonoBehaviour {
     public virtual void HandClickToggle(bool pBool)
     {
       
+    }
+    public virtual void OnDropHook()
+    {
+
+    }
+    public virtual void OnReelHook()
+    {
+
+    }
+    public virtual void EnterSceneTransition()
+    {
+
+    }
+    public virtual void LeaveSceneTransition()
+    {
+
+    }
+    public Text GetHookScoreText()
+    {
+        return _hookScoreText;
+    }
+    public Text GetTotalScoreText()
+    {
+        return _totalScoreText;
     }
 }

@@ -34,7 +34,7 @@ public class Rope : MonoBehaviour
     [SerializeField]
     private bool switchParentToChildOnActiveSwap;
     [SerializeField]
-    private GameObject objectToParent;
+    private GameObject objectToFollowLeadingLink;
     private GameObject originalParent;
 
     private GameObject activeCube;
@@ -78,8 +78,8 @@ public class Rope : MonoBehaviour
         }
         if (parentToObjectOnStart == true)
         {
-            links[activeLink].transform.parent = objectToParent.transform;
-            links[activeLink].transform.position = objectToParent.transform.position;
+            links[activeLink].transform.parent = objectToFollowLeadingLink.transform;
+            links[activeLink].transform.position = objectToFollowLeadingLink.transform.position;
         }
     }
 
@@ -96,11 +96,11 @@ public class Rope : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            SwitchActiveLink(0);
+            SwitchActiveLink(0, true, objectToFollowLeadingLink.transform, links[0].transform);
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            SwitchActiveLink(links.Count - 1);
+            SwitchActiveLink(links.Count - 1, true, links[0].transform, objectToFollowLeadingLink.transform);
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -131,7 +131,7 @@ public class Rope : MonoBehaviour
         links.Insert(insertPos, newLink.transform);
         lineRenderer.positionCount = links.Count;
         //make sure to update the active link
-        SwitchActiveLink(activeLink == 0 ? activeLink : links.Count - 1);
+        SwitchActiveLink(activeLink == 0 ? activeLink : links.Count - 1, false);
     }
 
     /// <summary>
@@ -147,22 +147,27 @@ public class Rope : MonoBehaviour
             links.RemoveAt(removePos);
             Debug.Log("Successfully removed link. Active link is " + activeLink + " while count is " + links.Count + " while active should be " + (links.Count - 1));
             //make sure to update the active link
-            lineRenderer.positionCount = links.Count;
-            SwitchActiveLink(activeLink == 0 ? activeLink : links.Count - 1);
         }
-       
+        lineRenderer.positionCount = links.Count;
+        SwitchActiveLink(activeLink == 0 ? activeLink : links.Count - 1, false);
+
     }
 
     /// <summary>
     /// Switch the active link of the rope. It is advised to use either the leading or trailing links.
     /// </summary>
     /// <param name="pNewActiveLink"></param>
-    private void SwitchActiveLink(int pNewActiveLink)
+    private void SwitchActiveLink(int pNewActiveLink, bool pReparent, Transform pParent = null, Transform pChild = null)
     {
-        if (switchParentToChildOnActiveSwap == true && activeLink != pNewActiveLink)
+        if (switchParentToChildOnActiveSwap == true && pReparent == true/*switchParentToChildOnActiveSwap == true && activeLink != pNewActiveLink && activeLink < links.Count*/)
         {
-            links[activeLink].transform.parent = null;
-            objectToParent.transform.parent = links[activeLink].transform;
+            pParent.transform.parent = null;
+            pChild.transform.parent = pParent;
+
+
+
+            //links[activeLink].transform.parent = null;
+            //objectToParent.transform.parent = links[activeLink].transform;
         }
         //if (parentToObjectOnStart == true)
         //{
