@@ -29,7 +29,7 @@ public class LevelUI : BaseUI {
         _hookScoreText.text = GameManager.Scorehandler.HookScore + "";
         _hookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
     }
-    public void OnDropHook()
+    public override void OnDropHook()
     {
         if (!GameManager.Boat.CanDropHook()) return;
 
@@ -37,7 +37,7 @@ public class LevelUI : BaseUI {
         SetActive(true, _reelHook.gameObject, _hookScoreText.gameObject);
         GameManager.Boat.SetState(boat.BoatState.Fish);
     }
-    public void OnReelHook()
+    public override void OnReelHook()
     {
         SetActive(true, _dropHook.gameObject);
         SetActive(false, _reelHook.gameObject, _hookScoreText.gameObject);
@@ -62,7 +62,8 @@ public class LevelUI : BaseUI {
         SetActive(true, _shoppingList.gameObject);
         // Combo
         SetActive(true, ComboUI);
-
+        // Scene Transition Curtain
+        EnterSceneTransition();
 
 
         _onEnterScene = false;
@@ -84,12 +85,21 @@ public class LevelUI : BaseUI {
         SetActive(false, _shoppingList.gameObject);
         // Combo
         SetActive(false, ComboUI);
-
-        _onEnterScene = false;
+        // Scene Transition Curtain
+        LeaveSceneTransition();
+        _onLeaveScene = false;
     }
     public override void HookScoreToggle(bool pBool)
     {
         _hookScoreText.gameObject.SetActive(pBool);
+    }
+    public override void LeaveSceneTransition()
+    {
+        TransitionCurtain.GetComponent<Transition>().DownWards();
+    }
+    public override void EnterSceneTransition()
+    {
+        TransitionCurtain.GetComponent<Transition>().UpWards();
     }
 
 }

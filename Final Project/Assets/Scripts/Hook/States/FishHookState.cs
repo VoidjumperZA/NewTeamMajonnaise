@@ -78,7 +78,7 @@ public class FishHookState : AbstractHookState
                 basic.GlobalUI.ShowHandSwipe(false);
                 basic.GlobalUI.SwipehandCompleted = true;
             }*/
-            SetState(hook.HookState.Reel);
+            GameManager.Levelmanager._baseUI.OnReelHook();
             //basic.combo.ClearPreviousCombo(false);
             //GameObject.Instantiate (basic.HookHit, _hook.HookTip.position, Quaternion.identity);
             if (!TutorialUI.GetFirstTimeReelUp() && !TutorialUI.GetTouchedReelUp())
@@ -118,9 +118,9 @@ public class FishHookState : AbstractHookState
 			_hook.EnableJellyAttackEffect ();
             GameManager.Scorehandler.RemoveScore(true);
 
-           // basic.Camerahandler.CreateShakePoint();
+            // basic.Camerahandler.CreateShakePoint();
 
-            SetState(hook.HookState.Reel);
+            GameManager.Levelmanager._baseUI.OnReelHook();
             //basic.combo.ClearPreviousCombo(false);
             //Create a new list maybe
             //Change animation for the fish and state
@@ -134,7 +134,7 @@ public class FishHookState : AbstractHookState
             if (!theTrash || !theTrash.Visible) return;
 
             theTrash.SetState(trash.TrashState.FollowHook);
-            //_hook.TrashOnHook.Add(theTrash);
+            _hook.TrashOnHook.Add(theTrash);
 
             //bool firstTime = basic.Scorehandler.CollectATrashPiece();
             //basic.GlobalUI.UpdateOceanProgressBar(firstTime);
@@ -146,8 +146,8 @@ public class FishHookState : AbstractHookState
                 basic.GlobalUI.ShowHandSwipe(false);
                 basic.GlobalUI.SwipehandCompleted = true;
             }*/
-            SetState(hook.HookState.Reel);
-           
+            GameManager.Levelmanager._baseUI.OnReelHook();
+
             //basic.combo.ClearPreviousCombo(false);
 
         }

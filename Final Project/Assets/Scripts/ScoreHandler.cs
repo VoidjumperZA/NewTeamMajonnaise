@@ -11,7 +11,6 @@ public class ScoreHandler : MonoBehaviour {
     [SerializeField] Color flashColour;  //which colour the text flashes when it updates
     [SerializeField] private float colourFlashTime; //how long does it flash that colour
     [Header("Visual Values")]
-    [SerializeField] private GameObject ComboUISpawnPosition; //where are we spawning the combo notifier ui
     [SerializeField] private float minimumUIScale; //our size is random, what is the minimum bound for scaling
     [SerializeField] private float maximumUIScale; //maximum bound for scaling
     [SerializeField] private float UIRotationAngle; //rotating our ui a little for effect
@@ -39,14 +38,16 @@ public class ScoreHandler : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        ComboUIPosition = ComboUISpawnPosition.transform;
         HookScore = 0;
         BankedScore = 0;
         timeColourHasBeenFlashing = 0.0f;
-        originalHookScoreColour = GameManager.Levelmanager.GetComponent<BaseUI>().GetHookScoreText().color;
-        originalTotalScoreColour = GameManager.Levelmanager.GetComponent<BaseUI>().GetTotalScoreText().color;
         colourFlashing = false;   
 	}
+    public void SetOriginalColours()
+    {
+        originalHookScoreColour = GameManager.Levelmanager._baseUI.GetHookScoreText().color;
+        originalTotalScoreColour = GameManager.Levelmanager._baseUI.GetTotalScoreText().color;
+    }
 	public Vector3 HookScorePosition()
     {
         Vector3 hookPosOnScreen = Camera.main.WorldToScreenPoint(GameManager.Hook.transform.position);
