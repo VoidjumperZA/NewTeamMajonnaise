@@ -54,7 +54,7 @@ public class Sonar : MonoBehaviour
                 }
 
             }
-            if (IsInput() == true && Vector3.Distance(ScannerOrigin.position, ScannerBoundary.transform.position) <= ScanDistance)
+            if (IsInput() == true && Vector3.Distance(ScannerOrigin.position, ScannerBoundary.transform.position) <= ScanDistance && GameManager.Hook.IsInState(hook.HookState.Reel) == false)
             {
                 FirePulse();
             }           
