@@ -27,7 +27,6 @@ public class hook : general
     
     // Fishing
     private boat _boat;
-    List<GameObject> fishAttachedToHook = new List<GameObject>();
     float fishRotationAngle = 25.0f;
 
     // Movement
@@ -44,6 +43,8 @@ public class hook : general
     public ParticleSystem JellyAttackEffect2;
     public Transform HookTip;
 	public ParticleSystem JellyAttackEffect;
+    [SerializeField] private GameObject _sandSplash;
+    private bool _splashInstantiated = false;
 
     private bool valid;
     public override void Start()
@@ -147,6 +148,22 @@ public class hook : general
         
         JellyAttackEffect2.gameObject.SetActive(false);
 
+    }
+    public void CreateSandSplash()
+    {
+        if (!_splashInstantiated)
+        {
+            _splashInstantiated = true;
+            _sandSplash = Instantiate(_sandSplash, HookTip.position, Quaternion.identity);
+        }
+        StartCoroutine(SandSplash());
+    }
+    private IEnumerator SandSplash()
+    {
+        _sandSplash.SetActive(true);
+        _sandSplash.transform.position = HookTip.position;
+        yield return new WaitForSeconds(2);
+        _sandSplash.SetActive(false);
     }
 
 
