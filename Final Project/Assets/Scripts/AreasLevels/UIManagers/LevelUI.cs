@@ -63,7 +63,7 @@ public class LevelUI : BaseUI {
         // Score
         SetActive(true, _totalScoreBoard.gameObject, _totalScoreText.gameObject);
         // Shopping List
-        SetActive(true, _shoppingList.gameObject);
+        //SetActive(true, _shoppingList.gameObject);
         // Combo
         SetActive(true, ComboUI);
         // Scene Transition Curtain

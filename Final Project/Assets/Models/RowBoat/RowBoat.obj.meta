@@ -1,74 +1,17 @@
 fileFormatVersion: 2
-guid: 05f06bbf55ea3724c802fd5bbccecf1a
-timeCreated: 1497814928
+guid: 54dab85c60428f0488b7f40f40d9bef3
+timeCreated: 1497966879
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: pCube18
-    100002: polySurface10
-    100004: polySurface11
-    100006: polySurface12
-    100008: polySurface13
-    100010: polySurface14
-    100012: polySurface14 1
-    100014: polySurface2
-    100016: polySurface3
-    100018: polySurface4
-    100020: polySurface5
-    100022: polySurface6
-    100024: polySurface7
-    100026: polySurface8
-    100028: polySurface9
-    100030: //RootNode
-    100032: transform1
-    100034: transform10
-    100036: transform11
-    100038: transform12
-    100040: transform13
-    100042: transform14
-    100044: transform2
-    100046: transform3
-    100048: transform4
-    100050: transform5
-    100052: transform6
-    100054: transform7
-    100056: transform8
-    100058: transform9
-    400000: pCube18
-    400002: polySurface10
-    400004: polySurface11
-    400006: polySurface12
-    400008: polySurface13
-    400010: polySurface14
-    400012: polySurface14 1
-    400014: polySurface2
-    400016: polySurface3
-    400018: polySurface4
-    400020: polySurface5
-    400022: polySurface6
-    400024: polySurface7
-    400026: polySurface8
-    400028: polySurface9
-    400030: //RootNode
-    400032: transform1
-    400034: transform10
-    400036: transform11
-    400038: transform12
-    400040: transform13
-    400042: transform14
-    400044: transform2
-    400046: transform3
-    400048: transform4
-    400050: transform5
-    400052: transform6
-    400054: transform7
-    400056: transform8
-    400058: transform9
-    2300000: polySurface14
-    3300000: polySurface14
-    4300000: polySurface14
-    9500000: //RootNode
+    100000: //RootNode
+    100002: RowBoat:Group2
+    400000: //RootNode
+    400002: RowBoat:Group2
+    2300000: RowBoat:Group2
+    3300000: RowBoat:Group2
+    4300000: RowBoat:Group2
   materials:
     importMaterials: 1
     materialName: 0
@@ -133,7 +76,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
