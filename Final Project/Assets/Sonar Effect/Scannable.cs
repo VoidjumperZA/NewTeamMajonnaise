@@ -18,6 +18,7 @@ public class Scannable : MonoBehaviour
         //Debug.Log("Ping");
 
         if (gameObject.transform.parent.gameObject.GetComponent<fish>()) gameObject.transform.parent.gameObject.GetComponent<general>().Visible = true;
+        if (gameObject.transform.parent.gameObject.GetComponent<trash>()) gameObject.transform.parent.gameObject.GetComponent<general>().Visible = true;
         gameObject.GetComponent<cakeslice.Outline>().enabled = true;
         if (gameObject.GetComponent<SkinnedMeshRenderer>()) gameObject.GetComponent<SkinnedMeshRenderer>().enabled = true;
         if (gameObject.GetComponent<MeshRenderer>()) gameObject.GetComponent<MeshRenderer>().enabled = true;

@@ -9,13 +9,17 @@ public class TutorialManager : LevelManager
     {
         SetUpCamera();
         SetUpBoat();
+
         GameManager.Fishspawner = _fishSpawner;
-        _shoppingList.GenerateShoppingList();
         GameManager.ShopList = _shoppingList;
-        //GameManager.JellyFishSpawner = _jellyFishSpawn;
-
-
+        GameManager.JellyFishSpawner = _jellyFishSpawn;
+        GameManager.combo = _combo;
         GameManager.Levelmanager = this;
+        GameManager.Scorehandler.SetOriginalColours();
+
+        UI.EnterSceneTransition();
+        _shoppingList.GenerateShoppingList();
+        _combo.CreateNewCombo();
         //Debug.Log("LevelManager - Start();");
     }
     public override void Update()
@@ -36,7 +40,7 @@ public class TutorialManager : LevelManager
     }*/
     public override void UIOnEnterScene()
     {
-        if (_baseUI) _baseUI.OnEnterScene();
+        if (UI) UI.OnEnterScene();
         else Debug.Log("LevelUI not assigned to LevelManager script");
     }
     public override void UIOnLeaveScene()

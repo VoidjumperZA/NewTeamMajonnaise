@@ -62,7 +62,7 @@ public class ShoppingList : MonoBehaviour {
                 alreadyChosen.Add(tempType);
             }
         }
-        Debug.Log(FishInfo.Count);
+        //Debug.Log(FishInfo.Count);
         
 
         /*for (int i = 0; i < AmountOfTypes; i++)

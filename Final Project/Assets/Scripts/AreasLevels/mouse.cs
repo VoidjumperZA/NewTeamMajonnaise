@@ -9,7 +9,7 @@ public static class mouse {
     public static Vector3 GetWorldPoint()
     {
         if (GetRaycastHit().HasValue) return GetRaycastHit().Value.point;
-        Debug.Log("No RayCastHit Value");
+        //Debug.Log("No RayCastHit Value");
         return Vector3.zero;
     }
     /* public static Vector2 GetTouch(int pFinger = 0)

@@ -17,6 +17,7 @@ public class FollowBoatHookState : AbstractHookState
     {
         _hook.gameObject.transform.position = _boat.gameObject.transform.position;
     }
+
     public override void Refresh()
     {
 

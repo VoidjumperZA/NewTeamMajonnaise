@@ -84,7 +84,7 @@ public class CameraHandler : MonoBehaviour
 
         _shakePoints = new List<Vector3>();
         _initialized = true;
-        Debug.Log("CameraHandeler initialized: " + _initialized);
+        //Debug.Log("CameraHandeler initialized: " + _initialized);
     }
     public void ClassUpdate()
     {
@@ -120,7 +120,7 @@ public class CameraHandler : MonoBehaviour
         if (!pBool && GameManager.combo) GameManager.combo.CreateNewCombo();
         // Fog
         _globalFog.enabled = pBool;
-        //RenderSettings.fog = pBool;
+        RenderSettings.fog = pBool;
         // Color Correction Profile ?
         _cameraPostProcessing.profile = pBool ? _underWaterProfile : _aboveWaterProfile;
         //if (_aboveWaterProfile) _cameraPostProcessing.profile = _aboveWaterProfile;
@@ -130,7 +130,7 @@ public class CameraHandler : MonoBehaviour
     public void ToggleHookScoreText(bool pBool)
     {
 
-        if (GameManager.Levelmanager._baseUI) GameManager.Levelmanager._baseUI.HookScoreToggle(pBool);
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HookScoreToggle(pBool);
     }
     public void SetViewPoint(FocusPoint pFocusPoint, bool pOverrideTransform = false)
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScoreHandler : MonoBehaviour {
     [SerializeField] private Canvas _canvas;
@@ -10,7 +11,6 @@ public class ScoreHandler : MonoBehaviour {
     [SerializeField] Color flashColour;  //which colour the text flashes when it updates
     [SerializeField] private float colourFlashTime; //how long does it flash that colour
     [Header("Visual Values")]
-    [SerializeField] private GameObject ComboUISpawnPosition; //where are we spawning the combo notifier ui
     [SerializeField] private float minimumUIScale; //our size is random, what is the minimum bound for scaling
     [SerializeField] private float maximumUIScale; //maximum bound for scaling
     [SerializeField] private float UIRotationAngle; //rotating our ui a little for effect
@@ -38,18 +38,27 @@ public class ScoreHandler : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        ComboUIPosition = ComboUISpawnPosition.transform;
         HookScore = 0;
         BankedScore = 0;
-        //timeColourHasBeenFlashing = 0.0f;
-        //originalHookScoreColour = currentHookScore.color;
-        //colourFlashing = false;   
+        timeColourHasBeenFlashing = 0.0f;
+        colourFlashing = false;   
 	}
+    public void SetOriginalColours()
+    {
+        originalHookScoreColour = GameManager.Levelmanager.UI.GetHookScoreText().color;
+        originalTotalScoreColour = GameManager.Levelmanager.UI.GetTotalScoreText().color;
+    }
 	public Vector3 HookScorePosition()
     {
         Vector3 hookPosOnScreen = Camera.main.WorldToScreenPoint(GameManager.Hook.transform.position);
         Vector3 offsetPosition = new Vector3(hookPosOnScreen.x + hookScoreXOffset, hookPosOnScreen.y + hookScoreYOffset, 0.0f);
         return offsetPosition;
+    }
+
+    public void SetTextColours(Text pHookScore, Text pBankedScore)
+    {
+        originalHookScoreColour = pHookScore.color;
+        originalTotalScoreColour = pBankedScore.color;
     }
 	// Update is called once per frame
 	void Update () 
@@ -107,11 +116,12 @@ public class ScoreHandler : MonoBehaviour {
         }
 
         //Briefly switch the colour and start a counter to switch it back for visual feedback
-        //timeColourHasBeenFlashing = colourFlashTime;
-        //colourFlashing = true;
-        //currentHookScore.color = flashColour;
-        //flashTextHolder = currentHookScore;
-        //originalColourHolder = originalHookScoreColour;
+        timeColourHasBeenFlashing = colourFlashTime;
+        colourFlashing = true;
+        Text currentHookScore = GameManager.Levelmanager.GetComponent<BaseUI>().GetHookScoreText();
+        currentHookScore.color = flashColour;
+        flashTextHolder = currentHookScore;
+        originalColourHolder = originalHookScoreColour;
     }
     public void AddScore(int pScore, bool pCreatUIAnnouncement, bool pCaughtAFish)
     {
@@ -126,11 +136,12 @@ public class ScoreHandler : MonoBehaviour {
         }
 
         //Briefly switch the colour and start a counter to switch it back for visual feedback
-        //timeColourHasBeenFlashing = colourFlashTime;
-        //colourFlashing = true;
-        //currentHookScore.color = flashColour;
-        //flashTextHolder = currentHookScore;
-        //originalColourHolder = originalHookScoreColour;
+        timeColourHasBeenFlashing = colourFlashTime;
+        colourFlashing = true;
+        Text currentHookScore = GameManager.Levelmanager.GetComponent<BaseUI>().GetHookScoreText();
+        currentHookScore.color = flashColour;
+        flashTextHolder = currentHookScore;
+        originalColourHolder = originalHookScoreColour;
     }
 
     public void AddComboScore()
@@ -149,18 +160,19 @@ public class ScoreHandler : MonoBehaviour {
         //totalScore.text = BankedScore + "";
 
         //Briefly switch the colour and start a counter to switch it back for visual feedback
-        //timeColourHasBeenFlashing = colourFlashTime;
-        //colourFlashing = true;
-        //totalScore.color = flashColour;
-        //flashTextHolder = totalScore;
-        //originalColourHolder = originalTotalScoreColour;
+        timeColourHasBeenFlashing = colourFlashTime;
+        colourFlashing = true;
+        Text totalScore = GameManager.Levelmanager.GetComponent<BaseUI>().GetTotalScoreText();
+        totalScore.color = flashColour;
+        flashTextHolder = totalScore;
+        originalColourHolder = originalTotalScoreColour;
     }
 
     //Instantiate a UI instance
     private void createScoreUI(float pScore, bool pJellyMinPercent)
     {
-        GameObject newScoreInstance = Instantiate(GameManager.Levelmanager._baseUI.ScoreUI,
-                                                    GameManager.Levelmanager._baseUI.ScoreUIPosition.transform.position, Quaternion.identity);
+        GameObject newScoreInstance = Instantiate(GameManager.Levelmanager.UI.ScoreUI,
+                                                    GameManager.Levelmanager.UI.ScoreUIPosition.transform.position, Quaternion.identity);
         newScoreInstance.transform.SetParent(GameManager.Levelmanager.Canvas().transform);
 
         //Activate it because our instantiated object is in world, but deactivated. 
