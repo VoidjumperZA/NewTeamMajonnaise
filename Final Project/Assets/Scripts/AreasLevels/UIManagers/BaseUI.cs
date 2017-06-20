@@ -22,7 +22,6 @@ public class BaseUI : MonoBehaviour {
     [SerializeField] protected Image _shoppingList;
     [Header("Combo")]
     public GameObject ComboUI;
-    public Transform ComboUIPosition;
     public Image[] FiveFills;
     public Image[] FiveIcons;
     public Image[] FourFills;

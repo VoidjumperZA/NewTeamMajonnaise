@@ -22,12 +22,13 @@ public class ComboScoreUIAnimation : MonoBehaviour {
         //Moving towards the score
         if (fading == false)
         {
-            Vector3 hookScorePosition = Camera.main.WorldToScreenPoint(GameManager.Hook.transform.position);
-            float speed = 0.3f;// combo.GetComboScoreUIMovementSpeed();
+            Vector3 hookPosition = Camera.main.WorldToScreenPoint(GameManager.Hook.transform.position);
+            Vector3 assetPosition = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+            float speed = 0.05f;// combo.GetComboScoreUIMovementSpeed();
 
-            Vector3 differenceVector = (hookScorePosition - gameObject.transform.position);
-            if (differenceVector.magnitude >= speed) gameObject.transform.Translate(differenceVector.normalized * speed);
-            if (differenceVector.magnitude < speed)
+            Vector3 differenceVector = (hookPosition - gameObject.transform.position);
+            if (differenceVector.magnitude >= speed) gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, hookPosition, speed);
+            if (differenceVector.magnitude < 0.1f)
             {
                 fading = true;
                 GameManager.Scorehandler.AddComboScore();
@@ -38,22 +39,23 @@ public class ComboScoreUIAnimation : MonoBehaviour {
         //Fading out
         else
         {
-            //float alphaFade = combo.GetComboScoreUIAlphaFade();
+            float alphaFade = 0.08f;
             //TEXT FADING
             //Create a new colour that is equal to the text
-            //Color faded = selfText.GetComponent<Text>().color;
+            Color faded = selfText.GetComponent<Text>().color;
             //Minus the value we want to fade by
-            //faded.a = faded.a - alphaFade;
+            faded.a = faded.a - alphaFade;
             //Set our text back to that colour
-            //selfText.GetComponent<Text>().color = faded;
+            selfText.GetComponent<Text>().color = faded;
 
             //IMAGE FADING
             //Use that same colour, but set it to the image's colour this time
-            //faded = selfImage.GetComponent<Image>().color;
+            faded = selfImage.GetComponent<Image>().color;
             //Minus the faded value
-            //faded.a = faded.a - alphaFade;
+            faded.a = faded.a - alphaFade;
             //And set it back
-            //selfImage.GetComponent<Image>().color = faded;
+            selfImage.GetComponent<Image>().color = faded;
+            if (faded.a < alphaFade) Destroy(gameObject);
         }
 		
     }

@@ -17,6 +17,8 @@ public class Combo : MonoBehaviour
     private Image[] FiveIcons { get { return GameManager.Levelmanager._baseUI.FiveIcons; } set { GameManager.Levelmanager._baseUI.FiveIcons = value; } }*/
     // Icon sprites
     [Header("On collect feedback")]
+    [SerializeField] private GameObject _completedPrefab;
+    [SerializeField] private Transform _comboUIPosition;
     [SerializeField] private GameObject _starsPrefab;
     [SerializeField] private Sprite[] _beforeCaught;
     [SerializeField] private Sprite[] _afterCaught;
@@ -219,7 +221,8 @@ public class Combo : MonoBehaviour
     }
     private void CreateComboCompletedUI()
     {
-
+        GameObject go = Instantiate(_completedPrefab, _comboUIPosition.position, Quaternion.identity);
+        go.transform.SetParent(GameManager.Levelmanager.Canvas().transform);
     }
     private void CreateOnCollectStars()
     {
