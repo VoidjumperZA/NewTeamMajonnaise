@@ -110,7 +110,7 @@ public class Combo : MonoBehaviour
         if (_current == _comboSize)
         {
             //ToggleCurrentState("Next", false);
-            GameManager.Scorehandler.AddComboScore();
+            CreateComboCompletedUI();
             StartCoroutine(CreateNewComboCoroutine(1));
         }
     }
@@ -213,6 +213,10 @@ public class Combo : MonoBehaviour
             //img.gameObject.transform.parent.gameObject.GetComponent<Image>().preserveAspect = true;
             //img.gameObject.transform.parent.gameObject.GetComponent<Image>().enabled = false;
         }
+    }
+    private void CreateComboCompletedUI()
+    {
+
     }
     /*public void CheckComboProgress(fish.FishType pFishType)
     {

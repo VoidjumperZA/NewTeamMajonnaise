@@ -37,7 +37,7 @@ public class JellyFishSpawn : MonoBehaviour {
         //if (!basic.GlobalUI.InTutorial)
         //{
             //Debug.Log("Hello jellyfish");
-            /*if(_numJellyfish < _maxNumJellyfish)
+           if(_numJellyfish < _maxNumJellyfish)
             {
                 _spawnCounter += Time.deltaTime;
 
@@ -47,10 +47,10 @@ public class JellyFishSpawn : MonoBehaviour {
                     _spawnCounter = 0;
                     Vector3 spawnPos = new Vector3(Random.Range(_leftSpawner.position.x, _rightSpawner.position.x), 
                                                    Random.Range(_rightSpawner.position.y + _rightSpawner.lossyScale.y/2, _rightSpawner.position.y - _rightSpawner.lossyScale.y/2), 0);
-                    Jellyfish theJellyFish = Instantiate(_jellyFishPrefab, spawnPos, gameObject.transform.rotation).GetComponent<Jellyfish>();
+                    Jellyfish theJellyFish = Instantiate(_jellyFishPrefab, spawnPos, Quaternion.identity).GetComponent<Jellyfish>();
                     SpawnedJellyFish.Add(theJellyFish);
                 }
-            }*/
+            }
         //}
     }
 }
