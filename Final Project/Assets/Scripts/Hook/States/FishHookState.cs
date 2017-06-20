@@ -33,6 +33,7 @@ public class FishHookState : AbstractHookState
             ApplyVelocity(-_fallSpeed, mouse.Touching());
         }
     }
+
     //
     public override void Refresh()
     {
@@ -78,7 +79,7 @@ public class FishHookState : AbstractHookState
                 basic.GlobalUI.ShowHandSwipe(false);
                 basic.GlobalUI.SwipehandCompleted = true;
             }*/
-            GameManager.Levelmanager._baseUI.OnReelHook();
+            GameManager.Levelmanager.UI.OnReelHook();
             //basic.combo.ClearPreviousCombo(false);
             //GameObject.Instantiate (basic.HookHit, _hook.HookTip.position, Quaternion.identity);
             if (!TutorialUI.GetFirstTimeReelUp() && !TutorialUI.GetTouchedReelUp())
@@ -120,7 +121,7 @@ public class FishHookState : AbstractHookState
 
             // basic.Camerahandler.CreateShakePoint();
 
-            GameManager.Levelmanager._baseUI.OnReelHook();
+            GameManager.Levelmanager.UI.OnReelHook();
             //basic.combo.ClearPreviousCombo(false);
             //Create a new list maybe
             //Change animation for the fish and state
@@ -146,7 +147,7 @@ public class FishHookState : AbstractHookState
                 basic.GlobalUI.ShowHandSwipe(false);
                 basic.GlobalUI.SwipehandCompleted = true;
             }*/
-            GameManager.Levelmanager._baseUI.OnReelHook();
+            GameManager.Levelmanager.UI.OnReelHook();
 
             //basic.combo.ClearPreviousCombo(false);
 
@@ -155,10 +156,10 @@ public class FishHookState : AbstractHookState
     }
     public void ToggleHookSwipeAnim(bool pBool)
     {
-        if (GameManager.Levelmanager._baseUI) GameManager.Levelmanager._baseUI.HookSwipeAnimToggle(pBool);
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HookSwipeAnimToggle(pBool);
     }
     public void ToggleHandClick(bool pBool)
     {
-        if (GameManager.Levelmanager._baseUI) GameManager.Levelmanager._baseUI.HandClickToggle(pBool);
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HandClickToggle(pBool);
     }
 }

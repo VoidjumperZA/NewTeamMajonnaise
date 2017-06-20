@@ -143,9 +143,9 @@ public class Rope : MonoBehaviour
         {
             int removePos;
             removePos = activeLink == 0 ? (activeLink + 1) : (activeLink - 1);
-            Debug.Log("Trying to remove link " + removePos);
+            //Debug.Log("Trying to remove link " + removePos);
             links.RemoveAt(removePos);
-            Debug.Log("Successfully removed link. Active link is " + activeLink + " while count is " + links.Count + " while active should be " + (links.Count - 1));
+            //Debug.Log("Successfully removed link. Active link is " + activeLink + " while count is " + links.Count + " while active should be " + (links.Count - 1));
             //make sure to update the active link
         }
         lineRenderer.positionCount = links.Count;
@@ -157,7 +157,7 @@ public class Rope : MonoBehaviour
     /// Switch the active link of the rope. It is advised to use either the leading or trailing links.
     /// </summary>
     /// <param name="pNewActiveLink"></param>
-    private void SwitchActiveLink(int pNewActiveLink, bool pReparent, Transform pParent = null, Transform pChild = null)
+    public void SwitchActiveLink(int pNewActiveLink, bool pReparent, Transform pParent = null, Transform pChild = null)
     {
         if (switchParentToChildOnActiveSwap == true && pReparent == true/*switchParentToChildOnActiveSwap == true && activeLink != pNewActiveLink && activeLink < links.Count*/)
         {
@@ -175,7 +175,7 @@ public class Rope : MonoBehaviour
             //links[activeLink].transform.position = originalParent.transform.position;
         //}
         activeLink = pNewActiveLink;
-        Debug.Log("Switching link to " + activeLink);
+        //Debug.Log("Switching link to " + activeLink);
         //if (parentToObjectOnStart == true)
         //{
             //links[activeLink].transform.parent = objectToParent.transform;
@@ -209,7 +209,7 @@ public class Rope : MonoBehaviour
     {
         foreach (Transform link in links)
         {
-            calcuate(link);
+            //calcuate(link);
         }
         renderLineTrail();
     }
@@ -244,4 +244,41 @@ public class Rope : MonoBehaviour
     {
         return distance;
     }
+
+    public float GetLeadingTrailingDifference()
+    {
+        return Vector3.Distance(links[0].gameObject.transform.position, links[links.Count - 1].gameObject.transform.position);
+    }
+
+    public float GetLineLength()
+    {
+        float length = 0.0f;
+        for (int i = 0; i < links.Count - 1; i++)
+        {
+            length += Vector3.Distance(links[i].gameObject.transform.position, links[i + 1].gameObject.transform.position);
+        }
+        return length;
+    }
+
+    public int GetNumberOfLinks()
+    {
+        return links.Count;
+    }
+
+    public List<Transform> GetLinks()
+    {
+        return links;
+    }
+
+    public void ResetLastLinkPosition()
+    {
+        links[links.Count - 1].position = pointToMoveTo.transform.position;
+    }
+
+    public GameObject GetObjectToFollow()
+    {
+        return objectToFollowLeadingLink;
+    }
+
+
 }

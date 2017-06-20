@@ -26,6 +26,9 @@ public class GameTimer : MonoBehaviour
             if (timeLeft <= 0)
             {
                 basic.EndGame();
+                counting = false;
+                Debug.Log("Game Ended");
+                timeLeft = 0;
                 //boat movement stop
                 //controls disabled
                 //fish stop spawning

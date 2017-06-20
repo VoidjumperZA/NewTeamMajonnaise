@@ -17,7 +17,7 @@ public class TutorialManager : LevelManager
         GameManager.Levelmanager = this;
         GameManager.Scorehandler.SetOriginalColours();
 
-        _baseUI.EnterSceneTransition();
+        UI.EnterSceneTransition();
         _shoppingList.GenerateShoppingList();
         _combo.CreateNewCombo();
         //Debug.Log("LevelManager - Start();");
@@ -40,7 +40,7 @@ public class TutorialManager : LevelManager
     }*/
     public override void UIOnEnterScene()
     {
-        if (_baseUI) _baseUI.OnEnterScene();
+        if (UI) UI.OnEnterScene();
         else Debug.Log("LevelUI not assigned to LevelManager script");
     }
     public override void UIOnLeaveScene()

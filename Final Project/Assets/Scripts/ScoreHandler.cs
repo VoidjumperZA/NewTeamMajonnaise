@@ -45,8 +45,8 @@ public class ScoreHandler : MonoBehaviour {
 	}
     public void SetOriginalColours()
     {
-        originalHookScoreColour = GameManager.Levelmanager._baseUI.GetHookScoreText().color;
-        originalTotalScoreColour = GameManager.Levelmanager._baseUI.GetTotalScoreText().color;
+        originalHookScoreColour = GameManager.Levelmanager.UI.GetHookScoreText().color;
+        originalTotalScoreColour = GameManager.Levelmanager.UI.GetTotalScoreText().color;
     }
 	public Vector3 HookScorePosition()
     {
@@ -171,8 +171,8 @@ public class ScoreHandler : MonoBehaviour {
     //Instantiate a UI instance
     private void createScoreUI(float pScore, bool pJellyMinPercent)
     {
-        GameObject newScoreInstance = Instantiate(GameManager.Levelmanager._baseUI.ScoreUI,
-                                                    GameManager.Levelmanager._baseUI.ScoreUIPosition.transform.position, Quaternion.identity);
+        GameObject newScoreInstance = Instantiate(GameManager.Levelmanager.UI.ScoreUI,
+                                                    GameManager.Levelmanager.UI.ScoreUIPosition.transform.position, Quaternion.identity);
         newScoreInstance.transform.SetParent(GameManager.Levelmanager.Canvas().transform);
 
         //Activate it because our instantiated object is in world, but deactivated. 

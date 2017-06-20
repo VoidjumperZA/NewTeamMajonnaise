@@ -22,6 +22,7 @@ public class NoneHookState : AbstractHookState
     {
 
     }
+
     public override hook.HookState StateType()
     {
         return hook.HookState.None;
