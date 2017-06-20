@@ -119,4 +119,9 @@ public class fish : general
         /*if (!_bubbles) return;
         _bubbles.gameObject.SetActive(pBool);*/
     }
+
+    public FishState GetFishState()
+    {
+        return _abstractState.StateType();
+    }
 }
