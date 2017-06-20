@@ -31,6 +31,19 @@ public class BaseUI : MonoBehaviour {
     public Image[] ThreeIcons;
     [Header("Transition")]
     public GameObject TransitionCurtain;
+    [Header("HighScore")]
+    [SerializeField]
+    protected GameObject _totalScore;
+    [SerializeField]
+    protected GameObject highScoreBoard;
+    [SerializeField]
+    protected Image _replayLevelExplode;
+    [SerializeField]
+    protected Text rawHighScoreText;
+    [SerializeField]
+    protected Text cleanUpScoreText;
+    [SerializeField]
+    protected Text sumTotalHighScoreText;
 
 
 

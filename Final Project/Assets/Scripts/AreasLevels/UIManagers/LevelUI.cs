@@ -28,6 +28,10 @@ public class LevelUI : BaseUI {
 
         _hookScoreText.text = GameManager.Scorehandler.HookScore + "";
         _hookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
+        if (basic.HasGameEnded() == true)
+        {
+            displayHighScoreBoard();
+        }
     }
     public override void OnDropHook()
     {
@@ -67,6 +71,15 @@ public class LevelUI : BaseUI {
 
 
         _onEnterScene = false;
+    }
+    private void displayHighScoreBoard()
+    {
+        rawHighScoreText.text = "" + GameManager.Scorehandler.GetBankedScore();
+        int percentage = GameManager.Scorehandler.CalculatePercentageOceanCleaned(true);
+        int cleanUpScore = percentage * GameManager.Scorehandler.GetTrashScoreModifier();
+        cleanUpScoreText.text = "" + percentage + "% x" + GameManager.Scorehandler.GetTrashScoreModifier();
+        sumTotalHighScoreText.text = "" + (GameManager.Scorehandler.GetBankedScore() + cleanUpScore);
+        highScoreBoard.SetActive(true);
     }
     public override void OnLeaveScene()
     {
