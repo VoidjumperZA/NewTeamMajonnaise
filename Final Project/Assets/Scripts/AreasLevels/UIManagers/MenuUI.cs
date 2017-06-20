@@ -28,7 +28,7 @@ public class MenuUI : BaseUI {
     public void OnSkipTutorialClick()
     {
         //Debug.Log("SkipClicked!");
-        GameManager.LoadSceneAsync(2, 4);
+        GameManager.LoadSceneAsync(3, 4);
         GameManager.Camerahandler.SetViewPoint(CameraHandler.FocusPoint.End);
         GameManager.Camerahandler.Play();
         //GameManager.Camerahandler.Play();
