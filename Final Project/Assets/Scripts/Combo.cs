@@ -16,6 +16,8 @@ public class Combo : MonoBehaviour
     private Image[] FiveFills { get { return GameManager.Levelmanager._baseUI.FiveFills; } set { GameManager.Levelmanager._baseUI.FiveFills = value; } }
     private Image[] FiveIcons { get { return GameManager.Levelmanager._baseUI.FiveIcons; } set { GameManager.Levelmanager._baseUI.FiveIcons = value; } }*/
     // Icon sprites
+    [Header("On collect feedback")]
+    [SerializeField] private GameObject _starsPrefab;
     [SerializeField] private Sprite[] _beforeCaught;
     [SerializeField] private Sprite[] _afterCaught;
     private int _comboSize = 0;
@@ -57,6 +59,7 @@ public class Combo : MonoBehaviour
     {
         if (_current < _comboSize && pFishType == _typeSet[_current])
         {
+            CreateOnCollectStars();
             if (_comboSize == 3)
             {
                 // Fills
@@ -217,6 +220,12 @@ public class Combo : MonoBehaviour
     private void CreateComboCompletedUI()
     {
 
+    }
+    private void CreateOnCollectStars()
+    {
+        GameObject go = Instantiate(_starsPrefab, GameManager.Hook.HookTip.position, Quaternion.identity);
+        go.transform.SetParent(GameManager.Hook.transform);
+        Destroy(go, 1);
     }
     /*public void CheckComboProgress(fish.FishType pFishType)
     {

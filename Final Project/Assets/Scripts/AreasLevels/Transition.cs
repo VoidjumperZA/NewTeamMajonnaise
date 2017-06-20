@@ -37,7 +37,6 @@ public class Transition : MonoBehaviour {
     }
     private IEnumerator SetAnimation(bool pDownWards)
     {
-        if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
         yield return !pDownWards ? null: new WaitForSeconds(3);
         if (!_animator.enabled) _animator.enabled = true;
         _animator.SetBool("Down", pDownWards);
@@ -45,10 +44,12 @@ public class Transition : MonoBehaviour {
     }
     public void UpWards()
     {
+        if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
         StartCoroutine(SetAnimation(false));
     }
     public void DownWards()
     {
+        if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
         StartCoroutine(SetAnimation(true));
     }
 
