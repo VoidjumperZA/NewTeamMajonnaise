@@ -23,7 +23,6 @@ public class ScoreHandler : MonoBehaviour {
     [SerializeField] private int largeFishScoreValue;
     [SerializeField] private int trashPercentageModifier;
     [SerializeField] private float jellyfishPenaltyPercentage = 0.25f;
-    private Transform ComboUIPosition;
     [HideInInspector] public float HookScore;
     [HideInInspector] public float BankedScore;
     private float timeColourHasBeenFlashing;
@@ -146,7 +145,7 @@ public class ScoreHandler : MonoBehaviour {
 
     public void AddComboScore()
     {
-        BankedScore += comboScoreValue;
+        HookScore += comboScoreValue;
         //createComboScoreUI();
     }
 
@@ -167,7 +166,10 @@ public class ScoreHandler : MonoBehaviour {
         flashTextHolder = totalScore;
         originalColourHolder = originalTotalScoreColour;
     }
-
+    public void OnComboCompletion()
+    {
+        createScoreUI(comboScoreValue, false);
+    }
     //Instantiate a UI instance
     private void createScoreUI(float pScore, bool pJellyMinPercent)
     {
