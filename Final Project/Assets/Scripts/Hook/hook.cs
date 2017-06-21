@@ -19,6 +19,10 @@ public class hook : general
     private InputTimer _inputTimer;
     [SerializeField]
     private Rope rope;
+    [SerializeField]
+    private GameObject scanCone;
+    [SerializeField]
+    private GameObject waterdropEffect;
 
     private GlobalUI _globalUI;
     private Camera _mainCamera;
@@ -116,6 +120,14 @@ public class hook : general
     public void AssignBoat(boat pBoat)
     {
         _boat = pBoat;
+    }
+    public GameObject GetCone()
+    {
+        return scanCone;
+    }
+    public GameObject GetWaterDropEffect()
+    {
+        return waterdropEffect;
     }
     public bool IsInState(HookState pState)
     {

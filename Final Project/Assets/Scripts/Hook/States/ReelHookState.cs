@@ -39,6 +39,11 @@ public class ReelHookState : AbstractHookState {
             _hook.gameObject.transform.position = _boat.gameObject.transform.position;
             SetState(hook.HookState.SetFree);
         }
+        if (rope.GetLinks().Count <= 10)
+        {
+            GameManager.Hook.GetWaterDropEffect().SetActive(true);
+            GameManager.Hook.GetWaterDropEffect().GetComponent<WaterdropDistortion>().Activate();
+        }
     }
     public override void Refresh()
     {

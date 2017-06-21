@@ -21,6 +21,7 @@ public class FishHookState : AbstractHookState
     public override void Start()
     {
         GameManager.Camerahandler.SetViewPoint(CameraHandler.FocusPoint.Hook);
+        GameManager.Hook.GetCone().SetActive(false);
     }
     public override void Update()
     {
