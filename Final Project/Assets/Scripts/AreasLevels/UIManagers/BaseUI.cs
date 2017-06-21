@@ -43,11 +43,33 @@ public class BaseUI : MonoBehaviour {
     protected Text cleanUpScoreText;
     [SerializeField]
     protected Text sumTotalHighScoreText;
+    [Header("Ocean Bar")]
+    [SerializeField]
+    protected Slider oceanCleanUpProgressBar;
+    [SerializeField]
+    protected GameObject oceanCleanUpBarChildFill;
+    [SerializeField]
+    protected GameObject oceanCleanUpBarChildBackground;
+    [SerializeField]
+    protected Image oceanCleanUpBarChildStripe;
+    [SerializeField]
+    protected Image oceanCleanUpBarChildFrameBackground;
+    [SerializeField]
+    protected GameObject oceanCleanUpBarChildText;
+    [SerializeField]
+    protected float timeOceanBarIsShown;
+    [SerializeField]
+    protected float oceanBarFadeInSpeed;
+    [SerializeField]
+    protected float oceanBarFadeOutSpeed;
+    [SerializeField]
+    protected float oceanBarMovementSpeed;
 
 
 
     public virtual void Start ()
     {
+
         //Debug.Log("BaseUI - Start();");
     }
     public virtual void Update()

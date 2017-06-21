@@ -70,16 +70,7 @@ public class WaterdropDistortion : MonoBehaviour
             //If we have scrolled off
             if (renderer.material.GetTextureOffset("_BumpMap").y >= 1.0f)
             {
-                //Reset main texture colour and offset and normal map offset
-                renderer.material.SetTextureOffset("_BumpMap", new Vector2(0.0f, 0.0f));
-                if (renderer.material.GetTexture("_MainTex") != null)
-                {
-                    renderer.material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
-                    renderer.material.SetColor("_MainTex", orginalMainTexColour);
-                }
-                
-                renderer.enabled = false;
-                activated = false;
+                Deactivate();
             }
 
             Debug.Log("Offset = " + offset);
@@ -95,6 +86,21 @@ public class WaterdropDistortion : MonoBehaviour
         activated = true;
         renderer.enabled = true;
         //StartCoroutine(FadeOut());
+    }
+
+    public void Deactivate()
+    {
+        //Reset main texture colour and offset and normal map offset
+        renderer.material.SetTextureOffset("_BumpMap", new Vector2(0.0f, 0.0f));
+        if (renderer.material.GetTexture("_MainTex") != null)
+        {
+            renderer.material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
+            renderer.material.SetColor("_MainTex", orginalMainTexColour);
+        }
+
+        renderer.enabled = false;
+        activated = false;
+        offset = 0.0f;
     }
 
     public IEnumerator FadeOut()

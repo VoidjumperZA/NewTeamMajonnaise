@@ -267,6 +267,7 @@ public class ScoreHandler : MonoBehaviour {
     public void RemoveScore(bool pCreatUIAnnouncement)
     {
         float scoreRemoved = HookScore * jellyfishPenaltyPercentage;
+        Mathf.FloorToInt(scoreRemoved);
         Debug.Log(scoreRemoved + " scoreRemoved");
         HookScore -= scoreRemoved;
         if (pCreatUIAnnouncement == true)
@@ -306,7 +307,10 @@ public class ScoreHandler : MonoBehaviour {
     /// <returns></returns>
     public int CalculatePercentageOceanCleaned(bool pReturnOnlyPercentage)
     {
-        float percentage = 100.0f * ((float)collectedTrash / (float)totalNumberOfTrashPieces);
+        float collected = collectedTrash;
+        float total = totalNumberOfTrashPieces;
+        float percentage = 100.0f * (collected / total);
+        Debug.Log("Float % is: " + percentage);
         int intPercentage = Mathf.FloorToInt(percentage);
         Debug.Log("Cleaned " + intPercentage + "% of the ocean.");
 

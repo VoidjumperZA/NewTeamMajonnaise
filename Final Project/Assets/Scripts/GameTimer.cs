@@ -25,7 +25,7 @@ public class GameTimer : MonoBehaviour
             timeLeft -= Time.deltaTime;
             if (timeLeft <= 0)
             {
-                basic.EndGame();
+                GameManager.Levelmanager.EndGame();
                 counting = false;
                 Debug.Log("Game Ended");
                 timeLeft = 0;
