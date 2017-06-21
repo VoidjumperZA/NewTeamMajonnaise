@@ -13,16 +13,19 @@ public class WaterdropDistortion : MonoBehaviour
     private bool activated;
     private MeshRenderer renderer;
     float offset;
+    private Color orginalMainTexColour;
 
     // Use this for initialization
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         activated = false;
         renderer = gameObject.GetComponent<MeshRenderer>();
         renderer.enabled = false;
-       offset = 0.0f;
-        // renderer.material.GetTexture("_MainTex").wrapMode = TextureWrapMode.Repeat;
-        // renderer.material.GetTexture("_BumpMap").wrapMode = TextureWrapMode.Repeat;
+        offset = 0.0f;
+        renderer.material.GetTexture("_MainTex").wrapMode = TextureWrapMode.Clamp;
+        renderer.material.GetTexture("_BumpMap").wrapMode = TextureWrapMode.Clamp;
+        orginalMainTexColour = renderer.material.GetColor("_MainTex");
     }
 
     // Update is called once per frame
@@ -49,8 +52,25 @@ public class WaterdropDistortion : MonoBehaviour
                 offset += (Time.deltaTime * scrollSpeed);
             }
            
+            //Fade out the tint colour
+            Color colour = renderer.material.GetColor("_MainTex");
+            Color faded = Color.Lerp(colour, Color.white, Time.deltaTime);
+
+            //Scroll the textures
             renderer.material.SetTextureOffset("_MainTex", new Vector2(0.0f, offset));
+            renderer.material.SetColor("_MainTex", faded);
             renderer.material.SetTextureOffset("_BumpMap", new Vector2(0.0f, offset));
+
+            //If we have scrolled off
+            if (renderer.material.GetTextureOffset("_BumpMap").y >= 1.0f)
+            {
+                //Reset main texture colour and offset and normal map offset
+                renderer.material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
+                renderer.material.SetTextureOffset("_BumpMap", new Vector2(0.0f, 0.0f));
+                renderer.material.SetColor("_MainTex", orginalMainTexColour); 
+                renderer.enabled = false;
+                activated = false;
+            }
 
             Debug.Log("Offset = " + offset);
         }
@@ -64,13 +84,19 @@ public class WaterdropDistortion : MonoBehaviour
     {
         activated = true;
         renderer.enabled = true;
-        StartCoroutine(FadeOut());
+        //StartCoroutine(FadeOut());
     }
 
     public IEnumerator FadeOut()
     {        
         yield return new WaitForSeconds(fadeSpeed);
-        renderer.enabled = false;
-        activated = false;
+        //renderer.material.GetTexture("_MainTex").wrapMode = TextureWrapMode.Clamp;
+        //renderer.material.GetTexture("_BumpMap").wrapMode = TextureWrapMode.Clamp;
+        if (renderer.material.GetTextureOffset("_BumpMap").y >= 1.0f)
+        {
+            renderer.enabled = false;
+            activated = false;
+        }
+        
     }
 }
