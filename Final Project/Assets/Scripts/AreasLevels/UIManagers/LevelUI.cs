@@ -8,6 +8,7 @@ public class LevelUI : BaseUI
     public override void Start ()
     {
         oceanCleanUpProgressBar.GetComponentInChildren<Text>().text = 0 + "%";
+        oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
         /*oceanCleanUpBarChildFill.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
         oceanCleanUpBarChildBackground.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
         oceanCleanUpBarChildFrameBackground.CrossFadeAlpha(0.0f, 0.0f, false);
@@ -126,6 +127,7 @@ public class LevelUI : BaseUI
     {
         //Get the percentage, set the bar value and the helper text
         int percentage = GameManager.Scorehandler.CalculatePercentageOceanCleaned(true);
+        oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(true);
         oceanCleanUpProgressBar.GetComponent<Slider>().value = 100 - percentage;
         oceanCleanUpProgressBar.GetComponentInChildren<Text>().text = percentage + "%";
 
@@ -157,9 +159,9 @@ public class LevelUI : BaseUI
 
     private IEnumerator ShowThenFadeOceanBar()
     {
-        oceanCleanUpProgressBar.enabled = true;
+        
         yield return new WaitForSeconds(timeOceanBarIsShown);
-        oceanCleanUpProgressBar.enabled = false;
+        oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
         /*
         //Immediately show the bar
         oceanCleanUpBarChildFill.GetComponent<Image>().CrossFadeAlpha(1.0f, oceanBarFadeInSpeed, false);
