@@ -21,6 +21,8 @@ public class hook : general
     private Rope rope;
     [SerializeField]
     private GameObject scanCone;
+    [SerializeField]
+    private GameObject waterdropEffect;
 
     private GlobalUI _globalUI;
     private Camera _mainCamera;
@@ -122,6 +124,10 @@ public class hook : general
     public GameObject GetCone()
     {
         return scanCone;
+    }
+    public GameObject GetWaterDropEffect()
+    {
+        return waterdropEffect;
     }
     public bool IsInState(HookState pState)
     {
