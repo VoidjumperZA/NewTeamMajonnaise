@@ -8,11 +8,11 @@ public class LevelUI : BaseUI
     public override void Start ()
     {
         oceanCleanUpProgressBar.GetComponentInChildren<Text>().text = 0 + "%";
-        oceanCleanUpBarChildFill.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
+        /*oceanCleanUpBarChildFill.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
         oceanCleanUpBarChildBackground.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
         oceanCleanUpBarChildFrameBackground.CrossFadeAlpha(0.0f, 0.0f, false);
         oceanCleanUpBarChildStripe.CrossFadeAlpha(0.0f, 0.0f, false);
-        oceanCleanUpBarChildText.GetComponent<Text>().CrossFadeAlpha(0.0f, 0.0f, false);
+        oceanCleanUpBarChildText.GetComponent<Text>().CrossFadeAlpha(0.0f, 0.0f, false);*/
         // Controls
         SetActive(false, _dropHook.gameObject, _reelHook.gameObject);
         // Game Time
@@ -125,7 +125,7 @@ public class LevelUI : BaseUI
     public void UpdateOceanProgressBar(bool pFirstTimeAnim)
     {
         //Get the percentage, set the bar value and the helper text
-        int percentage = basic.Scorehandler.CalculatePercentageOceanCleaned(true);
+        int percentage = GameManager.Scorehandler.CalculatePercentageOceanCleaned(true);
         oceanCleanUpProgressBar.GetComponent<Slider>().value = 100 - percentage;
         oceanCleanUpProgressBar.GetComponentInChildren<Text>().text = percentage + "%";
 
@@ -157,6 +157,10 @@ public class LevelUI : BaseUI
 
     private IEnumerator ShowThenFadeOceanBar()
     {
+        oceanCleanUpProgressBar.enabled = true;
+        yield return new WaitForSeconds(timeOceanBarIsShown);
+        oceanCleanUpProgressBar.enabled = false;
+        /*
         //Immediately show the bar
         oceanCleanUpBarChildFill.GetComponent<Image>().CrossFadeAlpha(1.0f, oceanBarFadeInSpeed, false);
         oceanCleanUpBarChildBackground.GetComponent<Image>().CrossFadeAlpha(1.0f, oceanBarFadeInSpeed, false);
@@ -172,7 +176,7 @@ public class LevelUI : BaseUI
         oceanCleanUpBarChildBackground.GetComponent<Image>().CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
         oceanCleanUpBarChildFrameBackground.CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
         oceanCleanUpBarChildStripe.CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
-        oceanCleanUpBarChildText.GetComponent<Text>().CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
+        oceanCleanUpBarChildText.GetComponent<Text>().CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);*/
     }
 
 }

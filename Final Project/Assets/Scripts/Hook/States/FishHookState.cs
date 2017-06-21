@@ -139,7 +139,7 @@ public class FishHookState : AbstractHookState
             _hook.TrashOnHook.Add(theTrash);
 
             bool firstTime = GameManager.Scorehandler.CollectATrashPiece();
-            GameManager.Levelmanager.UI.UpdateOceanProgressBar(firstTime);
+            GameManager.Levelmanager.GetComponent<LevelUI>().UpdateOceanProgressBar(firstTime);
             GameManager.Camerahandler.CreateShakePoint();
 
             //The game time is out before this condition can be true, I am going to leave it here just in case

@@ -267,12 +267,13 @@ public class ScoreHandler : MonoBehaviour {
     public void RemoveScore(bool pCreatUIAnnouncement)
     {
         float scoreRemoved = HookScore * jellyfishPenaltyPercentage;
-        Mathf.FloorToInt(scoreRemoved);
-        Debug.Log(scoreRemoved + " scoreRemoved");
-        HookScore -= scoreRemoved;
+        int intScoreRemoved = Mathf.FloorToInt(scoreRemoved);
+
+        Debug.Log(intScoreRemoved + " scoreRemoved");
+        HookScore -= intScoreRemoved;
         if (pCreatUIAnnouncement == true)
         {
-            createScoreUI(scoreRemoved, true);
+            createScoreUI(intScoreRemoved, true);
         }
     }
 

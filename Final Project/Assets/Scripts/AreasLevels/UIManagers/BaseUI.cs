@@ -46,7 +46,7 @@ public class BaseUI : MonoBehaviour {
     [Header("Ocean Bar")]
     [SerializeField]
     protected Slider oceanCleanUpProgressBar;
-    [SerializeField]
+    /*[SerializeField]
     protected GameObject oceanCleanUpBarChildFill;
     [SerializeField]
     protected GameObject oceanCleanUpBarChildBackground;
@@ -55,7 +55,7 @@ public class BaseUI : MonoBehaviour {
     [SerializeField]
     protected Image oceanCleanUpBarChildFrameBackground;
     [SerializeField]
-    protected GameObject oceanCleanUpBarChildText;
+    protected GameObject oceanCleanUpBarChildText;*/
     [SerializeField]
     protected float timeOceanBarIsShown;
     [SerializeField]
