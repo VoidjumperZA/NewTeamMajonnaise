@@ -59,9 +59,9 @@ public class SeafloorSpawning : MonoBehaviour
             //newTrash.transform.position = trashSpawns[spawnNumber].transform.position;
             newTrash.gameObject.SetActive(true);
             trashSpawns.Remove(trashSpawns[spawnNumber]);
-            basic.AddCollectable(newTrash);
+            //basic.AddCollectable(newTrash);
         }
-        basic.Scorehandler.SetTotalNumberOfTrashPieces(spawnCount);
+        GameManager.Scorehandler.SetTotalNumberOfTrashPieces(spawnCount);
     }
 
     public void SpawnSpecialItems()

@@ -138,9 +138,9 @@ public class FishHookState : AbstractHookState
             theTrash.SetState(trash.TrashState.FollowHook);
             _hook.TrashOnHook.Add(theTrash);
 
-            //bool firstTime = basic.Scorehandler.CollectATrashPiece();
-            //basic.GlobalUI.UpdateOceanProgressBar(firstTime);
-            //basic.Camerahandler.CreateShakePoint();
+            bool firstTime = GameManager.Scorehandler.CollectATrashPiece();
+            GameManager.Levelmanager.UI.UpdateOceanProgressBar(firstTime);
+            GameManager.Camerahandler.CreateShakePoint();
 
             //The game time is out before this condition can be true, I am going to leave it here just in case
             /*if (basic.GlobalUI.InTutorial)

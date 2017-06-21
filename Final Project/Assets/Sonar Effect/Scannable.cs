@@ -19,12 +19,12 @@ public class Scannable : MonoBehaviour
         trash = null;
         if (gameObject.transform.parent.GetComponent<fish>() != null)
         {
-            Debug.Log("Got a fish script.");
+            //Debug.Log("Got a fish script.");
             fish = gameObject.transform.parent.GetComponent<fish>();
         }
         if (gameObject.transform.parent.GetComponent<trash>() != null)
         {
-            Debug.Log("Got a trash script.");
+            //Debug.Log("Got a trash script.");
             trash = gameObject.transform.parent.GetComponent<trash>();
         }
 

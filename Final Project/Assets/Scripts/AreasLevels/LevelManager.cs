@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] protected ShoppingList _shoppingList;
     [SerializeField] protected JellyFishSpawn _jellyFishSpawn;
     [SerializeField] protected Combo _combo;
+    private bool gameEnded;
     public virtual void Start()
     {
         SetUpCamera();
@@ -80,5 +81,15 @@ public class LevelManager : MonoBehaviour {
     {
         if (UI.canvas) return UI.canvas;
         return null;
+    }
+
+    public void EndGame()
+    {
+        gameEnded = true;
+    }
+
+    public bool HasGameEnded()
+    {
+        return gameEnded;
     }
 }

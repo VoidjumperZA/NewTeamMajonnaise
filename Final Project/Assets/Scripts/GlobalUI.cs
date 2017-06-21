@@ -334,7 +334,7 @@ public class GlobalUI : MonoBehaviour
         //temp testing
         if (Input.GetKeyDown(KeyCode.R))
         {
-            bool firstTime = basic.Scorehandler.CollectATrashPiece();
+            bool firstTime = GameManager.Scorehandler.CollectATrashPiece();
             UpdateOceanProgressBar(firstTime);
         }
         gameTimerText.text = _gameTimer.GetFormattedTimeLeftAsString();
