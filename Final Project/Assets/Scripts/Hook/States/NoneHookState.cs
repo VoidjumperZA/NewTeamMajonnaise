@@ -12,7 +12,7 @@ public class NoneHookState : AbstractHookState
     }
     public override void Start()
     {
-
+        GameManager.Hook.GetCone().SetActive(true);
     }
     public override void Update()
     {

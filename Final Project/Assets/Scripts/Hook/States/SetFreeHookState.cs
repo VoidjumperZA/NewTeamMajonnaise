@@ -9,6 +9,7 @@ public class SetFreeHookState : AbstractHookState {
     }
     public override void Start()
     {
+        GameManager.Hook.GetCone().SetActive(true);
         //Debug.Log("entered setfree state");
         GameManager.Scorehandler.BankScore();
         //basic.Scorehandler.ToggleHookScoreUI(false);
