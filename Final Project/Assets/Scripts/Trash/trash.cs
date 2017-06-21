@@ -72,4 +72,9 @@ public class trash : general
     {
         if (other && _abstractState != null) _abstractState.OnTriggerEnter(other);
     }
+
+    public TrashState GetTrashState()
+    {
+        return _abstractState.StateType();
+    }
 }

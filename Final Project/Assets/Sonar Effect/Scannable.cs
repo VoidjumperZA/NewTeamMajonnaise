@@ -8,9 +8,26 @@ public class Scannable : MonoBehaviour
     private float scanTime;
     private float timeLeft;
     private float timeOutTime;
+    private fish fish;
+    private trash trash;
+    private bool permaShow;
     void Start()
     {
         locked = true;
+        permaShow = false;
+        fish = null;
+        trash = null;
+        if (gameObject.transform.parent.GetComponent<fish>() != null)
+        {
+            Debug.Log("Got a fish script.");
+            fish = gameObject.transform.parent.GetComponent<fish>();
+        }
+        if (gameObject.transform.parent.GetComponent<trash>() != null)
+        {
+            Debug.Log("Got a trash script.");
+            trash = gameObject.transform.parent.GetComponent<trash>();
+        }
+
     }
 
     public void Ping()
@@ -30,7 +47,16 @@ public class Scannable : MonoBehaviour
     void Update()
     {
         timeLeft -= Time.deltaTime;
-        if (timeLeft <= 0)
+        
+        if (fish != null)
+        {
+            permaShow = fish.GetFishState() != fish.FishState.Swim ? true : false;
+        }
+        if (trash != null)
+        {
+            permaShow = trash.GetTrashState() != trash.TrashState.Float ? true : false;
+        }
+        if (timeLeft <= 0 && permaShow == false)
         {
             gameObject.GetComponent<cakeslice.Outline>().enabled = false;
             if (gameObject.GetComponent<SkinnedMeshRenderer>()) gameObject.GetComponent<SkinnedMeshRenderer>().enabled = false;
