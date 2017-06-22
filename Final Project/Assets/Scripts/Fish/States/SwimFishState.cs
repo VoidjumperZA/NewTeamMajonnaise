@@ -37,7 +37,14 @@ public class SwimFishState : AbstractFishState
     {
         if (other.gameObject.tag == "FishDespawner" || other.gameObject.tag == "Floor")
         {
-            GameManager.Fishspawner.QueueFishAgain(_fish, true, true, true);
+            if (_fish.GetFishType() == fish.FishType.Special)
+            {
+                GameManager.Fishspawner.QueueSpecialFish(_fish);
+            }
+            else
+            {
+                GameManager.Fishspawner.QueueFishAgain(_fish, true, true, true);
+            }
         }
     }
     /*private void HandleOutline()

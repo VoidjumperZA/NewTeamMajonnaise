@@ -45,9 +45,7 @@ public class BaseUI : MonoBehaviour {
     protected Text sumTotalHighScoreText;
     [Header("Ocean Bar")]
     [SerializeField]
-    protected Slider oceanCleanUpProgressBar;
-    [Header("WaterDistortion")]
-    protected GameObject waterDistortion;
+    protected Slider oceanCleanUpProgressBar;    
     /*[SerializeField]
     protected GameObject oceanCleanUpBarChildFill;
     [SerializeField]
@@ -66,7 +64,9 @@ public class BaseUI : MonoBehaviour {
     protected float oceanBarFadeOutSpeed;
     [SerializeField]
     protected float oceanBarMovementSpeed;
-
+    [Header("WaterDistortion")]
+    [SerializeField]
+    protected GameObject waterDistortion;
 
 
     public virtual void Start ()
