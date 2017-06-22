@@ -65,7 +65,6 @@ public class BaseUI : MonoBehaviour {
     [SerializeField]
     protected float oceanBarMovementSpeed;
     [Header("WaterDistortion")]
-    [SerializeField]
     protected GameObject waterDistortion;
 
 

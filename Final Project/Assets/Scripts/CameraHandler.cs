@@ -9,10 +9,10 @@ public class CameraHandler : MonoBehaviour
     private bool _isAboveWater = true; public bool IsAboveWater { get { return _isAboveWater; } }
     [Header("PostProcessingProfiles")]
     public Transform SeaSurface;
-    [SerializeField] private PostProcessingProfile _aboveWaterProfileNight;
-    [SerializeField] private PostProcessingProfile _underWaterProfileNight;
-    [SerializeField] private PostProcessingProfile _aboveWaterProfileDay;
-    [SerializeField] private PostProcessingProfile _underWaterProfileDay;
+    [SerializeField] private PostProcessingProfile _aboveWaterProfile;
+    [SerializeField] private PostProcessingProfile _underWaterProfile;
+    [SerializeField]
+    private GameObject waterDropEffect;
     private PostProcessingBehaviour _cameraPostProcessing { get { return _camera.GetComponent<PostProcessingBehaviour>(); } }
     // Scene Transition Camera Holders
     private Transform _startCamHolder;
@@ -62,6 +62,11 @@ public class CameraHandler : MonoBehaviour
     public void Play()
     {
         if (!_play && _initialized) _play = true;
+    }
+
+    public GameObject GetWaterDropEffect()
+    {
+        return waterDropEffect;
     }
     public void InitializeCameraHandler()
     {
@@ -124,7 +129,7 @@ public class CameraHandler : MonoBehaviour
         _globalFog.enabled = pBool;
         RenderSettings.fog = pBool;
         // Color Correction Profile ?
-        _cameraPostProcessing.profile = pBool ? _underWaterProfileNight : _aboveWaterProfileNight;
+        _cameraPostProcessing.profile = pBool ? _underWaterProfile : _aboveWaterProfile;
         //if (_aboveWaterProfile) _cameraPostProcessing.profile = _aboveWaterProfile;
         // HookScoreText UI
         _isAboveWater = !pBool;
