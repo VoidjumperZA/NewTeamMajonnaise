@@ -25,7 +25,7 @@ public class FloatTrashState : AbstractTrashState
     public override void Update()
     {
         if (_trash.Revealed) HandleOutline();
-        FloatAround();
+        //FloatAround();
     }
     public override void Refresh()
     {
