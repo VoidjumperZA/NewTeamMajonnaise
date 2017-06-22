@@ -9,8 +9,10 @@ public class CameraHandler : MonoBehaviour
     private bool _isAboveWater = true; public bool IsAboveWater { get { return _isAboveWater; } }
     [Header("PostProcessingProfiles")]
     public Transform SeaSurface;
-    [SerializeField] private PostProcessingProfile _aboveWaterProfile;
-    [SerializeField] private PostProcessingProfile _underWaterProfile;
+    [SerializeField] private PostProcessingProfile _aboveWaterProfileNight;
+    [SerializeField] private PostProcessingProfile _underWaterProfileNight;
+    [SerializeField] private PostProcessingProfile _aboveWaterProfileDay;
+    [SerializeField] private PostProcessingProfile _underWaterProfileDay;
     private PostProcessingBehaviour _cameraPostProcessing { get { return _camera.GetComponent<PostProcessingBehaviour>(); } }
     // Scene Transition Camera Holders
     private Transform _startCamHolder;
