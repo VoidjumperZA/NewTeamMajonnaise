@@ -46,7 +46,7 @@ public class MenuUI : BaseUI {
 
         _playAnim.gameObject.SetActive(false);
         _skipTutorial.gameObject.SetActive(false);
-        GameManager.LoadSceneAsync(4, 4);
+        GameManager.LoadSceneAsync(3, 4);
         GameManager.Camerahandler.SetViewPoint(CameraHandler.FocusPoint.End);
         GameManager.Camerahandler.Play();
         GameManager.Boat.SetState(boat.BoatState.LeaveScene);
