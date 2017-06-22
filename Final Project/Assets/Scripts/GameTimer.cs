@@ -73,5 +73,9 @@ public class GameTimer : MonoBehaviour
     {
         counting = true;
     }
+    public void PauseCountdown()
+    {
+        counting = false;
+    }
 
 }

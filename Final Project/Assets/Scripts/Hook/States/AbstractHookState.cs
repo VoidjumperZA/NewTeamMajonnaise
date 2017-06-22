@@ -28,5 +28,8 @@ public abstract class AbstractHookState
     {
 
     }
+    public virtual void OnTriggerExit(Collider other)
+    {
 
+    }
 }

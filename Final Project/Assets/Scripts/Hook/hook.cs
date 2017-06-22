@@ -117,6 +117,10 @@ public class hook : general
             }
         }*/
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other && _abstractState != null) _abstractState.OnTriggerExit(other);
+    }
     public void AssignBoat(boat pBoat)
     {
         _boat = pBoat;
