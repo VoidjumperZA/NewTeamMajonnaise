@@ -51,6 +51,7 @@ public class LevelUI : BaseUI
 
         SetActive(false, _dropHook.gameObject);
         SetActive(true, _reelHook.gameObject, _hookScoreText.gameObject);
+        waterDistortion.GetComponent<WaterdropDistortion>().Deactivate();
         GameManager.Boat.SetState(boat.BoatState.Fish);
     }
 
