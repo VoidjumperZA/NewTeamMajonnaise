@@ -47,7 +47,7 @@ public class ScoreUIAnimation : MonoBehaviour {
         faded.a = faded.a - alphaFade;
         //And set it back
         selfImage.GetComponent<Image>().color = faded;
-
+        gameObject.transform.Translate(Camera.main.WorldToScreenPoint(GameManager.Levelmanager.UI.HookScoreText.gameObject.transform.position - Camera.main.WorldToScreenPoint(gameObject.transform.position)));
         //If we are x percent of our oringal scale, or nearly invisible, just despawn this object
         if (gameObject.transform.localScale.x <= originalScale * percentScale || selfImage.GetComponent<Image>().color.a < 0.1f)
         {

@@ -15,7 +15,7 @@ public class BaseUI : MonoBehaviour {
     [Header("Score")]
     [SerializeField] protected Image _totalScoreBoard;
     [SerializeField] protected Text _totalScoreText;
-    [SerializeField] protected Text _hookScoreText;
+    [SerializeField] public Text HookScoreText;
     public GameObject ScoreUI; //the appearing score ui
     public Transform ScoreUIPosition; //where are we spawning that ui
     [Header("Shopping List")]
@@ -123,7 +123,7 @@ public class BaseUI : MonoBehaviour {
     }
     public Text GetHookScoreText()
     {
-        return _hookScoreText;
+        return HookScoreText;
     }
     public Text GetTotalScoreText()
     {

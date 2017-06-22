@@ -79,7 +79,7 @@ public class TutorialUI : BaseUI
         // Game Time
         SetActive(false, _gameTimerText.gameObject);
         // Score
-        SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);
+        SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, HookScoreText.gameObject);
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
         //Animations
@@ -99,8 +99,8 @@ public class TutorialUI : BaseUI
         // Score
         _totalScoreText.text = GameManager.Scorehandler.BankedScore + "";
 
-        _hookScoreText.text = GameManager.Scorehandler.HookScore + "";
-        _hookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
+        HookScoreText.text = GameManager.Scorehandler.HookScore + "";
+        HookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
 
         //Steps
         if (!touchedScreen)
@@ -232,7 +232,7 @@ public class TutorialUI : BaseUI
         GameManager.Gametimer.PauseCountdown();
         SetActive(false, _gameTimerText.gameObject);
         // Score
-        SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);
+        SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, HookScoreText.gameObject);
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
         // Combo
@@ -242,7 +242,7 @@ public class TutorialUI : BaseUI
     }
     public override void HookScoreToggle(bool pBool)
     {
-        _hookScoreText.gameObject.SetActive(pBool);
+        HookScoreText.gameObject.SetActive(pBool);
     }
 
     public override void HookSwipeAnimToggle(bool pBool)
