@@ -44,6 +44,7 @@ public class LevelManager : MonoBehaviour {
         UI.EnterSceneTransition();
         _shoppingList.GenerateShoppingList();
         _combo.CreateNewCombo();
+        GameManager.Gametimer.ResetClockForNewArea();
         //Debug.Log("LevelManager - Start();");
     }
 	public virtual void Update () {
