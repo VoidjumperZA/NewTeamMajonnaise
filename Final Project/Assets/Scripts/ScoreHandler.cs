@@ -331,4 +331,9 @@ public class ScoreHandler : MonoBehaviour {
     {
         PersistentStats.SaveAllStats(pTimeLeft, Mathf.FloorToInt(BankedScore), percentCleanedThisArea, pAreaIndex);
     }
+
+    public void SetBankedScoreFromPersistant()
+    {
+        BankedScore = PersistentStats.GetPersitentScore();
+    }
 }
