@@ -22,22 +22,8 @@ public class SetFreeHookState : AbstractHookState {
         for (int i = 0; i < _hook.TrashOnHook.Count; i++) _hook.TrashOnHook[i].SetState(trash.TrashState.PiledUp);
         _hook.TrashOnHook.Clear();
 
-        /*if (basic.GlobalUI.GetInTutorial() == true)
-        {
-            basic.Tempfishspawn._boatSetUp = false;
-            basic.ClearFishList(true);
-            if (basic.GlobalUI.GetReelUpCompleted() == true)
-            {
-                basic.Tempfishspawn._boatSetUp = true;
-                basic.Seafloorspawning.SpawnTrash();
-                basic.Seafloorspawning.SpawnSpecialItems();
-            }
-        }*/
+        if (_hook.SpecialFish) GameManager.GoToNextScene();
 
-        /*if ((!basic.GlobalUI.MoveBoatCompleted && basic.GlobalUI.DropHookCompleted && !basic.GlobalUI.ReelUpHookCompleted) || basic.GlobalUI.MoveBoatCompleted || !basic.GlobalUI.InTutorial)
-        {
-            basic.GlobalUI.SwitchHookButtons();
-        }*/
         GameManager.Camerahandler.SetViewPoint(CameraHandler.FocusPoint.Ocean);
         GameManager.Boat.SetState(boat.BoatState.Stationary);
         //GameManager.Radar.SetState(radar.RadarState.Pulse);

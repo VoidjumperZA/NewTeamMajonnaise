@@ -30,22 +30,13 @@ public class GameManager : MonoBehaviour {
         AssignReferences();
         //Debug.Log("GameManager - Start();");
 	}
-	private void Update () {
-
+	private void Update ()
+    {
+        
 	}
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            // Taking care of the previous scene 
-            if (!(Levelmanager is MenuManager)) UIOnLeaveScene();
-            // For new scene requirements
-            LoadSceneAsync(NextScene, 4);
-            if (NextScene < 4) NextScene += 1;
-            Camerahandler.SetViewPoint(CameraHandler.FocusPoint.End);
-            Camerahandler.Play();
-            Boat.SetState(boat.BoatState.LeaveScene);
-        }
+        if (Input.GetKeyDown(KeyCode.M)) GoToNextScene();
         Camerahandler.ClassUpdate();
     }
     private void AssignReferences()
@@ -54,6 +45,17 @@ public class GameManager : MonoBehaviour {
         Camerahandler = GetComponent<CameraHandler>(); if (!Camerahandler) Debug.Log("GameManager - CameraHandler script = NULL");
         Gametimer = GetComponent<GameTimer>(); if (!Gametimer) Debug.Log("GameManager - GameTimer = NULL");
         Scorehandler = GetComponent<ScoreHandler>(); if (!Scorehandler) Debug.Log("GameManager - ScoreHandler = NULL");
+    }
+    public static void GoToNextScene()
+    {
+        // Taking care of the previous scene 
+        if (!(Levelmanager is MenuManager)) UIOnLeaveScene();
+        // For new scene requirements
+        LoadSceneAsync(NextScene, 4);
+        if (NextScene < 4) NextScene += 1;
+        Camerahandler.SetViewPoint(CameraHandler.FocusPoint.End);
+        Camerahandler.Play();
+        Boat.SetState(boat.BoatState.LeaveScene);
     }
     public void InitializeReferenceInstances()
     {
