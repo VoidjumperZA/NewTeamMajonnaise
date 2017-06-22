@@ -48,6 +48,8 @@ public class LevelUI : BaseUI
     //
     public override void OnDropHook()
     {
+        if (GameManager.Levelmanager.HasGameEnded()) return;
+
         if (!GameManager.Boat.CanDropHook()) return;
 
         SetActive(false, _dropHook.gameObject);
@@ -63,6 +65,8 @@ public class LevelUI : BaseUI
     //
     public override void OnReelHook()
     {
+        if (GameManager.Levelmanager.HasGameEnded()) return;
+
         SetActive(true, _dropHook.gameObject);
         SetActive(false, _reelHook.gameObject/*, HookScoreText.gameObject*/);
         GameManager.Hook.SetState(hook.HookState.Reel);
