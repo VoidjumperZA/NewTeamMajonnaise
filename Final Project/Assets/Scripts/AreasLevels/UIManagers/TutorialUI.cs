@@ -15,12 +15,20 @@ public class TutorialUI : BaseUI
     private Image _handMove;
     [SerializeField]
     private Image _handClickNoDrops;
+    [SerializeField]
+    private Image _bubbleMoving;
+    private Color transparent;
+    private Color opaque;
+    [SerializeField]
+    private Image _deployHookImage;
+    [SerializeField]
+    private Image _reelHookImage;
     
 
-    private Animator _dropHookAnim;
-    private Animator _reelHookAnim;
-    [SerializeField]
-    private Sprite _bubbleImage;
+    //private Animator _dropHookAnim;
+    //private Animator _reelHookAnim;
+   // [SerializeField]
+   // private Sprite _bubbleImage;
     
     
     
@@ -43,14 +51,22 @@ public class TutorialUI : BaseUI
 
     public override void Start()
     {
+        transparent = _deployHookImage.color;
+        transparent.a = 0f;
+
+        opaque= _deployHookImage.color;
+        opaque.a = 1f;
+        
+       
         //Buttons
         ReelUpActive = false;
         DeployActive = false;
 
+        /*
         _dropHookAnim = _dropHook.GetComponent<Animator>();
         if (!_dropHookAnim) Debug.Log("Couldn't find animation in deployHook");
         _reelHookAnim = _reelHook.GetComponent<Animator>();
-        if (!_reelHookAnim) Debug.Log("Couldn't find animation in deployHook");
+        if (!_reelHookAnim) Debug.Log("Couldn't find animation in deployHook");*/
 
         firstTimeReelUp = true;
         touchedReelUpHook = false;
@@ -68,6 +84,7 @@ public class TutorialUI : BaseUI
         SetActive(false, _shoppingList.gameObject);
         //Animations
         SetActive(false, _handMove.gameObject,_handClick.gameObject, _arrows.gameObject,_handClickNoDrops.gameObject);
+        SetActive(false, _bubbleMoving.gameObject);
        
         //Debug.Log("TutorialUI - Start();");
     }
@@ -104,6 +121,8 @@ public class TutorialUI : BaseUI
              Debug.Log("Step 2");
              SetActive(false, _handClickNoDrops.gameObject);
              DeployActive = true;//SetActive(true, _dropHook.gameObject);
+             _deployHookImage.color = transparent;
+             SetActive(true, _bubbleMoving.gameObject);
             _handClick.transform.position = _dropHook.transform.position + new Vector3(10,-10,0);
              SetActive(true, _handClick.gameObject);
         }
@@ -126,8 +145,11 @@ public class TutorialUI : BaseUI
         else if (touchedReelUpHook && !movedBoat )
         {
             Debug.Log("Step 4");
-                _reelHookAnim.enabled = false;
-                _reelHook.GetComponent<Image>().sprite = _bubbleImage;
+                //_reelHookAnim.enabled = false;
+                SetActive(false, _bubbleMoving.gameObject);
+                _reelHookImage.color = opaque;
+                
+                //_reelHook.GetComponent<Image>().sprite = _bubbleImage;
                 SetScreenPosition(_arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
             SetActive(true, _arrows.gameObject);
         }
@@ -144,8 +166,10 @@ public class TutorialUI : BaseUI
         if (!touchedDeployHook)
         {
             touchedDeployHook = true;
-            _dropHookAnim.enabled = false;
-            _dropHook.GetComponent<Image>().sprite = _bubbleImage;
+            //_dropHookAnim.enabled = false;
+            SetActive(false, _bubbleMoving.gameObject);
+            _deployHookImage.color = opaque;
+            //_dropHook.GetComponent<Image>().sprite = _bubbleImage;
         }
         DeployActive = false;
         //SetActive(false, _dropHook.gameObject);
@@ -154,7 +178,9 @@ public class TutorialUI : BaseUI
         {
             if (!touchedReelUpHook)
             {
-                _reelHookAnim.enabled = true;
+                //_reelHookAnim.enabled = true;
+                SetActive(true, _bubbleMoving.gameObject);
+                _reelHookImage.color = transparent;
                 SetActive(true,_handClick.gameObject);
             }
            
