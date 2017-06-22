@@ -66,7 +66,7 @@ public class SimpleRotate : MonoBehaviour
     //mainly used for pentagrams, which get created at run time and so we cannot give them options
     private void rotateAutomatically()
     {
-        transform.Rotate(0, 0, GameObject.Find("Manager").GetComponent<ColumnControl>().GetSelectionPentagramRotationSpeed());
+        //transform.Rotate(0, 0, GameObject.Find("Manager").GetComponent<ColumnControl>().GetSelectionPentagramRotationSpeed());
     }
 
     //this is primarly used to control the game camera's rotation
