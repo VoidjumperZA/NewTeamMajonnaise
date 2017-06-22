@@ -20,13 +20,13 @@ public class LevelUI : BaseUI
         // Game Time
         SetActive(false, _gameTimerText.gameObject);
         // Score
-        SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);
+        SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, HookScoreText.gameObject);
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
         // Combo
         SetActive(false, ComboUI);
         //Debug.Log("LevelUI - Start();");
-        GameManager.Scorehandler.SetTextColours(_hookScoreText, _totalScoreText);
+        GameManager.Scorehandler.SetTextColours(HookScoreText, _totalScoreText);
     }
 
     //
@@ -37,8 +37,8 @@ public class LevelUI : BaseUI
         // Score
         _totalScoreText.text = GameManager.Scorehandler.BankedScore + "";
 
-        _hookScoreText.text = GameManager.Scorehandler.HookScore + "";
-        _hookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
+        HookScoreText.text = GameManager.Scorehandler.HookScore + "";
+        HookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
         if (GameManager.Levelmanager.HasGameEnded() == true)
         {
             displayHighScoreBoard();
@@ -51,7 +51,7 @@ public class LevelUI : BaseUI
         if (!GameManager.Boat.CanDropHook()) return;
 
         SetActive(false, _dropHook.gameObject);
-        SetActive(true, _reelHook.gameObject, _hookScoreText.gameObject);
+        SetActive(true, _reelHook.gameObject/*, HookScoreText.gameObject*/);
         if (waterDistortion.activeSelf == true)
         {
             waterDistortion.GetComponent<WaterdropDistortion>().Deactivate();
@@ -64,7 +64,7 @@ public class LevelUI : BaseUI
     public override void OnReelHook()
     {
         SetActive(true, _dropHook.gameObject);
-        SetActive(false, _reelHook.gameObject, _hookScoreText.gameObject);
+        SetActive(false, _reelHook.gameObject/*, HookScoreText.gameObject*/);
         GameManager.Hook.SetState(hook.HookState.Reel);
     }
 
@@ -119,7 +119,7 @@ public class LevelUI : BaseUI
         GameManager.Gametimer.PauseCountdown();
         SetActive(false, _gameTimerText.gameObject);
         // Score
-        SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);
+        SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, HookScoreText.gameObject);
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
         // Combo
@@ -149,7 +149,7 @@ public class LevelUI : BaseUI
     //
     public override void HookScoreToggle(bool pBool)
     {
-        _hookScoreText.gameObject.SetActive(pBool);
+        HookScoreText.gameObject.SetActive(pBool);
     }
 
     //

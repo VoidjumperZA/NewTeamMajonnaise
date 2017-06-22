@@ -130,6 +130,7 @@ public class CameraHandler : MonoBehaviour
         // Fog
         _globalFog.enabled = pBool;
         RenderSettings.fog = pBool;
+        if (GameManager.Levelmanager) GameManager.Levelmanager.UI.HookScoreText.gameObject.SetActive(pBool);
         if (ObjectsToDeactivateUnderWater != null) foreach (GameObject go in ObjectsToDeactivateUnderWater) go.SetActive(!pBool);
         // Color Correction Profile ?
         _cameraPostProcessing.profile = pBool ? _cameraProfile[underWater] : _cameraProfile[aboveWater];
