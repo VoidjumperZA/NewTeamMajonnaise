@@ -12,8 +12,13 @@ public class FollowHookTrashState : AbstractTrashState
     {
         // _trash.ToggleOutliner(false);
         GameObject.Destroy(_trash.gameObject.GetComponent<BoxCollider>());
+        _trash.gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
     public override void Update()
+    {
+
+    }
+    public override void FixedUpdate()
     {
         _trash.gameObject.transform.position = GameManager.Hook.HookTip.position;
     }

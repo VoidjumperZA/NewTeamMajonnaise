@@ -24,9 +24,9 @@ public class SeafloorSpawning : MonoBehaviour
     {
         for (int i = 0; i < amountOfTrashOnSeafloor; i++)
         {
-            Instantiate(trashPieces[Random.Range(0, trashPieces.Length)], new Vector3(Random.Range(_leftSpawner.position.x, _rightSpawner.position.x), -200, 0), Quaternion.identity);
-            GameManager.Scorehandler.SetTotalNumberOfTrashPieces(amountOfTrashOnSeafloor);
+            Instantiate(trashPieces[Random.Range(0, trashPieces.Length)], new Vector3(Random.Range(_leftSpawner.position.x, _rightSpawner.position.x), _leftSpawner.transform.position.y - _leftSpawner.transform.lossyScale.y/2, 0), Quaternion.identity);
         }
+        GameManager.Scorehandler.SetTotalNumberOfTrashPieces(amountOfTrashOnSeafloor);
     }
 
     // Update is called once per frame
