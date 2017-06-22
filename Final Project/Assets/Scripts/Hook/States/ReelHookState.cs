@@ -42,6 +42,7 @@ public class ReelHookState : AbstractHookState {
         if (rope.GetLinks().Count <= 10)
         {
             GameManager.Hook.GetWaterDropEffect().SetActive(true);
+            GameManager.Hook.GetWaterDropEffect().GetComponent<WaterdropDistortion>().Start();
             GameManager.Hook.GetWaterDropEffect().GetComponent<WaterdropDistortion>().Activate();
         }
     }

@@ -19,24 +19,31 @@ public class WaterdropDistortion : MonoBehaviour
     float offset;
     private float distortionVal;
     private Color orginalMainTexColour;
+    bool onceStart = false;
 
     // Use this for initialization
-    void Start()
+    public void Start()
     {
-        DontDestroyOnLoad(gameObject);
-        activated = false;
-        _renderer = gameObject.GetComponent<MeshRenderer>();
-        gameObject.SetActive(false);
-        _renderer.enabled = false;
-        offset = 0.0f;
-        distortionVal = distortionAmount;
-        if (_renderer.material.GetTexture("_MainTex") != null)
+        if (onceStart == false)
         {
-            _renderer.material.GetTexture("_MainTex").wrapMode = TextureWrapMode.Clamp;
-            orginalMainTexColour = _renderer.material.GetColor("_MainTex");
+            DontDestroyOnLoad(gameObject);
+            activated = false;
+            _renderer = gameObject.GetComponent<MeshRenderer>();
+            gameObject.SetActive(false);
+            _renderer.enabled = false;
+            offset = 0.0f;
+            distortionVal = distortionAmount;
+            if (_renderer.material.GetTexture("_MainTex") != null)
+            {
+                _renderer.material.GetTexture("_MainTex").wrapMode = TextureWrapMode.Clamp;
+                orginalMainTexColour = _renderer.material.GetColor("_MainTex");
+            }
+            _renderer.material.GetTexture("_BumpMap").wrapMode = TextureWrapMode.Clamp;
+            _renderer.material.SetFloat("_BumpAmt", distortionAmount);
+            onceStart = true;
         }
-        _renderer.material.GetTexture("_BumpMap").wrapMode = TextureWrapMode.Clamp;
-        _renderer.material.SetFloat("_BumpAmt", distortionAmount);
+
+        
     }
 
     // Update is called once per frame
@@ -94,8 +101,8 @@ public class WaterdropDistortion : MonoBehaviour
 
     public void Activate()
     {
-        activated = true;
         gameObject.SetActive(true);
+        activated = true;
         _renderer.enabled = true;
         //StartCoroutine(FadeOut());
     }
