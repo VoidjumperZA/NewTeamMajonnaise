@@ -46,6 +46,8 @@ public class BaseUI : MonoBehaviour {
     [Header("Ocean Bar")]
     [SerializeField]
     protected Slider oceanCleanUpProgressBar;
+    [Header("WaterDistortion")]
+    protected GameObject waterDistortion;
     /*[SerializeField]
     protected GameObject oceanCleanUpBarChildFill;
     [SerializeField]
