@@ -55,6 +55,7 @@ public class MenuUI : BaseUI {
 
     private IEnumerator ReplayAnim()
     {
+
         _skipTutorial.gameObject.SetActive(false);
         _replayAnim.gameObject.SetActive(true);
 
@@ -63,10 +64,13 @@ public class MenuUI : BaseUI {
         _replayAnim.gameObject.SetActive(false);
         _playTutorial.gameObject.SetActive(false);
         
-        GameManager.LoadSceneAsync(3, 4);
+       
+        //Debug.Log("SkipClicked!");
+        GameManager.LoadSceneAsync(GameManager.NextScene, 4);
+        GameManager.NextScene += 1;
+
         GameManager.Camerahandler.SetViewPoint(CameraHandler.FocusPoint.End);
         GameManager.Camerahandler.Play();
-        //GameManager.Camerahandler.Play();
         GameManager.Boat.SetState(boat.BoatState.LeaveScene);
         LeaveSceneTransition();
     }

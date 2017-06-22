@@ -129,7 +129,7 @@ public class Combo : MonoBehaviour
     {
         _current = 0;
         HideFillsAndIcons();
-        _comboSize = Random.Range(3, 4);
+        _comboSize = Random.Range(3, 5);
         _typeSet.Clear();
         for (int i = 0; i < _comboSize; i++)
         {
