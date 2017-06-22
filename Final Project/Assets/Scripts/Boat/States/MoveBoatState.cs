@@ -72,7 +72,8 @@ public class MoveBoatState : AbstractBoatState
         DetectRotation(pXDifference);
         if (pXDifference == 0) return false;
         _velocity += _acceleration * pXDifference;
-        if (_velocity > _maxVelocity) _velocity = _maxVelocity;
+        if (_velocity > _maxVelocity ) _velocity = _maxVelocity;
+        if (_velocity < -_maxVelocity) _velocity = -_maxVelocity;
         return true;
     }
     private void Decelerate(float pXDifference)
