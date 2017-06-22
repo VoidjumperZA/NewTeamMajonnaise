@@ -229,7 +229,7 @@ public class ScoreHandler : MonoBehaviour {
                 return largeFishScoreValue;
                 break;
             default:
-                return -999999;
+                return 0;
                 break;
         }
     }
