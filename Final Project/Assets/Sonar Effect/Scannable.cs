@@ -61,12 +61,17 @@ public class Scannable : MonoBehaviour
             gameObject.GetComponent<cakeslice.Outline>().enabled = false;
             if (gameObject.GetComponent<SkinnedMeshRenderer>()) gameObject.GetComponent<SkinnedMeshRenderer>().enabled = false;
             if (gameObject.GetComponent<MeshRenderer>()) gameObject.GetComponent<MeshRenderer>().enabled = false;
+            if (gameObject.transform.parent.gameObject.GetComponent<fish>()) gameObject.transform.parent.gameObject.GetComponent<general>().Visible = false;
+            if (gameObject.transform.parent.gameObject.GetComponent<trash>()) gameObject.transform.parent.gameObject.GetComponent<general>().Visible = false;
         }
     }
 
     IEnumerator TimeOutOutline()
     {
         yield return new WaitForSeconds(scanTime);
+
+        if (gameObject.transform.parent.gameObject.GetComponent<fish>()) gameObject.transform.parent.gameObject.GetComponent<general>().Visible = false;
+        if (gameObject.transform.parent.gameObject.GetComponent<trash>()) gameObject.transform.parent.gameObject.GetComponent<general>().Visible = false;
         gameObject.GetComponent<cakeslice.Outline>().enabled = false;
         if (gameObject.GetComponent<SkinnedMeshRenderer>()) gameObject.GetComponent<SkinnedMeshRenderer>().enabled = false;
         if (gameObject.GetComponent<MeshRenderer>()) gameObject.GetComponent<MeshRenderer>().enabled = false;
