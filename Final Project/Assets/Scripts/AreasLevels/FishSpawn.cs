@@ -148,6 +148,7 @@ public class FishSpawn : MonoBehaviour
     }
     private void SpawnSpecialFish(int pPolarity)
     {
+        if (!_specialFish) return;
         Vector3 spawnPos = (pPolarity == 0) ? _leftSpawner.position : _rightSpawner.position;
         spawnPos.y -= 5 + Random.Range(0, (pPolarity == 0) ? _rightDespawner.transform.lossyScale.y - 5 : _leftDespawner.transform.lossyScale.y - 5);
         GameObject newFish = Instantiate(_specialFish, spawnPos, Quaternion.LookRotation((pPolarity == 0) ? Vector3.right : -Vector3.right));
