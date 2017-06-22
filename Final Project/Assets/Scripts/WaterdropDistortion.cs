@@ -15,7 +15,7 @@ public class WaterdropDistortion : MonoBehaviour
     [SerializeField]
     private bool nonUniformDropMovement;
     private bool activated;
-    private MeshRenderer renderer;
+    private MeshRenderer _renderer;
     float offset;
     private float distortionVal;
     private Color orginalMainTexColour;
@@ -25,18 +25,18 @@ public class WaterdropDistortion : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         activated = false;
-        renderer = gameObject.GetComponent<MeshRenderer>();
+        _renderer = gameObject.GetComponent<MeshRenderer>();
         gameObject.SetActive(false);
-        renderer.enabled = false;
+        _renderer.enabled = false;
         offset = 0.0f;
         distortionVal = distortionAmount;
-        if (renderer.material.GetTexture("_MainTex") != null)
+        if (_renderer.material.GetTexture("_MainTex") != null)
         {
-            renderer.material.GetTexture("_MainTex").wrapMode = TextureWrapMode.Clamp;
-            orginalMainTexColour = renderer.material.GetColor("_MainTex");
+            _renderer.material.GetTexture("_MainTex").wrapMode = TextureWrapMode.Clamp;
+            orginalMainTexColour = _renderer.material.GetColor("_MainTex");
         }
-        renderer.material.GetTexture("_BumpMap").wrapMode = TextureWrapMode.Clamp;
-        renderer.material.SetFloat("_BumpAmt", distortionAmount);
+        _renderer.material.GetTexture("_BumpMap").wrapMode = TextureWrapMode.Clamp;
+        _renderer.material.SetFloat("_BumpAmt", distortionAmount);
     }
 
     // Update is called once per frame
@@ -65,21 +65,21 @@ public class WaterdropDistortion : MonoBehaviour
                 distortionVal -= (Time.deltaTime * distrtionFadeSpeed); 
             }
 
-            if (renderer.material.GetTexture("_MainTex") != null)
+            if (_renderer.material.GetTexture("_MainTex") != null)
             {
                 //Fade out the tint colour
-                Color colour = renderer.material.GetColor("_MainTex");
+                Color colour = _renderer.material.GetColor("_MainTex");
                 Color faded = Color.Lerp(colour, Color.white, Time.deltaTime);
                 //Scroll the textures
-                renderer.material.SetTextureOffset("_MainTex", new Vector2(0.0f, offset));
-                renderer.material.SetColor("_MainTex", faded);
+                _renderer.material.SetTextureOffset("_MainTex", new Vector2(0.0f, offset));
+                _renderer.material.SetColor("_MainTex", faded);
             }
             
-            renderer.material.SetTextureOffset("_BumpMap", new Vector2(0.0f, offset));
-            renderer.material.SetFloat("_BumpAmt", distortionVal);
+            _renderer.material.SetTextureOffset("_BumpMap", new Vector2(0.0f, offset));
+            _renderer.material.SetFloat("_BumpAmt", distortionVal);
 
             //If we have scrolled off
-            if (renderer.material.GetFloat("_BumpAmt") <= 0.0f)
+            if (_renderer.material.GetFloat("_BumpAmt") <= 0.0f)
             {
                 Deactivate();
             }
@@ -96,26 +96,26 @@ public class WaterdropDistortion : MonoBehaviour
     {
         activated = true;
         gameObject.SetActive(true);
-        renderer.enabled = true;
+        _renderer.enabled = true;
         //StartCoroutine(FadeOut());
     }
 
     public void Deactivate()
     {
         //Reset main texture colour and offset and normal map offset
-        renderer.material.SetTextureOffset("_BumpMap", new Vector2(0.0f, 0.0f));
-        if (renderer.material.GetTexture("_MainTex") != null)
+        _renderer.material.SetTextureOffset("_BumpMap", new Vector2(0.0f, 0.0f));
+        if (_renderer.material.GetTexture("_MainTex") != null)
         {
-            renderer.material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
-            renderer.material.SetColor("_MainTex", orginalMainTexColour);
+            _renderer.material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
+            _renderer.material.SetColor("_MainTex", orginalMainTexColour);
         }
 
         activated = false;
         offset = 0.0f;
         distortionVal = distortionAmount;
-        renderer.material.SetFloat("_BumpAmt", distortionAmount);
+        _renderer.material.SetFloat("_BumpAmt", distortionAmount);
         gameObject.SetActive(false);
-        renderer.enabled = false;
+        _renderer.enabled = false;
     }
 
     public IEnumerator FadeOut()
@@ -123,10 +123,10 @@ public class WaterdropDistortion : MonoBehaviour
         yield return new WaitForSeconds(fadeSpeed);
         //renderer.material.GetTexture("_MainTex").wrapMode = TextureWrapMode.Clamp;
         //renderer.material.GetTexture("_BumpMap").wrapMode = TextureWrapMode.Clamp;
-        if (renderer.material.GetTextureOffset("_BumpMap").y >= 1.0f)
+        if (_renderer.material.GetTextureOffset("_BumpMap").y >= 1.0f)
         {
             gameObject.SetActive(false);
-            renderer.enabled = false;
+            _renderer.enabled = false;
             activated = false;
         }
         

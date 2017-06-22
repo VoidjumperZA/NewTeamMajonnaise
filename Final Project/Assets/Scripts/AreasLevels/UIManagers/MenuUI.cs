@@ -28,10 +28,10 @@ public class MenuUI : BaseUI {
     public void OnSkipTutorialClick()
     {
         //Debug.Log("SkipClicked!");
-        GameManager.LoadSceneAsync(3, 4);
+        GameManager.LoadSceneAsync(GameManager.NextScene, 4);
+        GameManager.NextScene += 1;
         GameManager.Camerahandler.SetViewPoint(CameraHandler.FocusPoint.End);
         GameManager.Camerahandler.Play();
-        //GameManager.Camerahandler.Play();
         GameManager.Boat.SetState(boat.BoatState.LeaveScene);
         SetActiveButtons(false, _playTutorial, _skipTutorial);
         LeaveSceneTransition();

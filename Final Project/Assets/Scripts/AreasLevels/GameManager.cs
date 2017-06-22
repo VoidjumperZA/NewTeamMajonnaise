@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public static GameManager Instance = null;
-
+    
     public static boat Boat;
     public static hook Hook;
    // public static radar Radar;
@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour {
     public static JellyFishSpawn JellyFishSpawner { get; set; }
     public static Combo combo { get; set; }
 
+    public static int NextScene = 2;
+
     private void Start () {
         DontDestroyOnLoad(gameObject);
         AssignReferences();
@@ -38,7 +40,8 @@ public class GameManager : MonoBehaviour {
             // Taking care of the previous scene 
             if (!(Levelmanager is MenuManager)) UIOnLeaveScene();
             // For new scene requirements
-            LoadSceneAsync(3, 4);
+            LoadSceneAsync(NextScene, 4);
+            if (NextScene < 4) NextScene += 1;
             Camerahandler.SetViewPoint(CameraHandler.FocusPoint.End);
             Camerahandler.Play();
             Boat.SetState(boat.BoatState.LeaveScene);
