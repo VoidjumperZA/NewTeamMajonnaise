@@ -124,7 +124,7 @@ public class CameraHandler : MonoBehaviour
         _globalFog.enabled = pBool;
         RenderSettings.fog = pBool;
         // Color Correction Profile ?
-        _cameraPostProcessing.profile = pBool ? _underWaterProfile : _aboveWaterProfile;
+        _cameraPostProcessing.profile = pBool ? _underWaterProfileNight : _aboveWaterProfileNight;
         //if (_aboveWaterProfile) _cameraPostProcessing.profile = _aboveWaterProfile;
         // HookScoreText UI
         _isAboveWater = !pBool;
