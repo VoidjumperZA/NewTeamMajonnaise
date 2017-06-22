@@ -203,6 +203,7 @@ public class TutorialUI : BaseUI
         DeployActive = false;
         //SetActive(false, _dropHook.gameObject);
         // Game Time
+        GameManager.Gametimer.PauseCountdown();
         SetActive(false, _gameTimerText.gameObject);
         // Score
         SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, _hookScoreText.gameObject);

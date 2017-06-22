@@ -12,6 +12,8 @@ public class FishHookState : AbstractHookState
     private float _sideSpeed;
     private float _downSpeed;
 
+    private int _touchingCliff = 1;
+
     public FishHookState(hook pHook, float pSideSpeed, float pDownSpeed, float pFallSpeed) : base(pHook)
     {
         _sideSpeed = pSideSpeed;
@@ -60,7 +62,7 @@ public class FishHookState : AbstractHookState
         if (pSteering) SetInputDirection(mouse.GetWorldPoint());
         Vector3 acceleration = new Vector3(_inputDirection.x * _sideSpeed, _inputDirection.y * _downSpeed, 0);
 
-        _totalVelocity.x = (pSteering) ? acceleration.x : _totalVelocity.x * 0.9f;
+        _totalVelocity.x = (pSteering) ? acceleration.x * _touchingCliff : _totalVelocity.x * 0.9f;
         _totalVelocity.y = (pFallSpeed > acceleration.y) ? acceleration.y : pFallSpeed;
         _totalVelocity.z = acceleration.z;
         _hook.gameObject.transform.Translate(_totalVelocity);
@@ -154,7 +156,18 @@ public class FishHookState : AbstractHookState
             //basic.combo.ClearPreviousCombo(false);
 
         }
-
+        if (other.gameObject.CompareTag("Cliff"))
+        {
+            _touchingCliff = 0;
+            _hook.transform.Translate(new Vector3(0.5f, 0, 0));
+        }
+    }
+    public override void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Cliff"))
+        {
+            _touchingCliff = 1;
+        }
     }
     public void ToggleHookSwipeAnim(bool pBool)
     {
