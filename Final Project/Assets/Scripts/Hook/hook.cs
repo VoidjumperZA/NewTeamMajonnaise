@@ -12,6 +12,7 @@ public class hook : general
     [SerializeField] private HookState _hookState = HookState.None;
 
     [HideInInspector] public List<fish> FishOnHook = new List<fish>();
+    [HideInInspector] public fish SpecialFish = null;
     [HideInInspector] public List<trash> TrashOnHook = new List<trash>();
 
     // Class references

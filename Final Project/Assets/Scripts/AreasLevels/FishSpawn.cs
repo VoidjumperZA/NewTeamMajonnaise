@@ -5,6 +5,13 @@ using UnityEngine;
 public class FishSpawn : MonoBehaviour
 {
     private basic _basic { get { return GetComponent<basic>(); } }
+    [Header("SpecialFish")]
+    [SerializeField] private GameObject _specialFish;
+    [SerializeField] private float _timeBeforeSpecialFishSpawn;
+    private int _specialFishAmount = 0;
+
+
+
 
     [Header("Fish")]
     [SerializeField]
@@ -92,6 +99,12 @@ public class FishSpawn : MonoBehaviour
     {
         if (_valid == true)
         {
+            _timeBeforeSpecialFishSpawn -= Time.deltaTime;
+            if (_timeBeforeSpecialFishSpawn <= 0 && _specialFishAmount == 0)
+            {
+                SpawnSpecialFish(Random.Range(0, 2));
+                _specialFishAmount += 1;
+            }
             //Always count down time
             _timePassed -= Time.deltaTime;
             //Once our spawn timer is up
@@ -107,6 +120,12 @@ public class FishSpawn : MonoBehaviour
     public void StartFertilityDegradeCoroutine()
     {
         StartCoroutine(ReduceFertilityOfSpawnArea());
+    }
+    public void QueueSpecialFish(fish pFish)
+    {
+        if (_specialFishAmount > 0) _specialFishAmount -= 1;
+        SpawnedFish.Remove(pFish);
+        Destroy(pFish.gameObject);
     }
     public void QueueFishAgain(fish pFish, bool pQueueAgain, bool pRemoveFromList, bool pDestroyNow)
     {
@@ -126,6 +145,13 @@ public class FishSpawn : MonoBehaviour
     public void CollectFish(fish pFish)
     {
         SpawnedFish.Remove(pFish);
+    }
+    private void SpawnSpecialFish(int pPolarity)
+    {
+        Vector3 spawnPos = (pPolarity == 0) ? _leftSpawner.position : _rightSpawner.position;
+        spawnPos.y -= 5 + Random.Range(0, (pPolarity == 0) ? _rightDespawner.transform.lossyScale.y - 5 : _leftDespawner.transform.lossyScale.y - 5);
+        GameObject newFish = Instantiate(_specialFish, spawnPos, Quaternion.LookRotation((pPolarity == 0) ? Vector3.right : -Vector3.right));
+        SpawnedFish.Add(newFish.GetComponent<fish>());
     }
     private void CreateFish(int pPolarity)
     {

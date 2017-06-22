@@ -15,7 +15,7 @@ public class fish : general
     private int _score;
     [SerializeField]
     private float _speed;
-    public enum FishType { Small, Medium, Large };
+    public enum FishType { Small, Medium, Large, Special };
     public FishType fishType;
     // Radar related
     [SerializeField] public SkinnedMeshRenderer _renderer;

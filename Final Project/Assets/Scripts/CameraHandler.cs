@@ -9,8 +9,10 @@ public class CameraHandler : MonoBehaviour
     private bool _isAboveWater = true; public bool IsAboveWater { get { return _isAboveWater; } }
     [Header("PostProcessingProfiles")]
     public Transform SeaSurface;
-    [SerializeField] private PostProcessingProfile _aboveWaterProfile;
-    [SerializeField] private PostProcessingProfile _underWaterProfile;
+    [SerializeField] private List<PostProcessingProfile> _cameraProfile;
+    public int aboveWater;
+    public int underWater;
+    [SerializeField] private GameObject waterDropEffect;
     private PostProcessingBehaviour _cameraPostProcessing { get { return _camera.GetComponent<PostProcessingBehaviour>(); } }
     // Scene Transition Camera Holders
     private Transform _startCamHolder;
@@ -61,6 +63,11 @@ public class CameraHandler : MonoBehaviour
     {
         if (!_play && _initialized) _play = true;
     }
+
+    public GameObject GetWaterDropEffect()
+    {
+        return waterDropEffect;
+    }
     public void InitializeCameraHandler()
     {
         DontDestroyOnLoad(_camera.gameObject);
@@ -97,6 +104,7 @@ public class CameraHandler : MonoBehaviour
         }
         ReachFocusPoint();
         ReachShakePoint();
+        
     }
     private void IfCrossedSurface()
     {
@@ -122,7 +130,7 @@ public class CameraHandler : MonoBehaviour
         _globalFog.enabled = pBool;
         RenderSettings.fog = pBool;
         // Color Correction Profile ?
-        _cameraPostProcessing.profile = pBool ? _underWaterProfile : _aboveWaterProfile;
+        _cameraPostProcessing.profile = pBool ? _cameraProfile[underWater] : _cameraProfile[aboveWater];
         //if (_aboveWaterProfile) _cameraPostProcessing.profile = _aboveWaterProfile;
         // HookScoreText UI
         _isAboveWater = !pBool;
@@ -178,6 +186,7 @@ public class CameraHandler : MonoBehaviour
             {
                 _focusPointReached = true;
                 _currentLerpTime = 0;
+                if (GameManager.GotSpecialFish) GameManager.GoToNextScene();
              //   Debug.Log("Just Reached it");
             }
         }
