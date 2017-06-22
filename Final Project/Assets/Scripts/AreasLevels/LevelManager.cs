@@ -26,6 +26,8 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] protected JellyFishSpawn _jellyFishSpawn;
     [SerializeField] protected Combo _combo;
     private bool gameEnded;
+    [SerializeField]
+    private List<GameObject> _objectsToDeactivateUnderWater;
     public virtual void Start()
     {
         SetUpCamera();
@@ -49,6 +51,7 @@ public class LevelManager : MonoBehaviour {
     }
     protected void SetUpCamera()
     {
+        GameManager.Camerahandler.ObjectsToDeactivateUnderWater = _objectsToDeactivateUnderWater;
         GameManager.Camerahandler.SeaSurface = _seaSurface.transform;
         GameManager.Camerahandler.aboveWater = _aboveProfile;
         GameManager.Camerahandler.underWater = _underProfile;
