@@ -11,6 +11,8 @@ public class CameraHandler : MonoBehaviour
     public Transform SeaSurface;
     [SerializeField] private PostProcessingProfile _aboveWaterProfile;
     [SerializeField] private PostProcessingProfile _underWaterProfile;
+    [SerializeField]
+    private GameObject waterDropEffect;
     private PostProcessingBehaviour _cameraPostProcessing { get { return _camera.GetComponent<PostProcessingBehaviour>(); } }
     // Scene Transition Camera Holders
     private Transform _startCamHolder;
@@ -60,6 +62,11 @@ public class CameraHandler : MonoBehaviour
     public void Play()
     {
         if (!_play && _initialized) _play = true;
+    }
+
+    public GameObject GetWaterDropEffect()
+    {
+        return waterDropEffect;
     }
     public void InitializeCameraHandler()
     {

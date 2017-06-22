@@ -102,20 +102,24 @@ public class WaterdropDistortion : MonoBehaviour
 
     public void Deactivate()
     {
-        //Reset main texture colour and offset and normal map offset
-        _renderer.material.SetTextureOffset("_BumpMap", new Vector2(0.0f, 0.0f));
-        if (_renderer.material.GetTexture("_MainTex") != null)
+        if (activated == true)
         {
-            _renderer.material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
-            _renderer.material.SetColor("_MainTex", orginalMainTexColour);
-        }
+            //Reset main texture colour and offset and normal map offset
+            _renderer.material.SetTextureOffset("_BumpMap", new Vector2(0.0f, 0.0f));
+            if (_renderer.material.GetTexture("_MainTex") != null)
+            {
+                _renderer.material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
+                _renderer.material.SetColor("_MainTex", orginalMainTexColour);
+            }
 
-        activated = false;
-        offset = 0.0f;
-        distortionVal = distortionAmount;
-        _renderer.material.SetFloat("_BumpAmt", distortionAmount);
-        gameObject.SetActive(false);
-        _renderer.enabled = false;
+            activated = false;
+            offset = 0.0f;
+            distortionVal = distortionAmount;
+            _renderer.material.SetFloat("_BumpAmt", distortionAmount);
+            gameObject.SetActive(false);
+            _renderer.enabled = false;
+        }
+        
     }
 
     public IEnumerator FadeOut()
