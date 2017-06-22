@@ -7,6 +7,7 @@ public class LevelUI : BaseUI
 {
     public override void Start ()
     {
+        waterDistortion = GameManager.Camerahandler.GetWaterDropEffect();
         oceanCleanUpProgressBar.GetComponentInChildren<Text>().text = 0 + "%";
         oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
         /*oceanCleanUpBarChildFill.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
@@ -51,7 +52,11 @@ public class LevelUI : BaseUI
 
         SetActive(false, _dropHook.gameObject);
         SetActive(true, _reelHook.gameObject, _hookScoreText.gameObject);
-        waterDistortion.GetComponent<WaterdropDistortion>().Deactivate();
+        if (waterDistortion.activeSelf == true)
+        {
+            waterDistortion.GetComponent<WaterdropDistortion>().Deactivate();
+        }
+        
         GameManager.Boat.SetState(boat.BoatState.Fish);
     }
 

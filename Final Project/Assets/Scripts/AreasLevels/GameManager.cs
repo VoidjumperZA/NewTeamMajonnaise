@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
     public static Combo combo { get; set; }
 
     public static int NextScene = 2;
+    public static bool GotSpecialFish = false;
 
     private void Start () {
         DontDestroyOnLoad(gameObject);
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour {
     }
     public static void GoToNextScene()
     {
+        GotSpecialFish = false;
         // Taking care of the previous scene 
         if (!(Levelmanager is MenuManager)) UIOnLeaveScene();
         // For new scene requirements

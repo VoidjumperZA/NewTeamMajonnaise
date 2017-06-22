@@ -12,6 +12,7 @@ public class CameraHandler : MonoBehaviour
     [SerializeField] private List<PostProcessingProfile> _cameraProfile;
     public int aboveWater;
     public int underWater;
+    [SerializeField] private GameObject waterDropEffect;
     private PostProcessingBehaviour _cameraPostProcessing { get { return _camera.GetComponent<PostProcessingBehaviour>(); } }
     // Scene Transition Camera Holders
     private Transform _startCamHolder;
@@ -62,6 +63,11 @@ public class CameraHandler : MonoBehaviour
     {
         if (!_play && _initialized) _play = true;
     }
+
+    public GameObject GetWaterDropEffect()
+    {
+        return waterDropEffect;
+    }
     public void InitializeCameraHandler()
     {
         DontDestroyOnLoad(_camera.gameObject);
@@ -98,6 +104,7 @@ public class CameraHandler : MonoBehaviour
         }
         ReachFocusPoint();
         ReachShakePoint();
+        
     }
     private void IfCrossedSurface()
     {
@@ -179,6 +186,7 @@ public class CameraHandler : MonoBehaviour
             {
                 _focusPointReached = true;
                 _currentLerpTime = 0;
+                if (GameManager.GotSpecialFish) GameManager.GoToNextScene();
              //   Debug.Log("Just Reached it");
             }
         }

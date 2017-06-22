@@ -22,10 +22,15 @@ public class SetFreeHookState : AbstractHookState {
         for (int i = 0; i < _hook.TrashOnHook.Count; i++) _hook.TrashOnHook[i].SetState(trash.TrashState.PiledUp);
         _hook.TrashOnHook.Clear();
 
-        if (_hook.SpecialFish) GameManager.GoToNextScene();
+        if (_hook.SpecialFish)
+        {
+            GameObject.Destroy(_hook.SpecialFish.gameObject);
+            GameManager.GotSpecialFish = true;
+        }
 
         GameManager.Camerahandler.SetViewPoint(CameraHandler.FocusPoint.Ocean);
         GameManager.Boat.SetState(boat.BoatState.Stationary);
+
         //GameManager.Radar.SetState(radar.RadarState.Pulse);
         SetState(hook.HookState.None);
 

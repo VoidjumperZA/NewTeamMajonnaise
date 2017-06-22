@@ -8,7 +8,7 @@ public class FishSpawn : MonoBehaviour
     [Header("SpecialFish")]
     [SerializeField] private GameObject _specialFish;
     [SerializeField] private float _timeBeforeSpecialFishSpawn;
-    private int _specialFishAmount = 1;
+    private int _specialFishAmount = 0;
 
 
 
@@ -125,6 +125,7 @@ public class FishSpawn : MonoBehaviour
     {
         if (_specialFishAmount > 0) _specialFishAmount -= 1;
         SpawnedFish.Remove(pFish);
+        Destroy(pFish.gameObject);
     }
     public void QueueFishAgain(fish pFish, bool pQueueAgain, bool pRemoveFromList, bool pDestroyNow)
     {

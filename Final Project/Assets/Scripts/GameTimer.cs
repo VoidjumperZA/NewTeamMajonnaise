@@ -44,6 +44,18 @@ public class GameTimer : MonoBehaviour
 
     }
 
+    public void ResetClockForNewArea()
+    {
+        timeLeft = totalTimePerLevel;
+        counting = false;
+        addTimeBank();
+    }
+
+    private void addTimeBank()
+    {
+        timeLeft += PersistentStats.GetTimeLeftOfPastScene();
+    }
+
     public string GetFormattedTimeLeftAsString()
     {
         int seconds = Mathf.FloorToInt(GetFormattedTimeLeftAsVec2().y);

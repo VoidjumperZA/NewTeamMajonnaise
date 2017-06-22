@@ -33,6 +33,7 @@ public class ScoreHandler : MonoBehaviour {
     private Color originalColourHolder;
     private int totalNumberOfTrashPieces;
     private int collectedTrash;
+    private int percentCleanedThisArea;
 
     // Use this for initialization
     void Start()
@@ -228,7 +229,7 @@ public class ScoreHandler : MonoBehaviour {
                 return largeFishScoreValue;
                 break;
             default:
-                return -999999;
+                return 0;
                 break;
         }
     }
@@ -314,15 +315,20 @@ public class ScoreHandler : MonoBehaviour {
         Debug.Log("Float % is: " + percentage);
         int intPercentage = Mathf.FloorToInt(percentage);
         Debug.Log("Cleaned " + intPercentage + "% of the ocean.");
-
+        percentCleanedThisArea = intPercentage;
         if (pReturnOnlyPercentage == true)
         {
-            return intPercentage;
+            return percentCleanedThisArea;
         }
         else
         {
-            return intPercentage * trashPercentageModifier;
+            return percentCleanedThisArea * trashPercentageModifier;
         }
 
+    }
+
+    public void SavePersitentStats(float pTimeLeft, int pBankedScore, int pOceanPercent, int pAreaIndex)
+    {
+        PersistentStats.SaveAllStats(pTimeLeft, Mathf.FloorToInt(BankedScore), percentCleanedThisArea, pAreaIndex);
     }
 }
