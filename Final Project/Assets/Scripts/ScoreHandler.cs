@@ -327,9 +327,9 @@ public class ScoreHandler : MonoBehaviour {
 
     }
 
-    public void SavePersitentStats(float pTimeLeft, int pBankedScore, int pOceanPercent, int pAreaIndex)
+    public void SavePersitentStats(int pAreaIndex)
     {
-        PersistentStats.SaveAllStats(pTimeLeft, Mathf.FloorToInt(BankedScore), percentCleanedThisArea, pAreaIndex);
+        PersistentStats.SaveAllStats(GameObject.Find("GameManager").GetComponent<GameTimer>().GetTimeLeft(), Mathf.FloorToInt(BankedScore), percentCleanedThisArea, pAreaIndex);
     }
 
     public void SetBankedScoreFromPersistant()
