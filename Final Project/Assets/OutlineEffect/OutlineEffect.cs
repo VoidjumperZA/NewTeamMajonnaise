@@ -47,7 +47,7 @@ namespace cakeslice
         private OutlineEffect() { }
 
         private readonly LinkedSet<Outline> outlines = new LinkedSet<Outline>();
-        private const int outlineLayer = 6;
+        private const int outlineLayer = 8;
 
         [Range(1.0f, 6.0f)]
         public float lineThickness = 1.25f;
