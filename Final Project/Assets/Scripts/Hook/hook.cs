@@ -24,6 +24,8 @@ public class hook : general
     private GameObject scanCone;
     [SerializeField]
     private GameObject waterdropEffect;
+    [SerializeField]
+    private GameObject arrow;
 
     private GlobalUI _globalUI;
     private Camera _mainCamera;
@@ -33,6 +35,8 @@ public class hook : general
     // Fishing
     private boat _boat;
     float fishRotationAngle = 25.0f;
+
+    private GameObject arrowTarget;
 
     // Movement
     [SerializeField] private float _sideSpeed;
@@ -54,6 +58,7 @@ public class hook : general
     private bool valid;
     public override void Start()
     {
+        ToggleArrowActive(false);
         DontDestroyOnLoad(gameObject);
         valid = true;
         InitializeStateMachine();
@@ -61,6 +66,16 @@ public class hook : general
         //Debug.Log("Hook - Start();");
     }
 
+    public void ToggleArrowActive(bool pState, GameObject pTarget = null)
+    {
+        arrow.SetActive(pState);
+        arrowTarget = pTarget;
+    }
+
+    public GameObject GetArrowTarget()
+    {
+        return arrowTarget;
+    }
     //
     public override void FixedUpdate()
     {

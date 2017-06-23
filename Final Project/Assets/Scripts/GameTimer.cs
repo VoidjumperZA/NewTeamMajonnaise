@@ -9,6 +9,8 @@ public class GameTimer : MonoBehaviour
     private float totalTimePerLevel;
     private float timeLeft;
     private bool counting;
+    private Color standardColour;
+    private Color warningColor;
     // Use this for initialization
     void Start()
     {
