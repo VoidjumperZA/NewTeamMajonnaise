@@ -8,8 +8,7 @@ public class MenuManager : LevelManager
     [Header("Boat")]
     [SerializeField] private boat _boat;
     [Header("Radar")]
-    [SerializeField]
-    private radar _radar;
+    [SerializeField] private radar _radar;
     [Header("Hook")]
     [SerializeField] private hook _hook;
     /*[Header("SceneTransitionBoatPoints")]
