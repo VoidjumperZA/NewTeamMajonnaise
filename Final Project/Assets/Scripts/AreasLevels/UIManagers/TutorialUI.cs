@@ -161,6 +161,8 @@ public class TutorialUI : BaseUI
     }
     public override void OnDropHook()
     {
+        if (GameManager.Levelmanager.HasGameEnded()) return;
+
         if (!GameManager.Boat.CanDropHook()) return;
 
         if (!touchedDeployHook)
@@ -190,6 +192,8 @@ public class TutorialUI : BaseUI
     }
     public override void OnReelHook()
     {
+        if (GameManager.Levelmanager.HasGameEnded()) return;
+
         touchedReelUpHook = true; 
         DeployActive = true;
         ReelUpActive = false;
