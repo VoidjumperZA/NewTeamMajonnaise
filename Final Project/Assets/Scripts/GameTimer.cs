@@ -51,6 +51,11 @@ public class GameTimer : MonoBehaviour
         addTimeBank();
     }
 
+    public bool IsTimerCounting()
+    {
+        return counting;
+    }
+
     private void addTimeBank()
     {
         timeLeft += PersistentStats.GetTimeLeftOfPastScene();

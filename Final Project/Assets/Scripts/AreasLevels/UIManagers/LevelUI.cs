@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelUI : BaseUI
 {
@@ -45,7 +46,7 @@ public class LevelUI : BaseUI
         if (GameManager.Levelmanager.HasGameEnded() == true && highscoreShown == false)
         {
             highscoreShown = true;
-            if (GameManager.NextScene < 4)
+            if (SceneManager.GetActiveScene().buildIndex != 4)
             {
                 GameManager.Scorehandler.SavePersitentStats(GameManager.NextScene - 1);
             }

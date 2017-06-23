@@ -13,6 +13,7 @@ public static class PersistentStats
     /// </summary>
     public static void SaveAllStats(float pTimeLeft, int pBankedScore, int pOceanPercent, int pAreaIndex)
     {
+        Debug.Log("Saving stats for Area Index " + pAreaIndex);
         oceanPercentPerLevel[pAreaIndex] = pOceanPercent;
         persistentScore += pBankedScore;
         timeBank = 0.0f;
