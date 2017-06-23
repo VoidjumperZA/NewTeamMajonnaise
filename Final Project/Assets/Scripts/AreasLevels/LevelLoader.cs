@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+    [SerializeField] private List<GameObject> _objectsToDestroyOnRestart;
+    
     private AsyncOperation async = null;
     public void LoadScene(int pIndex)
     {
@@ -13,6 +15,7 @@ public class LevelLoader : MonoBehaviour
     public void LoadSceneAndDestroy(int pIndex)
     {
         //Needs to destroy boat / hook / game manager, etc if replaying the game
+        foreach (GameObject go in _objectsToDestroyOnRestart) Destroy(go);
         SceneManager.LoadScene(pIndex);
     }
     public void LoadSceneAsync(int pIndex, float pWaitTime)

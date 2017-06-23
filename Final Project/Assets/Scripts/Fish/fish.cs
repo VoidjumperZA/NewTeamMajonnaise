@@ -19,18 +19,13 @@ public class fish : general
     public FishType fishType;
     // Radar related
     [SerializeField] public SkinnedMeshRenderer _renderer;
-    [HideInInspector]
-    public Material _material;
-    [HideInInspector]
-    public Color _color;
+    [HideInInspector] public Material _material;
+    [HideInInspector] public Color _color;
     // [SerializeField] private cakeslice.Outline _outliner;
 
-    [SerializeField]
-    private ParticleSystem _bubbles;
-    [HideInInspector]
-    public Animator Animator;
-    [SerializeField]
-    public GameObject[] Joints;
+    [SerializeField] private ParticleSystem _bubbles;
+    [HideInInspector] public Animator Animator;
+    [SerializeField] public GameObject[] Joints;
 
     private float _revealDuration;
 
@@ -45,7 +40,6 @@ public class fish : general
         InitializeStateMachine();
     }
 
-    // Update is called once per frame
     public override void FixedUpdate()
     {
         _abstractState.Update();

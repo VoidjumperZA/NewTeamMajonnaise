@@ -34,6 +34,10 @@ public class boat : general
         _abstractState.Update();
         //Debug.Log(_abstractState.StateType());
     }
+    public override void FixedUpdate()
+    {
+        _abstractState.FixedUpdate();
+    }
 
     public Dictionary<BoatState, AbstractBoatState> GetStateCache()
     {

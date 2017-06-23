@@ -63,6 +63,19 @@ public class LevelManager : MonoBehaviour {
         GameManager.Camerahandler.SetViewPoint(CameraHandler.FocusPoint.Start, true);
         GameManager.Camerahandler.SetViewPoint(CameraHandler.FocusPoint.Middle, false);
     }
+    public virtual void UIOnEnterScene()
+    {
+        if (UI) UI.OnEnterScene();
+        else Debug.Log("LevelUI not assigned to LevelManager script");
+    }
+    public virtual void UIOnLeaveScene()
+    {
+        if (UI)
+        {
+            UI.OnLeaveScene();
+            UI.LeaveSceneTransition();
+        }
+    }
 
     public void SetBouyToLightsToPass()
     {
@@ -82,19 +95,6 @@ public class LevelManager : MonoBehaviour {
         // Set Enter and Leave state destination position
         GameManager.Boat.SetEnterStateDestination(_enterBoatPoint.position);
         GameManager.Boat.SetLeaveStateDestination(_leaveBoatPoint.position);
-    }
-    public virtual void UIOnEnterScene()
-    {
-        if (UI) UI.OnEnterScene();
-        else Debug.Log("LevelUI not assigned to LevelManager script");
-    }
-    public virtual void UIOnLeaveScene()
-    {
-        if (UI)
-        {
-            UI.OnLeaveScene();
-            UI.LeaveSceneTransition();
-        }
     }
     public Canvas Canvas()
     {

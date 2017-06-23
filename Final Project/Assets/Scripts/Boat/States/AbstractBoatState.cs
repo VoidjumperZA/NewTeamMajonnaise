@@ -13,6 +13,10 @@ public abstract class AbstractBoatState {
 	public abstract void Start();
 
     public abstract void Update();
+    public virtual void FixedUpdate()
+    {
+
+    }
     public virtual void Refresh()
     {
 
