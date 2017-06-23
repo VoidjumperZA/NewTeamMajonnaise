@@ -10,6 +10,11 @@ public class LevelLoader : MonoBehaviour
     {
         SceneManager.LoadScene(pIndex);
     }
+    public void LoadSceneAndDestroy(int pIndex)
+    {
+        //Needs to destroy boat / hook / game manager, etc if replaying the game
+        SceneManager.LoadScene(pIndex);
+    }
     public void LoadSceneAsync(int pIndex, float pWaitTime)
     {
         StartCoroutine(CoroutineLoadSceneAsync(pIndex, pWaitTime));
