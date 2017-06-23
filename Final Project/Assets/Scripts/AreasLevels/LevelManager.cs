@@ -25,6 +25,8 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] protected ShoppingList _shoppingList;
     [SerializeField] protected JellyFishSpawn _jellyFishSpawn;
     [SerializeField] protected Combo _combo;
+    [SerializeField] protected Light[] bouyLights;
+    [SerializeField] protected Color bouyColourPass;
     private bool gameEnded;
     [SerializeField]
     private List<GameObject> _objectsToDeactivateUnderWater;
@@ -60,6 +62,14 @@ public class LevelManager : MonoBehaviour {
         GameManager.Camerahandler.StartMiddleEndCameraHolder(_startCamHolder, _middleCamHolder, _endCamHolder);
         GameManager.Camerahandler.SetViewPoint(CameraHandler.FocusPoint.Start, true);
         GameManager.Camerahandler.SetViewPoint(CameraHandler.FocusPoint.Middle, false);
+    }
+
+    public void SetBouyToLightsToPass()
+    {
+        for (int i = 0; i < bouyLights.Length; i++)
+        {
+            bouyLights[i].GetComponent<Light>().color = bouyColourPass;
+        }
     }
     protected void SetUpBoat()
     {

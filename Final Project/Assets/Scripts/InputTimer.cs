@@ -35,6 +35,10 @@ public class InputTimer : MonoBehaviour
     {
         if (valid == true)
         {
+            if (Input.GetMouseButton(0) || mouse.Touching())
+            {
+                ResetClock();
+            }
             //Force load the menu scene if time is up
             if (timeLeft < 0)
             {
@@ -44,7 +48,11 @@ public class InputTimer : MonoBehaviour
             //Count down time
             else
             {
+                if (GameManager.Levelmanager.HasGameEnded() == false && GameManager.Gametimer.IsTimerCounting() == true)
+                {
+
                 timeLeft -= Time.deltaTime;
+                }
                 //Debug.Log("time: " + timeLeft);
             }
 
@@ -52,7 +60,7 @@ public class InputTimer : MonoBehaviour
             if (timeLeft < timeOutWarning)
             {
                 if (timeOutWarningUI.activeSelf == false) { timeOutWarningUI.SetActive(true); }
-                timeOutWarningCountdownText.text = ": " + (int)timeLeft;
+                timeOutWarningCountdownText.text = "" + (int)timeLeft;
             }
         }
         

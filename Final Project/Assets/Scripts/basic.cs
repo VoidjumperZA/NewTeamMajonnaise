@@ -100,7 +100,9 @@ public class basic : MonoBehaviour
     void Update()
     {
         RenderTrail();
-        if (Input.GetMouseButton(0) || mouse.Touching()) _inputTimer.ResetClock();
+        if (Input.GetMouseButton(0) || mouse.Touching())
+        { _inputTimer.ResetClock(); }
+   
     }
     void FixedUpdate()
     {

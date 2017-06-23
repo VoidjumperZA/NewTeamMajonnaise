@@ -153,6 +153,7 @@ public class FishSpawn : MonoBehaviour
         spawnPos.y -= 5 + Random.Range(0, (pPolarity == 0) ? _rightDespawner.transform.lossyScale.y - 5 : _leftDespawner.transform.lossyScale.y - 5);
         GameObject newFish = Instantiate(_specialFish, spawnPos, Quaternion.LookRotation((pPolarity == 0) ? Vector3.right : -Vector3.right));
         SpawnedFish.Add(newFish.GetComponent<fish>());
+        GameManager.Hook.ToggleArrowActive(true, newFish);
     }
     private void CreateFish(int pPolarity)
     {

@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour {
     public static void GoToNextScene()
     {
         Scorehandler.SavePersitentStats(NextScene - 1);
+        Scorehandler.ResetOceanBar();
         GotSpecialFish = false;
         // Taking care of the previous scene 
         if (!(Levelmanager is MenuManager)) UIOnLeaveScene();

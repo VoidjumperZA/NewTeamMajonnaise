@@ -54,30 +54,17 @@ public class Sonar : MonoBehaviour
                 }
 
             }
-            if (IsInput() == true && Vector3.Distance(ScannerOrigin.position, ScannerBoundary.transform.position) <= ScanDistance && GameManager.Hook.IsInState(hook.HookState.Reel) == false)
+            if (GameManager.Levelmanager.HasGameEnded() == false && IsInput() == true && Vector3.Distance(ScannerOrigin.position, ScannerBoundary.transform.position) <= ScanDistance && GameManager.Hook.IsInState(hook.HookState.Reel) == false)
             {
                 FirePulse();
             }           
         }
 
 
-        if (IsInput() == true && _scanning == false)
+        if (IsInput() == true && _scanning == false && GameManager.Levelmanager.HasGameEnded() == false)
         {
             FirePulse();
-        }
-        //test expand from origin
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            FirePulse();
-            /*
-            _scanning = true;
-            ScanDistance = 0;
-            foreach (Scannable objects in _scannables)
-            {
-                objects.SetLockState(false);
-                objects.SetScanTime(outlinerVisableTimeAsSeconds);
-            }*/
-        }
+        }    
 
         //scan from ray click
         /*if (Input.GetMouseButtonDown(0))

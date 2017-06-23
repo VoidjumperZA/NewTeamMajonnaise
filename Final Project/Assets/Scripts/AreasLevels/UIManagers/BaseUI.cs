@@ -40,7 +40,7 @@ public class BaseUI : MonoBehaviour {
     [SerializeField]
     protected Text rawHighScoreText;
     [SerializeField]
-    protected Text cleanUpScoreText;
+    protected Text[] cleanUpScoreText;
     [SerializeField]
     protected Text sumTotalHighScoreText;
     [Header("Ocean Bar")]
@@ -64,6 +64,12 @@ public class BaseUI : MonoBehaviour {
     protected float oceanBarFadeOutSpeed;
     [SerializeField]
     protected float oceanBarMovementSpeed;
+    [SerializeField]
+    protected Color oceanDirtyColour;
+    [SerializeField]
+    protected Color oceanCleanColour;
+    [SerializeField]
+    protected GameObject bubbleParticleEffect;
     [Header("WaterDistortion")]
     protected GameObject waterDistortion;
 

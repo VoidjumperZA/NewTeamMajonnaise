@@ -14,9 +14,14 @@ public class FollowHookFishState : AbstractFishState
         //_fish.FishRenderer.enabled = true;
         //if (_fish.FishOutliner) _fish.FishOutliner.enabled = false;
         if (_fish.GetFishType() != fish.FishType.Special) GameManager.Hook.FishOnHook.Add(_fish);
-        else if (!GameManager.Hook.SpecialFish) GameManager.Hook.SpecialFish = _fish;
-
+        else if (!GameManager.Hook.SpecialFish)
+        {
+            GameManager.Hook.SpecialFish = _fish;
+            GameManager.Hook.ToggleArrowActive(false);
+            GameManager.Levelmanager.SetBouyToLightsToPass();
+        }
         _fish.Animator.enabled = false;
+
         //_fish.Animator.SetBool("Death", true);*/
         // _fish.ToggleOutliner(false)
         GameObject.Destroy(_fish.gameObject.GetComponent<BoxCollider>());

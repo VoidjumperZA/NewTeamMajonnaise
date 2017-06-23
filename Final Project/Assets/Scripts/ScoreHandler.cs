@@ -332,6 +332,12 @@ public class ScoreHandler : MonoBehaviour {
         PersistentStats.SaveAllStats(GameObject.Find("GameManager").GetComponent<GameTimer>().GetTimeLeft(), Mathf.FloorToInt(BankedScore), percentCleanedThisArea, pAreaIndex);
     }
 
+    public void ResetOceanBar()
+    {
+        collectedTrash = 0;
+        CalculatePercentageOceanCleaned(true);
+    }
+
     public void SetBankedScoreFromPersistant()
     {
         BankedScore = PersistentStats.GetPersitentScore();

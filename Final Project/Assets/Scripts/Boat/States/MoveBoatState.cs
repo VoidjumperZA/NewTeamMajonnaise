@@ -48,6 +48,8 @@ public class MoveBoatState : AbstractBoatState
     }
     public override void Update()
     {
+        if (GameManager.Levelmanager.HasGameEnded()) return;
+
         _direction = (_velocity > 0) ? 1 : ((_velocity < 0) ? -1 : 0);
         float xDiff = GetXDifference();
         if (!Accelerate(xDiff)) Decelerate(xDiff);
