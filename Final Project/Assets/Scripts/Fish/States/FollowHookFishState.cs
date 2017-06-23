@@ -17,7 +17,7 @@ public class FollowHookFishState : AbstractFishState
         else if (!GameManager.Hook.SpecialFish)
         {
             GameManager.Hook.ToggleArrowActive(false);
-            GameManager.Hook.SpecialFish = _fish;
+            GameManager.Levelmanager.SetBouyToLightsToPass();
         }
 
         _fish.Animator.enabled = false;
