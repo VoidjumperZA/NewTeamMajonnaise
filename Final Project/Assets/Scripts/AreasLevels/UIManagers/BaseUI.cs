@@ -40,7 +40,7 @@ public class BaseUI : MonoBehaviour {
     [SerializeField]
     protected Text rawHighScoreText;
     [SerializeField]
-    protected Text cleanUpScoreText;
+    protected Text[] cleanUpScoreText;
     [SerializeField]
     protected Text sumTotalHighScoreText;
     [Header("Ocean Bar")]

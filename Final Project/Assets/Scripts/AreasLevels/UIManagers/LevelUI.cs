@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class LevelUI : BaseUI
 {
-    public override void Start ()
+    private bool highscoreShown = false;
+    public override void Start()
     {
+
         waterDistortion = GameManager.Camerahandler.GetWaterDropEffect();
         oceanCleanUpProgressBar.GetComponentInChildren<Text>().text = 0 + "%";
         oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
@@ -39,8 +41,11 @@ public class LevelUI : BaseUI
 
         HookScoreText.text = GameManager.Scorehandler.HookScore + "";
         HookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
-        if (GameManager.Levelmanager.HasGameEnded() == true)
+
+        if (GameManager.Levelmanager.HasGameEnded() == true && highscoreShown == false)
         {
+            highscoreShown = true;
+            GameManager.Scorehandler.SavePersitentStats(GameManager.NextScene - 1);
             displayHighScoreBoard();
         }
     }
@@ -56,7 +61,7 @@ public class LevelUI : BaseUI
         {
             waterDistortion.GetComponent<WaterdropDistortion>().Deactivate();
         }
-        
+
         GameManager.Boat.SetState(boat.BoatState.Fish);
     }
 
@@ -97,11 +102,32 @@ public class LevelUI : BaseUI
     //
     private void displayHighScoreBoard()
     {
+        //First clean the defaults
+        for (int i = 0; i < cleanUpScoreText.Length; i++)
+        {
+            cleanUpScoreText[i].text = "";
+        }
+
+        //Possibly skip the tutorial feild0
+        int textIndex = 0;
         rawHighScoreText.text = "" + GameManager.Scorehandler.GetBankedScore();
-        int percentage = GameManager.Scorehandler.CalculatePercentageOceanCleaned(true);
-        int cleanUpScore = percentage * GameManager.Scorehandler.GetTrashScoreModifier();
-        cleanUpScoreText.text = "" + percentage + "% x" + GameManager.Scorehandler.GetTrashScoreModifier();
-        sumTotalHighScoreText.text = "" + (GameManager.Scorehandler.GetBankedScore() + cleanUpScore);
+        int[] percentage = new int[cleanUpScoreText.Length];
+        int[] cleanUpScore = new int[cleanUpScoreText.Length];
+        int cleanUpSum = 0;
+        for (int i = 0; i < cleanUpScoreText.Length; i++)
+        {
+            percentage[i] = PersistentStats.GetPercentForArea(i);// GameManager.Scorehandler.CalculatePercentageOceanCleaned(true);
+            Debug.Log("For text " + i + " I got a percent from Persitent of " + percentage[i]);
+            if (percentage[i] != -1)
+            {
+                cleanUpScore[i] = percentage[i] * GameManager.Scorehandler.GetTrashScoreModifier();
+                cleanUpScoreText[textIndex].text = "(" + (textIndex + 1) + ") " + percentage[i] + "%  x" + GameManager.Scorehandler.GetTrashScoreModifier();
+                cleanUpSum += cleanUpScore[i];
+                textIndex++;
+            }
+
+        }
+        sumTotalHighScoreText.text = "" + (GameManager.Scorehandler.GetBankedScore() + cleanUpSum);
         highScoreBoard.SetActive(true);
     }
 
@@ -166,7 +192,7 @@ public class LevelUI : BaseUI
 
     private IEnumerator ShowThenFadeOceanBar()
     {
-        
+
         yield return new WaitForSeconds(timeOceanBarIsShown);
         oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
         /*

@@ -13,7 +13,7 @@ public static class PersistentStats
     /// </summary>
     public static void SaveAllStats(float pTimeLeft, int pBankedScore, int pOceanPercent, int pAreaIndex)
     {
-        oceanPercentPerLevel[pOceanPercent] = pAreaIndex;
+        oceanPercentPerLevel[pAreaIndex] = pOceanPercent;
         persistentScore += pBankedScore;
         timeBank = 0.0f;
         timeBank += pTimeLeft;
@@ -27,5 +27,12 @@ public static class PersistentStats
     public static int GetPersitentScore()
     {
         return persistentScore;
+    }
+
+    public static int GetPercentForArea(int pArea)
+    {
+        int value;
+        bool successful = oceanPercentPerLevel.TryGetValue(pArea, out value);
+        return successful == true ? value : -1;
     }
 }
