@@ -18,6 +18,7 @@ public class Combo : MonoBehaviour
     // Icon sprites
     [Header("On collect feedback")]
     [SerializeField] private GameObject _completedPrefab;
+    [SerializeField] private GameObject _brokenPrefab;
     [SerializeField] private Transform _comboUIPosition;
     [SerializeField] private GameObject _starsPrefab;
     [SerializeField] private Sprite[] _beforeCaught;
@@ -92,26 +93,26 @@ public class Combo : MonoBehaviour
                 GameManager.Levelmanager.UI.FourIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
                 GameManager.Levelmanager.UI.FourIcons[_current].sprite = _afterCaught[pFishType];
             }
-           // if (_comboSize == 5)
-           // {
-                // Fills
-              //  GameManager.Levelmanager.UI.FiveFills[_current].enabled = true;
-              //  if (_current > 0) GameManager.Levelmanager.UI.FiveFills[_current - 1].enabled = false;
-                // Icons
-                // Highlight
-                /*GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
-                GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
-                GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().sprite = _beforeCaught[pFishType];*/
-                // Fore Icon
-              //  GameManager.Levelmanager.UI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
-                //GameManager.Levelmanager.UI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
-               // GameManager.Levelmanager.UI.FiveIcons[_current].sprite = _afterCaught[pFishType];
-           // }
+            // if (_comboSize == 5)
+            // {
+            // Fills
+            //  GameManager.Levelmanager.UI.FiveFills[_current].enabled = true;
+            //  if (_current > 0) GameManager.Levelmanager.UI.FiveFills[_current - 1].enabled = false;
+            // Icons
+            // Highlight
+            /*GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
+            GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
+            GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().sprite = _beforeCaught[pFishType];*/
+            // Fore Icon
+            //  GameManager.Levelmanager.UI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
+            //GameManager.Levelmanager.UI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
+            // GameManager.Levelmanager.UI.FiveIcons[_current].sprite = _afterCaught[pFishType];
+            // }
             //ToggleCurrentState("Next", false);
             _current += 1;
             //ToggleCurrentState("Next", true);
         }
-        else CreateNewCombo();
+        else { CreateNewCombo(); CreateComboBrokenUI();   }
         if (_current == _comboSize)
         {
             //ToggleCurrentState("Next", false);
@@ -219,9 +220,16 @@ public class Combo : MonoBehaviour
             //img.gameObject.transform.parent.gameObject.GetComponent<Image>().enabled = false;
         }
     }
+    private void CreateComboBrokenUI()
+    {
+        GameObject go = Instantiate(_brokenPrefab, _comboUIPosition.position, Quaternion.identity);
+        go.transform.GetChild(0).GetComponent<Text>().text = "!";
+        go.transform.SetParent(GameManager.Levelmanager.Canvas().transform);
+    }
     private void CreateComboCompletedUI()
     {
         GameObject go = Instantiate(_completedPrefab, _comboUIPosition.position, Quaternion.identity);
+        go.transform.GetChild(0).GetComponent<Text>().text = GameManager.Scorehandler.GetComboScoreValue() + "!";
         go.transform.SetParent(GameManager.Levelmanager.Canvas().transform);
     }
     private void CreateOnCollectStars()

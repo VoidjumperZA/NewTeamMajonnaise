@@ -9,18 +9,26 @@ public class ComboScoreUIAnimation : MonoBehaviour {
     private Image selfImage;
     private Combo combo;
     private bool fading;
-	// Use this for initialization
-	void Start () {
+    [SerializeField]
+    private bool moveToCentre;
+    [SerializeField]
+    private float timeWaitingBeforeAutoFade;
+    // Use this for initialization
+    void Start () {
         selfImage = gameObject.GetComponent<Image>();
         //combo = GameObject.Find("Manager").GetComponent<Combo>();
         fading = false;
+        if (moveToCentre == false)
+        {
+            StartCoroutine(FadeAfterTime());
+        }
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate ()
     {
         //Moving towards the score
-        if (fading == false)
+        if (fading == false && moveToCentre == true)
         {
             Vector3 hookPosition = Camera.main.WorldToScreenPoint(GameManager.Hook.transform.position);
             Vector3 assetPosition = Camera.main.WorldToScreenPoint(gameObject.transform.position);
@@ -39,7 +47,7 @@ public class ComboScoreUIAnimation : MonoBehaviour {
         //Fading out
         else
         {
-            float alphaFade = 0.08f;
+            float alphaFade = 0.03f;
             //TEXT FADING
             //Create a new colour that is equal to the text
             Color faded = selfText.GetComponent<Text>().color;
@@ -55,7 +63,7 @@ public class ComboScoreUIAnimation : MonoBehaviour {
             faded.a = faded.a - alphaFade;
             //And set it back
             selfImage.GetComponent<Image>().color = faded;
-            if (faded.a < alphaFade) Destroy(gameObject);
+            //           if (faded.a < alphaFade) Destroy(gameObject);
         }
 		
     }
@@ -63,5 +71,11 @@ public class ComboScoreUIAnimation : MonoBehaviour {
     public void SetScoreText(int pScore)
     {
         selfText.text = "+" + pScore + "!";
+    }
+
+    private IEnumerator FadeAfterTime()
+    {
+        yield return new WaitForSeconds(timeWaitingBeforeAutoFade);
+        fading = true;
     }
 }

@@ -91,7 +91,7 @@ public class WaterdropDistortion : MonoBehaviour
                 Deactivate();
             }
 
-            Debug.Log("Offset = " + offset);
+            //Debug.Log("Offset = " + offset);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {

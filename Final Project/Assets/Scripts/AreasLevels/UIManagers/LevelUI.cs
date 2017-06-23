@@ -45,7 +45,15 @@ public class LevelUI : BaseUI
         if (GameManager.Levelmanager.HasGameEnded() == true && highscoreShown == false)
         {
             highscoreShown = true;
-            GameManager.Scorehandler.SavePersitentStats(GameManager.NextScene - 1);
+            if (GameManager.NextScene < 4)
+            {
+                GameManager.Scorehandler.SavePersitentStats(GameManager.NextScene - 1);
+            }
+            else
+            {
+                GameManager.Scorehandler.SavePersitentStats(GameManager.NextScene);
+            }
+            
             displayHighScoreBoard();
         }
     }
@@ -120,12 +128,14 @@ public class LevelUI : BaseUI
         int cleanUpSum = 0;
         for (int i = 0; i < cleanUpScoreText.Length; i++)
         {
-            percentage[i] = PersistentStats.GetPercentForArea(i);// GameManager.Scorehandler.CalculatePercentageOceanCleaned(true);
-            Debug.Log("For text " + i + " I got a percent from Persitent of " + percentage[i]);
+            percentage[i] = PersistentStats.GetPercentForArea(i + 1);// GameManager.Scorehandler.CalculatePercentageOceanCleaned(true);
+            Debug.Log("For text " + (i + 1) + " I got a percent from Persitent of " + percentage[i]);
             if (percentage[i] != -1)
             {
                 cleanUpScore[i] = percentage[i] * GameManager.Scorehandler.GetTrashScoreModifier();
-                cleanUpScoreText[textIndex].text = "(" + (textIndex + 1) + ") " + percentage[i] + "%  x" + GameManager.Scorehandler.GetTrashScoreModifier();
+                Color colour = Color.Lerp(oceanDirtyColour, oceanCleanColour, percentage[i] * 0.01f);
+                cleanUpScoreText[textIndex].text = " (" + (textIndex + 1) + ") " + percentage[i] + "%  x" + GameManager.Scorehandler.GetTrashScoreModifier();
+                cleanUpScoreText[textIndex].color = colour;
                 cleanUpSum += cleanUpScore[i];
                 textIndex++;
             }
@@ -196,7 +206,11 @@ public class LevelUI : BaseUI
 
     private IEnumerator ShowThenFadeOceanBar()
     {
-
+        GameObject go = Instantiate(bubbleParticleEffect, GameObject.FindGameObjectWithTag("BubbleParticleSpawn").transform.position, Quaternion.identity);
+        go.transform.SetParent(Camera.main.transform);
+        //ParticleSystem.ShapeModule shapeModule = go.GetComponent<ParticleSystem>().shape;
+        //shapeModule.radius -= Time.deltaTime;
+        Destroy(go, 4);
         yield return new WaitForSeconds(timeOceanBarIsShown);
         oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
         /*

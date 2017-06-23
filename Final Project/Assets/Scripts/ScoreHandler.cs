@@ -335,6 +335,7 @@ public class ScoreHandler : MonoBehaviour {
     public void ResetOceanBar()
     {
         collectedTrash = 0;
+        CalculatePercentageOceanCleaned(true);
     }
 
     public void SetBankedScoreFromPersistant()
