@@ -76,24 +76,18 @@ public class FishHookState : AbstractHookState
         //Reel the hook in if you touch the floor
         if (other.gameObject.CompareTag("Floor"))
         {
-            //The game time is out before this condition can be true, I am going to leave it here just in case
-            /*if (basic.GlobalUI.InTutorial)
-            {
-                basic.GlobalUI.ShowHandSwipe(false);
-                basic.GlobalUI.SwipehandCompleted = true;
-            }*/
+            
             _hook.CreateSandSplash();
             GameManager.Levelmanager.UI.OnReelHook();
             //basic.combo.ClearPreviousCombo(false);
             //GameObject.Instantiate (basic.HookHit, _hook.HookTip.position, Quaternion.identity);
-            if (!GameManager.Levelmanager.UI.GetFirstTimeFishing() && !TutorialUI.GetTouchedReelUp())
+           
+        /* if (!GameManager.Levelmanager.UI.GetFirstTimeFishing() && !TutorialUI.GetTouchedReelUp())
             {
                 TutorialUI.SetReelUpHook(true);
 
-            }
-            SetFirstTimeFishing(false);
-            
-           
+            }*/
+
 
         } 
         //On contact with a fish
@@ -175,8 +169,5 @@ public class FishHookState : AbstractHookState
         if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HandClickToggle(pBool);
     }
 
-    public void SetFirstTimeFishing(bool pBool)
-    {
-        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.SetFirstTimeFishing(pBool);
-    }
+  
 }

@@ -43,14 +43,17 @@ public class TutorialUI : BaseUI
     public static bool touchedScreen = false;
     private bool touchedDeployHook = false;
     private bool _firstTimeFishing;
+    private bool _secondTimefishing;
     private static bool touchedReelUpHook;
     private static bool movedBoat;
+    private bool gotTrash;
+    private bool gotFish;
 
     //Activate/Deactivate reel up and deploy hook
     public static bool ReelUpActive;
     public static bool DeployActive;
 
-    private float _rateOfGlow;
+    private float _rateOfGlow = 0.4f;
     //SwipeAnimation
     /*int index;
     List<float> positions = new List<float>(2);*/
@@ -74,9 +77,12 @@ public class TutorialUI : BaseUI
         _reelHookAnim = _reelHook.GetComponent<Animator>();
         if (!_reelHookAnim) Debug.Log("Couldn't find animation in deployHook");*/
 
-        _firstTimeFishing = true;
+        _firstTimeFishing = false;
+        _secondTimefishing = false;
         touchedReelUpHook = false;
         movedBoat = false;
+        gotTrash = false;
+        gotFish = false;
         //SwipeAnimation
         //index = 0;
 
@@ -111,74 +117,89 @@ public class TutorialUI : BaseUI
             HookScoreText.text = GameManager.Scorehandler.HookScore + "";
             HookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
 
+            //Fish and trash glow until you catch it for the first time
+            if (!gotTrash)
+            {
+                GameObject[] trash = GameObject.FindGameObjectsWithTag("Trash");
+                MakeGlow(_rateOfGlow, trash);
+            }
+            if (!gotFish)
+            {
+
+                GameObject[] fish = GameObject.FindGameObjectsWithTag("Fish");
+                MakeGlow(_rateOfGlow, fish);
+            }
+
             //Introducing features step by step
             //Step 1 - Radar introduced
             if (!touchedScreen)
             {
-                  //Check if the player have touched the screen
-                  if (Input.GetMouseButton(0) || mouse.Touching())
-                  {
-                            touchedScreen = true;
-                  }
-                  else
-                  {
-                        //Show hand tapping the screen
-                        SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0, -60, 0));
-                        SetActive(true, _handClickNoDrops.gameObject);
-                   }
+                //Check if the player have touched the screen
+                if (Input.GetMouseButton(0) || mouse.Touching())
+                {
+                    touchedScreen = true;
+                }
+                else
+                {
+                    //Show hand tapping the screen
+                    SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0, -60, 0));
+                    SetActive(true, _handClickNoDrops.gameObject);
+                }
             }//Step 2 - Deploy hook button introduced
             else if (!touchedDeployHook)
 
             {    //Deactivates former animation
-                 SetActive(false, _handClickNoDrops.gameObject);
+                SetActive(false, _handClickNoDrops.gameObject);
 
-                 //Activates button and hand animation
-                 DeployActive = true;
-                 _deployHookImage.color = transparent;
-                 SetActive(true, _bubbleMoving.gameObject);
-                _handClick.transform.position = _dropHook.transform.position + new Vector3(10,-10,0);
-                 SetActive(true, _handClick.gameObject);
+                //Activates button and hand animation
+                DeployActive = true;
+                _deployHookImage.color = transparent;
+                SetActive(true, _bubbleMoving.gameObject);
+                _handClick.transform.position = _dropHook.transform.position + new Vector3(10, -10, 0);
+                SetActive(true, _handClick.gameObject);
 
                 //Positions hand for swiping animation
-                 SetScreenPosition(handMove.gameObject, GameManager.Hook.gameObject, new Vector3(0, 0, 0));
+                SetScreenPosition(handMove.gameObject, GameManager.Hook.gameObject, new Vector3(0, 0, 0));
 
             }//Step 3 - Fishing for the first time, introducing trash 
-            else if (_firstTimeFishing)
+            else if (!_firstTimeFishing)
             {
+                Debug.Log("first time fishing-tutorial ui");
                 //Deactivate animation from last step
                 SetActive(false, _handClick.gameObject);
 
-                //Here call to glow function for fish and trash
-
                 //Show swiping animation to introduce how to move the hook
                 SetScreenPosition(arrows.gameObject, GameManager.Hook.gameObject, new Vector3(10, -20, 0));
-                //SetActive(true, arrows.gameObject);
-                //SetActive(true, handMove.gameObject);
-                AnimateSwipeHand(GetScreenPosition(GameManager.Hook.gameObject, new Vector3(0, -20, 0)), 0.2f, 30.0f);
+                AnimateSwipeHand(GetScreenPosition(GameManager.Hook.gameObject, new Vector3(0, -20, 0)), 0.2f, 50.0f);
 
-                
-
+                //Make animation disappear when the player touches the screen
                 if (Input.GetMouseButton(0) || mouse.Touching())
                 {
-                    SetActive(false, arrows.gameObject,handMove.gameObject);
-               
+                    SetActive(false, arrows.gameObject, handMove.gameObject);
+
                 }
-            }
-            else if (touchedReelUpHook && !movedBoat )
+            }//Step 4 - Introducing combos
+            else if (!_secondTimefishing)
             {
-                Debug.Log("Step 4");
-                    //_reelHookAnim.enabled = false;
-                    SetActive(false, _bubbleMoving.gameObject);
-                    _reelHookImage.color = opaque;
+                Debug.Log("second time fishing-tutorial ui");
+                //Show combos for the first time
+            }
+            else if (!movedBoat)
+            {
+                //_reelHookAnim.enabled = false;
+                SetActive(false, _bubbleMoving.gameObject);
+                _reelHookImage.color = opaque;
+
+                //_reelHook.GetComponent<Image>().sprite = _bubbleImage;
+                SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
+                AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.2f, 50.0f);
+                SetActive(true, arrows.gameObject,handMove.gameObject);
                 
-                    //_reelHook.GetComponent<Image>().sprite = _bubbleImage;
-                    SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
-                    SetActive(true, arrows.gameObject);
             }
             else
             {
-                    SetActive(false, arrows.gameObject);
-                }
+               SetActive(false, arrows.gameObject,handMove.gameObject);
+            }
         }
     }
     public override void OnDropHook()
@@ -194,11 +215,19 @@ public class TutorialUI : BaseUI
             SetActive(false, _bubbleMoving.gameObject);
             _deployHookImage.color = opaque;
             //_dropHook.GetComponent<Image>().sprite = _bubbleImage;
+        }else if (!_firstTimeFishing)
+        {
+            Debug.Log("First time fishing true");
+            _firstTimeFishing = true;
+        }else if (!_secondTimefishing)
+        {
+            Debug.Log("Second time fishing true");
+            _secondTimefishing = true;
         }
         DeployActive = false;
         //SetActive(false, _dropHook.gameObject);
         
-        if(!_firstTimeFishing)
+        if(_firstTimeFishing &&  _secondTimefishing)
         {
             if (!touchedReelUpHook)
             {
@@ -207,8 +236,8 @@ public class TutorialUI : BaseUI
                 _reelHookImage.color = transparent;
                 SetActive(true,_handClick.gameObject);
             }
-           
-            ReelUpActive = true;/*SetActive(true, _reelHook.gameObject);*/
+
+            ReelUpActive = true;
         }
         GameManager.Boat.SetState(boat.BoatState.Fish);
     }
@@ -304,9 +333,13 @@ public class TutorialUI : BaseUI
     {
         return _firstTimeFishing;
     }
-    public override void SetFirstTimeFishing(bool firstTime)
+    public override void SetFirstTimeFishing(bool pBool)
     {
-        _firstTimeFishing = firstTime;
+        _firstTimeFishing = pBool;
+    }
+    public virtual void SetSecondTimeFishing(bool pBool)
+    {
+        _secondTimefishing = pBool;
     }
     public static void SetReelUpHook(bool reelup)
     {
@@ -325,20 +358,23 @@ public class TutorialUI : BaseUI
         TransitionCurtain.GetComponent<Transition>().UpWards();
     }
 
-    public void MakeGlow(float rate)
+    public void MakeGlow(float rate, GameObject[] gameObjects)
     {
-        Renderer renderer = GetComponent<Renderer>();
-        Material mat = renderer.material;
+        foreach( GameObject obj in gameObjects)
+        {
+            Renderer renderer = obj.GetComponentInChildren<Renderer>();
+            Material mat = renderer.material;
 
-        float floor = 0.0f;
-        float ceiling = 0.2f;
-        float emission = floor + Mathf.PingPong(Time.time * rate, ceiling - floor);
-        //float emission = Mathf.PingPong(Time.time, 1.0f);
-        Color baseColor = Color.yellow; //Replace this with whatever you want for your base color at emission level '1'
+            float floor = 0.0f;
+            float ceiling = 0.4f;
+            float emission = floor + Mathf.PingPong(Time.time * rate, ceiling - floor);
+            //float emission = Mathf.PingPong(Time.time, 1.0f);
+            Color baseColor = Color.yellow; //Replace this with whatever you want for your base color at emission level '1'
 
-        Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
+            Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
 
-        mat.SetColor("_EmissionColor", finalColor);
+            mat.SetColor("_EmissionColor", finalColor);
+        } 
 
     }
     private void AnimateSwipeHand(Vector3 position, float speed,float offset)

@@ -119,7 +119,11 @@ public class BaseUI : MonoBehaviour {
     {
         return false;
     }
-    public virtual void SetFirstTimeFishing(bool firstTime)
+    public virtual void SetFirstTimeFishing(bool pBool)
+    {
+
+    }
+    public virtual void SetSecondTimeFishing(bool pBool)
     {
 
     }
