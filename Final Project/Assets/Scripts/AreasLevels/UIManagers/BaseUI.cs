@@ -7,19 +7,24 @@ public class BaseUI : MonoBehaviour {
     public Canvas canvas;
     protected bool _onEnterScene = true;
     protected bool _onLeaveScene = true;
+
     [Header("Controls")]
     [SerializeField] protected Button _dropHook;
     [SerializeField] protected Button _reelHook;
+
     [Header("Game Time")]
     [SerializeField] protected Text _gameTimerText;
+
     [Header("Score")]
     [SerializeField] protected Image _totalScoreBoard;
     [SerializeField] protected Text _totalScoreText;
     [SerializeField] public Text HookScoreText;
     public GameObject ScoreUI; //the appearing score ui
     public Transform ScoreUIPosition; //where are we spawning that ui
+
     [Header("Shopping List")]
     [SerializeField] protected Image _shoppingList;
+
     [Header("Combo")]
     public GameObject ComboUI;
     public Image[] FiveFills;
@@ -28,8 +33,10 @@ public class BaseUI : MonoBehaviour {
     public Image[] FourIcons;
     public Image[] ThreeFills;
     public Image[] ThreeIcons;
+
     [Header("Transition")]
     public GameObject TransitionCurtain;
+
     [Header("HighScore")]
     [SerializeField]
     protected GameObject _totalScore;
@@ -43,6 +50,7 @@ public class BaseUI : MonoBehaviour {
     protected Text[] cleanUpScoreText;
     [SerializeField]
     protected Text sumTotalHighScoreText;
+
     [Header("Ocean Bar")]
     [SerializeField]
     protected Slider oceanCleanUpProgressBar;    
@@ -104,6 +112,14 @@ public class BaseUI : MonoBehaviour {
 
     }
     public virtual void HookSwipeAnimToggle(bool pBool)
+    {
+
+    }
+    public virtual bool GetFirstTimeFishing()
+    {
+        return false;
+    }
+    public virtual void SetFirstTimeFishing(bool firstTime)
     {
 
     }

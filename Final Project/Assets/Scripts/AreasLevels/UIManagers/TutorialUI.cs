@@ -7,14 +7,21 @@ public class TutorialUI : BaseUI
 {
 
     [Header("Animations")]
+    //Animations for swiping hand
     [SerializeField]
-    private Image _handClick;
+    public Image arrows;
     [SerializeField]
-    private Image _arrows;
-    [SerializeField]
-    private Image _handMove;
+    public Image handMove;
+    private bool goLeft = false;
+    
+
+    //Animation step 1
     [SerializeField]
     private Image _handClickNoDrops;
+
+    //Animations for deploy//reel up hook buttons
+    [SerializeField]
+    private Image _handClick;
     [SerializeField]
     private Image _bubbleMoving;
     private Color transparent;
@@ -31,13 +38,11 @@ public class TutorialUI : BaseUI
    // private Sprite _bubbleImage;
     
     
-    
-
     //Conditions for showing UI in order
     private bool boatStopped = false;
     public static bool touchedScreen = false;
     private bool touchedDeployHook = false;
-    private static bool firstTimeReelUp;
+    private bool _firstTimeFishing;
     private static bool touchedReelUpHook;
     private static bool movedBoat;
 
@@ -45,6 +50,7 @@ public class TutorialUI : BaseUI
     public static bool ReelUpActive;
     public static bool DeployActive;
 
+    private float _rateOfGlow;
     //SwipeAnimation
     /*int index;
     List<float> positions = new List<float>(2);*/
@@ -68,7 +74,7 @@ public class TutorialUI : BaseUI
         _reelHookAnim = _reelHook.GetComponent<Animator>();
         if (!_reelHookAnim) Debug.Log("Couldn't find animation in deployHook");*/
 
-        firstTimeReelUp = true;
+        _firstTimeFishing = true;
         touchedReelUpHook = false;
         movedBoat = false;
         //SwipeAnimation
@@ -83,80 +89,96 @@ public class TutorialUI : BaseUI
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
         //Animations
-        SetActive(false, _handMove.gameObject,_handClick.gameObject, _arrows.gameObject,_handClickNoDrops.gameObject);
+        SetActive(false, handMove.gameObject,_handClick.gameObject, arrows.gameObject,_handClickNoDrops.gameObject);
         SetActive(false, _bubbleMoving.gameObject);
        
         //Debug.Log("TutorialUI - Start();");
     }
     public override void Update()
     {
+        //Activates or deactivates the buttons for deploting the hook and reeling it up
         SetActive(DeployActive, _dropHook.gameObject);
         SetActive(ReelUpActive, _reelHook.gameObject);
 
+        //The tutorial starts once the boat stops in the middle of the level
         if (boatStopped) { 
-        // Game Time
-        _gameTimerText.text = GameManager.Gametimer.GetFormattedTimeLeftAsString();
-        // Score
-        _totalScoreText.text = GameManager.Scorehandler.BankedScore + "";
+        
+            //Game Time
+            _gameTimerText.text = GameManager.Gametimer.GetFormattedTimeLeftAsString();
 
-        HookScoreText.text = GameManager.Scorehandler.HookScore + "";
-        HookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
+            //Score
+            _totalScoreText.text = GameManager.Scorehandler.BankedScore + "";
+            HookScoreText.text = GameManager.Scorehandler.HookScore + "";
+            HookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
 
-        //Steps
-        if (!touchedScreen)
-        { if(Input.GetMouseButton(0) || mouse.Touching())
-          {
-                    touchedScreen = true;
-                    SetActive(false, _handClickNoDrops.gameObject);
-          }
-          else
-          {
-                //Show hand for activating the radar
-                SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0, -50, 0));
-                SetActive(true, _handClickNoDrops.gameObject);
-           }
-        }
-        else if (!touchedDeployHook)
-        {
-             Debug.Log("Step 2");
-             SetActive(false, _handClickNoDrops.gameObject);
-             DeployActive = true;//SetActive(true, _dropHook.gameObject);
-             _deployHookImage.color = transparent;
-             SetActive(true, _bubbleMoving.gameObject);
-            _handClick.transform.position = _dropHook.transform.position + new Vector3(10,-10,0);
-             SetActive(true, _handClick.gameObject);
-        }
-        else if (firstTimeReelUp)
-        {
-            SetScreenPosition(_arrows.gameObject, GameManager.Hook.gameObject, new Vector3(10, -20, 0));
-            //SetActive(true, _arrows.gameObject);
-            //SetScreenPosition(_handMove.gameObject, GameManager.Hook.gameObject, new Vector3(0, 0, 0));
-            //SetActive(true, _handMove.gameObject);
-            //AnimateSwipeHand(GetScreenPosition(GameManager.Hook.gameObject, new Vector3(0,0,0)).x);
-
-            Debug.Log("Step 3");
-            SetActive(false, _handClick.gameObject);
-
-            if (Input.GetMouseButton(0) || mouse.Touching())
+            //Introducing features step by step
+            //Step 1 - Radar introduced
+            if (!touchedScreen)
             {
-                SetActive(false, _arrows.gameObject);
-            }
-        }
-        else if (touchedReelUpHook && !movedBoat )
-        {
-            Debug.Log("Step 4");
-                //_reelHookAnim.enabled = false;
-                SetActive(false, _bubbleMoving.gameObject);
-                _reelHookImage.color = opaque;
+                  //Check if the player have touched the screen
+                  if (Input.GetMouseButton(0) || mouse.Touching())
+                  {
+                            touchedScreen = true;
+                  }
+                  else
+                  {
+                        //Show hand tapping the screen
+                        SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0, -60, 0));
+                        SetActive(true, _handClickNoDrops.gameObject);
+                   }
+            }//Step 2 - Deploy hook button introduced
+            else if (!touchedDeployHook)
+
+            {    //Deactivates former animation
+                 SetActive(false, _handClickNoDrops.gameObject);
+
+                 //Activates button and hand animation
+                 DeployActive = true;
+                 _deployHookImage.color = transparent;
+                 SetActive(true, _bubbleMoving.gameObject);
+                _handClick.transform.position = _dropHook.transform.position + new Vector3(10,-10,0);
+                 SetActive(true, _handClick.gameObject);
+
+                //Positions hand for swiping animation
+                 SetScreenPosition(handMove.gameObject, GameManager.Hook.gameObject, new Vector3(0, 0, 0));
+
+            }//Step 3 - Fishing for the first time, introducing trash 
+            else if (_firstTimeFishing)
+            {
+                //Deactivate animation from last step
+                SetActive(false, _handClick.gameObject);
+
+                //Here call to glow function for fish and trash
+
+                //Show swiping animation to introduce how to move the hook
+                SetScreenPosition(arrows.gameObject, GameManager.Hook.gameObject, new Vector3(10, -20, 0));
+                //SetActive(true, arrows.gameObject);
+                //SetActive(true, handMove.gameObject);
+                AnimateSwipeHand(GetScreenPosition(GameManager.Hook.gameObject, new Vector3(0, -20, 0)), 0.2f, 30.0f);
+
                 
-                //_reelHook.GetComponent<Image>().sprite = _bubbleImage;
-                SetScreenPosition(_arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
-            SetActive(true, _arrows.gameObject);
-        }
-        else
-        {
-                SetActive(false, _arrows.gameObject);
+
+                if (Input.GetMouseButton(0) || mouse.Touching())
+                {
+                    SetActive(false, arrows.gameObject,handMove.gameObject);
+               
+                }
             }
+            else if (touchedReelUpHook && !movedBoat )
+            {
+                Debug.Log("Step 4");
+                    //_reelHookAnim.enabled = false;
+                    SetActive(false, _bubbleMoving.gameObject);
+                    _reelHookImage.color = opaque;
+                
+                    //_reelHook.GetComponent<Image>().sprite = _bubbleImage;
+                    SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
+                    SetActive(true, arrows.gameObject);
+            }
+            else
+            {
+                    SetActive(false, arrows.gameObject);
+                }
         }
     }
     public override void OnDropHook()
@@ -176,7 +198,7 @@ public class TutorialUI : BaseUI
         DeployActive = false;
         //SetActive(false, _dropHook.gameObject);
         
-        if(!firstTimeReelUp)
+        if(!_firstTimeFishing)
         {
             if (!touchedReelUpHook)
             {
@@ -205,6 +227,7 @@ public class TutorialUI : BaseUI
     
     public override void OnEnterScene()
     {
+        GameManager.inTutorial = true;
         if (!_onEnterScene)
         {
             Debug.Log("OnEnterScene was already called once for current instance");
@@ -242,6 +265,7 @@ public class TutorialUI : BaseUI
         // Combo
         SetActive(false, ComboUI);
 
+        GameManager.inTutorial = false;
         _onLeaveScene = false;
     }
     public override void HookScoreToggle(bool pBool)
@@ -251,7 +275,8 @@ public class TutorialUI : BaseUI
 
     public override void HookSwipeAnimToggle(bool pBool)
     {
-        _arrows.gameObject.SetActive(pBool);
+        arrows.gameObject.SetActive(pBool);
+        handMove.gameObject.SetActive(pBool);
     }
     public override void HandClickToggle(bool pBool)
     {
@@ -275,13 +300,13 @@ public class TutorialUI : BaseUI
         return touchedReelUpHook;
     }
 
-    public static bool GetFirstTimeReelUp()
+    public override bool GetFirstTimeFishing()
     {
-        return firstTimeReelUp;
+        return _firstTimeFishing;
     }
-    public static void SetFirstTimeReelUp(bool firstTime)
+    public override void SetFirstTimeFishing(bool firstTime)
     {
-        firstTimeReelUp = firstTime;
+        _firstTimeFishing = firstTime;
     }
     public static void SetReelUpHook(bool reelup)
     {
@@ -299,32 +324,47 @@ public class TutorialUI : BaseUI
     {
         TransitionCurtain.GetComponent<Transition>().UpWards();
     }
-    /*private void AnimateSwipeHand(float position)
-    {
-        //Creating vector of positions
-        List<float> positions = new List<float>(2);
-        float offset = 5;
-        float speed = 3;
-        positions.Add(position - offset);
-        positions.Add(position + offset);
 
-        if(_handMove.transform.position.x == positions[index])
+    public void MakeGlow(float rate)
+    {
+        Renderer renderer = GetComponent<Renderer>();
+        Material mat = renderer.material;
+
+        float floor = 0.0f;
+        float ceiling = 0.2f;
+        float emission = floor + Mathf.PingPong(Time.time * rate, ceiling - floor);
+        //float emission = Mathf.PingPong(Time.time, 1.0f);
+        Color baseColor = Color.yellow; //Replace this with whatever you want for your base color at emission level '1'
+
+        Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
+
+        mat.SetColor("_EmissionColor", finalColor);
+
+    }
+    private void AnimateSwipeHand(Vector3 position, float speed,float offset)
+    {
+        float newXpos;
+        if(handMove.transform.position.x <= position.x - offset)
         {
-            if(index == 0) { index = 1; }
-            else { index = 0; }
+            goLeft = false;
+        }else if (handMove.transform.position.x >= position.x + offset)
+        {
+            goLeft = true;
         }
 
-        if(index == 0)
+        if (goLeft)
         {
-            //_handMove.position.x -= _handMove.gameObject.transform.position.x * Time.deltaTime * speed;
+            newXpos = handMove.transform.position.x - handMove.gameObject.transform.position.x * Time.deltaTime * speed;
+            
         }
         else
         {
-            //_handMove.gameObject.transform.position.x += _handMove.gameObject.transform.position.x * Time.deltaTime * speed;
+            newXpos = handMove.transform.position.x + handMove.gameObject.transform.position.x * Time.deltaTime * speed;
+           
         }
+        handMove.transform.position = new Vector3(newXpos, position.y, position.z);
         
-
-
-    }*/
+        
+    }
 
 }

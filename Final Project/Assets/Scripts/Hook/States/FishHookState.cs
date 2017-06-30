@@ -86,13 +86,13 @@ public class FishHookState : AbstractHookState
             GameManager.Levelmanager.UI.OnReelHook();
             //basic.combo.ClearPreviousCombo(false);
             //GameObject.Instantiate (basic.HookHit, _hook.HookTip.position, Quaternion.identity);
-            if (!TutorialUI.GetFirstTimeReelUp() && !TutorialUI.GetTouchedReelUp())
+            if (!GameManager.Levelmanager.UI.GetFirstTimeFishing() && !TutorialUI.GetTouchedReelUp())
             {
                 TutorialUI.SetReelUpHook(true);
 
             }
-            TutorialUI.SetFirstTimeReelUp(false);
-            ToggleHookSwipeAnim(false);
+            SetFirstTimeFishing(false);
+            
            
 
         } 
@@ -152,7 +152,7 @@ public class FishHookState : AbstractHookState
                 basic.GlobalUI.SwipehandCompleted = true;
             }*/
             GameManager.Levelmanager.UI.OnReelHook();
-
+            
             //basic.combo.ClearPreviousCombo(false);
 
         }
@@ -169,12 +169,14 @@ public class FishHookState : AbstractHookState
             _touchingCliff = 1;
         }
     }
-    public void ToggleHookSwipeAnim(bool pBool)
-    {
-        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HookSwipeAnimToggle(pBool);
-    }
+    
     public void ToggleHandClick(bool pBool)
     {
         if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HandClickToggle(pBool);
+    }
+
+    public void SetFirstTimeFishing(bool pBool)
+    {
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.SetFirstTimeFishing(pBool);
     }
 }
