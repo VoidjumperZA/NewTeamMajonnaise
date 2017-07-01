@@ -35,11 +35,11 @@ public class SetFreeHookState : AbstractHookState {
         SetState(hook.HookState.None);
 
         //This needs to be here otherwise the deployhookbutton only activates when you press the reel up button and the reel up doesn't deactivate
-        if (TutorialUI.touchedScreen)
+        /*if (TutorialUI.touchedScreen)
         {
             TutorialUI.DeployActive = true;
             TutorialUI.ReelUpActive = false;
-        }
+        }*/
         
         
 }

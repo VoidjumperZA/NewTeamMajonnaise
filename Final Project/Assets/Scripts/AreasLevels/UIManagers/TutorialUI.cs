@@ -30,28 +30,32 @@ public class TutorialUI : BaseUI
     private Image _deployHookImage;
     [SerializeField]
     private Image _reelHookImage;
-    
+
+    [Header("Hide screen")]
+    [SerializeField]
+    private Image _hide1;
 
     //private Animator _dropHookAnim;
     //private Animator _reelHookAnim;
-   // [SerializeField]
-   // private Sprite _bubbleImage;
-    
-    
+    // [SerializeField]
+    // private Sprite _bubbleImage;
+
+
     //Conditions for showing UI in order
     private bool boatStopped = false;
-    public static bool touchedScreen = false;
+    private bool touchedScreen = false;
     private bool touchedDeployHook = false;
     private bool _firstTimeFishing;
     private bool _secondTimefishing;
-    private static bool touchedReelUpHook;
-    private static bool movedBoat;
+    private bool touchedReelUpHook;
+    private bool movedBoat;
     private bool gotTrash;
     private bool gotFish;
+    private bool _fadeIn;
 
     //Activate/Deactivate reel up and deploy hook
-    public static bool ReelUpActive;
-    public static bool DeployActive;
+    private  bool ReelUpActive;
+    private  bool DeployActive;
 
     private float _rateOfGlow = 0.4f;
     //SwipeAnimation
@@ -83,9 +87,10 @@ public class TutorialUI : BaseUI
         movedBoat = false;
         gotTrash = false;
         gotFish = false;
+        _fadeIn = true;
         //SwipeAnimation
         //index = 0;
-
+        
         // Controls
         SetActive(false, _dropHook.gameObject, _reelHook.gameObject);
         // Game Time
@@ -95,7 +100,7 @@ public class TutorialUI : BaseUI
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
         //Animations
-        SetActive(false, handMove.gameObject,_handClick.gameObject, arrows.gameObject,_handClickNoDrops.gameObject);
+        SetActive(false, handMove.gameObject,_handClick.gameObject, arrows.gameObject,_handClickNoDrops.gameObject,_hide1.gameObject);
         SetActive(false, _bubbleMoving.gameObject);
        
         //Debug.Log("TutorialUI - Start();");
@@ -146,19 +151,22 @@ public class TutorialUI : BaseUI
                 if (Input.GetMouseButton(0) || mouse.Touching())
                 {
                     touchedScreen = true;
+                    StartCoroutine(FadeOut());
+                    
                 }
                 else
                 {
-                    //Show hand tapping the screen
-                    SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0, -60, 0));
-                    SetActive(true, _handClickNoDrops.gameObject);
+                    if (_fadeIn)
+                    {
+                        StartCoroutine(FadeIn());
+                        _fadeIn = false;
+                    }
+                    
                 }
             }//Step 2 - Deploy hook button introduced
             else if (!touchedDeployHook)
 
-            {    //Deactivates former animation
-                SetActive(false, _handClickNoDrops.gameObject);
-
+            {    
                 //Activates button and hand animation
                 DeployActive = true;
                 _deployHookImage.color = transparent;
@@ -333,7 +341,7 @@ public class TutorialUI : BaseUI
         return accordingTo + pOffset;
     }
 
-    public static bool GetTouchedReelUp()
+    public override bool GetTouchedReelUp()
     {
         return touchedReelUpHook;
     }
@@ -342,11 +350,11 @@ public class TutorialUI : BaseUI
     {
         return _firstTimeFishing;
     }
-    public static void SetReelUpHook(bool reelup)
+    /*public static void SetReelUpHook(bool reelup)
     {
         touchedReelUpHook = reelup;
-    }
-    public static void SetMovedBoat(bool moved)
+    }*/
+    public override void SetMovedBoat(bool moved)
     {
         movedBoat = moved;
     }
@@ -419,6 +427,29 @@ public class TutorialUI : BaseUI
         
     }
 
+    private IEnumerator FadeIn()
+    {
+        //Hide a part of the screen
+        SetActive(true, _hide1.gameObject);
+        _hide1.GetComponent<CanvasRenderer>().SetAlpha(0.0f);
+        _hide1.CrossFadeAlpha(1.0f, 0.5f, false);
+        
+        yield return new WaitForSeconds(1);
 
+        //Show hand tapping the screen
+        SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0, -100, 0));
+        SetActive(true, _handClickNoDrops.gameObject);
+    }
+
+    private IEnumerator FadeOut()
+    {
+        _hide1.CrossFadeAlpha(0, 0.5f, false);
+        
+        yield return new WaitForSeconds(1);
+
+        //Deactivates former animation
+        SetActive(false, _handClickNoDrops.gameObject, _hide1.gameObject);
+        SetActive(false, _hide1.gameObject);
+    }
 
 }

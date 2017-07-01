@@ -117,7 +117,7 @@ public class BaseUI : MonoBehaviour {
     }
     public virtual bool GetFirstTimeFishing()
     {
-        return false;
+        return true;
     }
     public virtual void SetFirstTimeFishing(bool pBool)
     {
@@ -168,6 +168,14 @@ public class BaseUI : MonoBehaviour {
 
     }
     public virtual void MakeGlow(float rate, GameObject[] gameObjects)
+    {
+
+    }
+    public virtual bool GetTouchedReelUp()
+    {
+        return true;
+    }
+    public virtual void SetMovedBoat(bool moved)
     {
 
     }
