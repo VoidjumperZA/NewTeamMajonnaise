@@ -89,7 +89,7 @@ public class FishHookState : AbstractHookState
             }*/
 
 
-        } 
+        }
         //On contact with a fish
         if (other.gameObject.CompareTag("Fish"))
         {
@@ -99,6 +99,8 @@ public class FishHookState : AbstractHookState
             GameManager.ShopList.CollectFish((int)theFish.GetFishType());
             GameManager.combo.Collect((int)theFish.GetFishType());
             GameManager.Scorehandler.AddScore(theFish.GetFishType(), true, true);
+
+            StopFishGlow(true);
             /*if (!basic.GlobalUI.InTutorial)
             {
                 basic.combo.CheckComboProgress(theFish.fishType);
@@ -107,8 +109,9 @@ public class FishHookState : AbstractHookState
             {
                 basic.Shoppinglist.Show(true);
                 basic.Shoppinglist.Introduced = true;
-            }*/
+   
             //basic.Camerahandler.CreateShakePoint();
+        }*/
         }
         if (other.gameObject.CompareTag("Jellyfish"))
         {
@@ -136,15 +139,11 @@ public class FishHookState : AbstractHookState
             _hook.TrashOnHook.Add(theTrash);
 
             bool firstTime = GameManager.Scorehandler.CollectATrashPiece();
-            GameManager.Levelmanager.GetComponent<LevelUI>().UpdateOceanProgressBar(firstTime);
+            
+            GameManager.Levelmanager.UI.UpdateOceanProgressBar(firstTime);
             GameManager.Camerahandler.CreateShakePoint();
 
-            //The game time is out before this condition can be true, I am going to leave it here just in case
-            /*if (basic.GlobalUI.InTutorial)
-            {
-                basic.GlobalUI.ShowHandSwipe(false);
-                basic.GlobalUI.SwipehandCompleted = true;
-            }*/
+            StopTrashGlow(true);
             GameManager.Levelmanager.UI.OnReelHook();
             
             //basic.combo.ClearPreviousCombo(false);
@@ -168,6 +167,13 @@ public class FishHookState : AbstractHookState
     {
         if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HandClickToggle(pBool);
     }
-
+    public void StopFishGlow(bool pBool)
+    {
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.StopFishGlow(pBool);
+    }
+    public void StopTrashGlow(bool pBool)
+    {
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.StopTrashGlow(pBool);
+    }
   
 }

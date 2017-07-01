@@ -123,11 +123,19 @@ public class TutorialUI : BaseUI
                 GameObject[] trash = GameObject.FindGameObjectsWithTag("Trash");
                 MakeGlow(_rateOfGlow, trash);
             }
+            else
+            {
+                RestoreGlow(GameObject.FindGameObjectsWithTag("Trash"));
+            }
             if (!gotFish)
             {
 
                 GameObject[] fish = GameObject.FindGameObjectsWithTag("Fish");
                 MakeGlow(_rateOfGlow, fish);
+            }
+            else
+            {
+                RestoreGlow(GameObject.FindGameObjectsWithTag("Fish"));
             }
 
             //Introducing features step by step
@@ -182,6 +190,7 @@ public class TutorialUI : BaseUI
             else if (!_secondTimefishing)
             {
                 Debug.Log("second time fishing-tutorial ui");
+                SetActive(true, ComboUI);
                 //Show combos for the first time
             }
             else if (!movedBoat)
@@ -333,14 +342,6 @@ public class TutorialUI : BaseUI
     {
         return _firstTimeFishing;
     }
-    public override void SetFirstTimeFishing(bool pBool)
-    {
-        _firstTimeFishing = pBool;
-    }
-    public virtual void SetSecondTimeFishing(bool pBool)
-    {
-        _secondTimefishing = pBool;
-    }
     public static void SetReelUpHook(bool reelup)
     {
         touchedReelUpHook = reelup;
@@ -348,6 +349,14 @@ public class TutorialUI : BaseUI
     public static void SetMovedBoat(bool moved)
     {
         movedBoat = moved;
+    }
+    public override void StopTrashGlow(bool pBool)
+    {
+        gotTrash = pBool;
+    }
+    public override void StopFishGlow(bool pBool)
+    {
+        gotFish = pBool;
     }
     public override void LeaveSceneTransition()
     {
@@ -358,7 +367,7 @@ public class TutorialUI : BaseUI
         TransitionCurtain.GetComponent<Transition>().UpWards();
     }
 
-    public void MakeGlow(float rate, GameObject[] gameObjects)
+    public override void MakeGlow(float rate, GameObject[] gameObjects)
     {
         foreach( GameObject obj in gameObjects)
         {
@@ -376,6 +385,14 @@ public class TutorialUI : BaseUI
             mat.SetColor("_EmissionColor", finalColor);
         } 
 
+    }
+    public override void RestoreGlow(GameObject[] gameObjects)
+    {
+        foreach (GameObject obj in gameObjects)
+        {
+            Renderer renderer = obj.GetComponentInChildren<Renderer>();
+            renderer.material.SetColor("_EmissionColor", Color.black);
+        }
     }
     private void AnimateSwipeHand(Vector3 position, float speed,float offset)
     {
@@ -400,7 +417,8 @@ public class TutorialUI : BaseUI
         }
         handMove.transform.position = new Vector3(newXpos, position.y, position.z);
         
-        
     }
+
+
 
 }

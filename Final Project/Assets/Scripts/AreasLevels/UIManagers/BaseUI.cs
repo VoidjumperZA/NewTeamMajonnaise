@@ -131,6 +131,14 @@ public class BaseUI : MonoBehaviour {
     {
       
     }
+    public virtual void StopFishGlow(bool pBool)
+    {
+
+    }
+    public virtual void StopTrashGlow(bool pBool)
+    {
+
+    }
     public virtual void OnDropHook()
     {
 
@@ -154,5 +162,36 @@ public class BaseUI : MonoBehaviour {
     public Text GetTotalScoreText()
     {
         return _totalScoreText;
+    }
+    public virtual void RestoreGlow(GameObject[] gameObjects)
+    {
+
+    }
+    public virtual void MakeGlow(float rate, GameObject[] gameObjects)
+    {
+
+    }
+    public void UpdateOceanProgressBar(bool pFirstTimeAnim)
+    {
+        //Get the percentage, set the bar value and the helper text
+        int percentage = GameManager.Scorehandler.CalculatePercentageOceanCleaned(true);
+        oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(true);
+        oceanCleanUpProgressBar.GetComponent<Slider>().value = 100 - percentage;
+        oceanCleanUpProgressBar.GetComponentInChildren<Text>().text = percentage + "%";
+
+        //Start a coroutine to disable after a while     
+        StartCoroutine(ShowThenFadeOceanBar());
+    }
+
+
+    private IEnumerator ShowThenFadeOceanBar()
+    {
+        GameObject go = Instantiate(bubbleParticleEffect, GameObject.FindGameObjectWithTag("BubbleParticleSpawn").transform.position, Quaternion.identity);
+        go.transform.SetParent(Camera.main.transform);
+        //ParticleSystem.ShapeModule shapeModule = go.GetComponent<ParticleSystem>().shape;
+        //shapeModule.radius -= Time.deltaTime;
+        Destroy(go, 4);
+        yield return new WaitForSeconds(timeOceanBarIsShown);
+        oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
     }
 }

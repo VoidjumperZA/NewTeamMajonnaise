@@ -170,7 +170,7 @@ public class LevelUI : BaseUI
         _onLeaveScene = false;
     }
 
-    //
+    /*
     public void UpdateOceanProgressBar(bool pFirstTimeAnim)
     {
         //Get the percentage, set the bar value and the helper text
@@ -184,8 +184,8 @@ public class LevelUI : BaseUI
         /*if (pFirstTimeAnim)
         {
             oceanCleanUpProgressBar.GetComponent<OceanCleanUpUIAnimation>().AnimateFirstTimeMovement();
-        }*/
-    }
+        }
+    }*/
 
     //
     public override void HookScoreToggle(bool pBool)
@@ -204,7 +204,7 @@ public class LevelUI : BaseUI
     {
         TransitionCurtain.GetComponent<Transition>().UpWards();
     }
-
+    /*
     private IEnumerator ShowThenFadeOceanBar()
     {
         GameObject go = Instantiate(bubbleParticleEffect, GameObject.FindGameObjectWithTag("BubbleParticleSpawn").transform.position, Quaternion.identity);
@@ -230,7 +230,7 @@ public class LevelUI : BaseUI
         oceanCleanUpBarChildBackground.GetComponent<Image>().CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
         oceanCleanUpBarChildFrameBackground.CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
         oceanCleanUpBarChildStripe.CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
-        oceanCleanUpBarChildText.GetComponent<Text>().CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);*/
-    }
+        oceanCleanUpBarChildText.GetComponent<Text>().CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
+    }*/
 
 }
