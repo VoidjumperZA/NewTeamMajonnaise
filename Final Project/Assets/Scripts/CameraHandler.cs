@@ -119,7 +119,7 @@ public class CameraHandler : MonoBehaviour
             //If in step 3 of tutorial
             if (GameManager.inTutorial)
             {
-                if (!GameManager.Levelmanager.UI.GetFirstTimeFishing())
+                if (!GameManager.Levelmanager.UI.GetTouchedDeployHook())
                 {
                     ToggleTutorialAnimation(true);
                 }

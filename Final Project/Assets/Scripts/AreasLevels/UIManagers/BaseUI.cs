@@ -117,21 +117,22 @@ public class BaseUI : MonoBehaviour {
     {
 
     }
-    public virtual bool GetFirstTimeFishing()
+    public virtual bool GetTouchedDeployHook()
     {
-        return true;
+        return false;
     }
-    public virtual void SetFirstTimeFishing(bool pBool)
+    public virtual bool GetSecondTimeFishing()
     {
-
+        return false;
     }
-    public virtual void SetSecondTimeFishing(bool pBool)
-    {
-
-    }
+    
     public virtual void HandClickToggle(bool pBool)
     {
       
+    }
+    public virtual void IntroduceCombo()
+    {
+
     }
     public virtual void StopFishGlow(bool pBool)
     {

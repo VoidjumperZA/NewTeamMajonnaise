@@ -45,7 +45,6 @@ public class TutorialUI : BaseUI
     private bool boatStopped = false;
     private bool touchedScreen = false;
     private bool touchedDeployHook = false;
-    private bool _firstTimeFishing;
     private bool _secondTimefishing;
     private bool touchedReelUpHook;
     private bool movedBoat;
@@ -82,7 +81,6 @@ public class TutorialUI : BaseUI
         _reelHookAnim = _reelHook.GetComponent<Animator>();
         if (!_reelHookAnim) Debug.Log("Couldn't find animation in deployHook");*/
 
-        _firstTimeFishing = false;
         _secondTimefishing = false;
         touchedReelUpHook = false;
         movedBoat = false;
@@ -185,10 +183,9 @@ public class TutorialUI : BaseUI
                 SetScreenPosition(handMove.gameObject, GameManager.Hook.gameObject, new Vector3(0, 0, 0));
 
             }//Step 3 - Fishing for the first time, introducing trash 
-            else if (!_firstTimeFishing)
+            //Step 4 - Introducing combos
+            else if (!_secondTimefishing)
             {
-                Debug.Log("first time fishing-tutorial ui");
-                //Deactivate animation from last step
                 SetActive(false, _handClick.gameObject);
 
                 //Show swiping animation to introduce how to move the hook
@@ -201,11 +198,8 @@ public class TutorialUI : BaseUI
                     SetActive(false, arrows.gameObject, handMove.gameObject);
 
                 }
-            }//Step 4 - Introducing combos
-            else if (!_secondTimefishing)
-            {
                 Debug.Log("second time fishing-tutorial ui");
-                SetActive(true, ComboUI);
+              
                 //Show combos for the first time
             }
             else if (!movedBoat)
@@ -239,30 +233,30 @@ public class TutorialUI : BaseUI
             SetActive(false, _bubbleMoving.gameObject);
             _deployHookImage.color = opaque;
             //_dropHook.GetComponent<Image>().sprite = _bubbleImage;
-        }else if (!_firstTimeFishing)
+        }/*else if (!_firstTimeFishing)
         {
             Debug.Log("First time fishing true");
             _firstTimeFishing = true;
-        }else if (!_secondTimefishing)
+        }*/else if (!_secondTimefishing)
         {
             Debug.Log("Second time fishing true");
             _secondTimefishing = true;
         }
-        DeployActive = false;
-        //SetActive(false, _dropHook.gameObject);
-        
-        if(_firstTimeFishing &&  _secondTimefishing)
+        else
         {
             if (!touchedReelUpHook)
             {
                 //_reelHookAnim.enabled = true;
                 SetActive(true, _bubbleMoving.gameObject);
                 _reelHookImage.color = transparent;
-                SetActive(true,_handClick.gameObject);
+                SetActive(true, _handClick.gameObject);
             }
 
             ReelUpActive = true;
         }
+        DeployActive = false;
+        //SetActive(false, _dropHook.gameObject);
+        
         GameManager.Boat.SetState(boat.BoatState.Fish);
     }
     public override void OnReelHook()
@@ -354,9 +348,14 @@ public class TutorialUI : BaseUI
         return touchedReelUpHook;
     }
 
-    public override bool GetFirstTimeFishing()
+    public override bool GetSecondTimeFishing()
     {
-        return _firstTimeFishing;
+       
+        return _secondTimefishing;
+    }
+    public override bool GetTouchedDeployHook()
+    {
+        return touchedDeployHook;
     }
     /*public static void SetReelUpHook(bool reelup)
     {
@@ -460,4 +459,47 @@ public class TutorialUI : BaseUI
         SetActive(false, _hide1.gameObject);
     }
 
-}
+    public override void IntroduceCombo()
+    {
+        StartCoroutine(MoveToPoint());
+        
+    }
+    public IEnumerator MoveToPoint()
+    {
+        Vector3 finalPosition = ComboUI.transform.position;
+        Vector3 initialPosition = new Vector3(ComboUI.transform.position.x, Screen.height / 2, 0);
+        Vector3 initialSize = ComboUI.transform.localScale * 1.5f;
+        Vector3 finalSize = ComboUI.transform.localScale;
+
+        //GameManager.combo.CreateNewCombo();
+        ComboUI.transform.position = initialPosition;
+        ComboUI.transform.localScale = initialSize;
+        SetActive(true, ComboUI);//Change for fade
+
+        yield return new WaitForSeconds(0.5f);
+
+        float waitTime = 0.01f;
+        float speed = 0.1f;
+        //small number to make it smooth, 0.04 makes it execute 25 times / sec
+
+        while (true)
+        {
+            Debug.Log("bucle");
+            Vector3 position = ComboUI.transform.position;
+            yield return new WaitForSeconds(waitTime);
+            //use WaitForSecondsRealtime if you want it to be unaffected by timescale
+            float newY = Time.time * speed;
+            if(position.y < finalPosition.y) { ComboUI.transform.position = new Vector3(ComboUI.transform.position.x, ComboUI.transform.position.y + newY, ComboUI.transform.position.z); }
+            else{
+                Debug.Log("position");
+            }
+            if (ComboUI.transform.localScale.x >= finalSize.x) { ComboUI.transform.localScale *= 0.993f; } else { Debug.Log("scale"); }
+            if (position.y >= finalPosition.y && ComboUI.transform.localScale.x <= finalSize.x)
+            {
+                ComboUI.transform.position = finalPosition;
+                ComboUI.transform.localScale = finalSize;
+                break;
+            }
+        }
+    }
+    }
