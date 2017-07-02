@@ -64,6 +64,7 @@ public class TutorialUI : BaseUI
 
     public override void Start()
     {
+        
         transparent = _deployHookImage.color;
         transparent.a = 0f;
 
@@ -143,6 +144,12 @@ public class TutorialUI : BaseUI
                 RestoreGlow(GameObject.FindGameObjectsWithTag("Fish"));
             }
 
+            //Updating trash slider
+            if(oceanCleanUpProgressBar.GetComponent<Slider>().value > sliderValue)
+            {
+                oceanCleanUpProgressBar.GetComponent<Slider>().value -= Time.deltaTime * 10f;
+            }
+
             //Introducing features step by step
             //Step 1 - Radar introduced
             if (!touchedScreen)
@@ -186,7 +193,7 @@ public class TutorialUI : BaseUI
 
                 //Show swiping animation to introduce how to move the hook
                 SetScreenPosition(arrows.gameObject, GameManager.Hook.gameObject, new Vector3(10, -20, 0));
-                AnimateSwipeHand(GetScreenPosition(GameManager.Hook.gameObject, new Vector3(0, -20, 0)), 0.2f, 50.0f);
+                AnimateSwipeHand(GetScreenPosition(GameManager.Hook.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
 
                 //Make animation disappear when the player touches the screen
                 if (Input.GetMouseButton(0) || mouse.Touching())
@@ -209,7 +216,7 @@ public class TutorialUI : BaseUI
 
                 //_reelHook.GetComponent<Image>().sprite = _bubbleImage;
                 SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
-                AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.2f, 50.0f);
+                AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
                 SetActive(true, arrows.gameObject,handMove.gameObject);
                 
             }
@@ -279,8 +286,9 @@ public class TutorialUI : BaseUI
             Debug.Log("OnEnterScene was already called once for current instance");
             return;
         }
-        
 
+        //Trash Slider
+        oceanCleanUpProgressBar.GetComponent<Slider>().value = 100;
         // Game Time
         GameManager.Gametimer.BeginCountdown();
         SetActive(true, _gameTimerText.gameObject);
@@ -445,7 +453,7 @@ public class TutorialUI : BaseUI
     {
         _hide1.CrossFadeAlpha(0, 0.5f, false);
         
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
 
         //Deactivates former animation
         SetActive(false, _handClickNoDrops.gameObject, _hide1.gameObject);

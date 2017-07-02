@@ -64,8 +64,8 @@ public class BaseUI : MonoBehaviour {
     protected Image oceanCleanUpBarChildFrameBackground;
     [SerializeField]
     protected GameObject oceanCleanUpBarChildText;*/
-    [SerializeField]
-    protected float timeOceanBarIsShown;
+    /*[SerializeField]*/
+    protected float timeOceanBarIsShown = 4;
     [SerializeField]
     protected float oceanBarFadeInSpeed;
     [SerializeField]
@@ -78,6 +78,8 @@ public class BaseUI : MonoBehaviour {
     protected Color oceanCleanColour;
     [SerializeField]
     protected GameObject bubbleParticleEffect;
+    //It is false when a piece of trash is collected
+    protected float sliderValue = 100;
     [Header("WaterDistortion")]
     protected GameObject waterDistortion;
 
@@ -184,14 +186,15 @@ public class BaseUI : MonoBehaviour {
         //Get the percentage, set the bar value and the helper text
         int percentage = GameManager.Scorehandler.CalculatePercentageOceanCleaned(true);
         oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(true);
-        oceanCleanUpProgressBar.GetComponent<Slider>().value = 100 - percentage;
+        sliderValue = 100 - percentage;
+        //oceanCleanUpProgressBar.GetComponent<Slider>().value = 100 - percentage;
         oceanCleanUpProgressBar.GetComponentInChildren<Text>().text = percentage + "%";
 
         //Start a coroutine to disable after a while     
         StartCoroutine(ShowThenFadeOceanBar());
     }
 
-
+   
     private IEnumerator ShowThenFadeOceanBar()
     {
         GameObject go = Instantiate(bubbleParticleEffect, GameObject.FindGameObjectWithTag("BubbleParticleSpawn").transform.position, Quaternion.identity);

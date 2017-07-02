@@ -9,7 +9,7 @@ public class LevelUI : BaseUI
     private bool highscoreShown = false;
     public override void Start()
     {
-
+        
         waterDistortion = GameManager.Camerahandler.GetWaterDropEffect();
         oceanCleanUpProgressBar.GetComponentInChildren<Text>().text = 0 + "%";
         oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
@@ -42,6 +42,12 @@ public class LevelUI : BaseUI
 
         HookScoreText.text = GameManager.Scorehandler.HookScore + "";
         HookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
+
+        //Updating trash slider
+        if (oceanCleanUpProgressBar.GetComponent<Slider>().value > sliderValue)
+        {
+            oceanCleanUpProgressBar.GetComponent<Slider>().value -= Time.deltaTime * 10f;
+        }
 
         if (GameManager.Levelmanager.HasGameEnded() == true && highscoreShown == false)
         {
@@ -94,6 +100,8 @@ public class LevelUI : BaseUI
             Debug.Log("OnEnterScene was already called once for current instance");
             return;
         }
+        //Trash Slider
+        oceanCleanUpProgressBar.GetComponent<Slider>().value = 100;
         // Controls
         SetActive(true, _dropHook.gameObject);
         // Game Time
