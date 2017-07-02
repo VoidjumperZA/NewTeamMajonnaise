@@ -27,13 +27,17 @@ public class StationaryBoatState : AbstractBoatState {
         //This condition stops the boat from moving until the tutorial explains that the boat can move
         //JOSH: ^ The first part of this check makes sure you're ONLY in the tutorial scence, elsewise this was happening in other scenes
         //SceneManager.GetActiveScene().buildIndex == 1
-        if ( GameManager.inTutorial && GetTouchedReelUp())
+        if (GameManager.inTutorial)
         {
-            if (Dragging() && mouseAboveHalf() == true)
+            if (GetTouchedReelUp())
             {
-                SetMovedBoat(true);
-                SetState(boat.BoatState.Move);
+                if (Dragging() && mouseAboveHalf() == true)
+                {
+                    SetMovedBoat(true);
+                    SetState(boat.BoatState.Move);
+                }
             }
+           
         }
         else 
         {
@@ -77,8 +81,9 @@ public class StationaryBoatState : AbstractBoatState {
     }
     public bool GetTouchedReelUp()
     {
-        if (GameManager.Levelmanager.UI) return GameManager.Levelmanager.UI.GetTouchedReelUp();
-        return true;
+        if (GameManager.Levelmanager.UI) { return GameManager.Levelmanager.UI.GetTouchedReelUp(); }
+        else { return false; }
+        
         
     }
 }

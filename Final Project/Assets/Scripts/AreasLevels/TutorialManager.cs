@@ -19,7 +19,7 @@ public class TutorialManager : LevelManager
 
         UI.EnterSceneTransition();
         _shoppingList.GenerateShoppingList();
-        _combo.CreateNewCombo();
+        
         //Debug.Log("LevelManager - Start();");
     }
     public override void Update()
