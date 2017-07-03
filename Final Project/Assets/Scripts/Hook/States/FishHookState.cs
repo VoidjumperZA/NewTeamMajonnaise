@@ -97,7 +97,13 @@ public class FishHookState : AbstractHookState
             if (!theFish || !theFish.Visible) return;
             theFish.SetState(fish.FishState.FollowHook);
             GameManager.ShopList.CollectFish((int)theFish.GetFishType());
-            GameManager.combo.Collect((int)theFish.GetFishType());
+
+            if(!GameManager.inTutorial || GameManager.Levelmanager.UI.GetSecondTimeFishing())
+            {
+                GameManager.combo.Collect((int)theFish.GetFishType());
+            }
+            
+
             GameManager.Scorehandler.AddScore(theFish.GetFishType(), true, true);
 
             StopFishGlow(true);
