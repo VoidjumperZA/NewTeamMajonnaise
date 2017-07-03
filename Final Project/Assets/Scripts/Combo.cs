@@ -238,6 +238,11 @@ public class Combo : MonoBehaviour
         go.transform.SetParent(GameManager.Hook.transform);
         Destroy(go, 1);
     }
+
+    public int  GetCurrentType()
+    {
+        return _current;
+    }
     /*public void CheckComboProgress(fish.FishType pFishType)
     {
         //Debug.Log("Checking Combo Progress. Combo Index: " + comboIndex);
