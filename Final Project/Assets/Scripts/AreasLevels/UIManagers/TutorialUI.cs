@@ -99,7 +99,7 @@ public class TutorialUI : BaseUI
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
         //Animations
-        SetActive(false, handMove.gameObject,_handClick.gameObject, arrows.gameObject,_handClickNoDrops.gameObject,_hide1.gameObject);
+        SetActive(false, handMove.gameObject,_handClick.gameObject, arrows.gameObject,_handClickNoDrops.gameObject,_hide1.gameObject); 
         SetActive(false, _bubbleMoving.gameObject);
        
         //Debug.Log("TutorialUI - Start();");
