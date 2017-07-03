@@ -241,7 +241,7 @@ public class Combo : MonoBehaviour
 
     public int  GetCurrentType()
     {
-        return _current;
+        return _typeSet[_current];
     }
     /*public void CheckComboProgress(fish.FishType pFishType)
     {
