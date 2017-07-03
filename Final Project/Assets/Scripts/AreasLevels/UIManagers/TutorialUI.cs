@@ -131,7 +131,7 @@ public class TutorialUI : BaseUI
             {
                 RestoreGlow(SeafloorSpawning.SpawnedTrash);
             }
-            if (!gotFish)
+            if (!gotFish && !_secondTimefishing)
             {
 
                 //GameObject[] fish = GameObject.FindGameObjectsWithTag("Fish");
