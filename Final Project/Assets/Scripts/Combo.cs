@@ -26,6 +26,12 @@ public class Combo : MonoBehaviour
     private int _comboSize = 0;
     private List<int> _typeSet = new List<int>();
     private int _current = 0;
+    [Range(3, 5)]
+    [SerializeField]
+    private int _maxComboSize;
+    [Range(1, 3)]
+    [SerializeField]
+    private int _maxTypeSize;
 
     public void Initialize()
     {
@@ -93,21 +99,21 @@ public class Combo : MonoBehaviour
                 GameManager.Levelmanager.UI.FourIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
                 GameManager.Levelmanager.UI.FourIcons[_current].sprite = _afterCaught[pFishType];
             }
-            // if (_comboSize == 5)
-            // {
-            // Fills
-            //  GameManager.Levelmanager.UI.FiveFills[_current].enabled = true;
-            //  if (_current > 0) GameManager.Levelmanager.UI.FiveFills[_current - 1].enabled = false;
+            if (_comboSize == 5)
+            {
+                // Fills
+                GameManager.Levelmanager.UI.FiveFills[_current].enabled = true;
+                if (_current > 0) GameManager.Levelmanager.UI.FiveFills[_current - 1].enabled = false;
             // Icons
             // Highlight
             /*GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
             GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
             GameManager.Levelmanager._baseUI.FiveIcons[_current].gameObject.transform.parent.gameObject.GetComponent<Image>().sprite = _beforeCaught[pFishType];*/
-            // Fore Icon
-            //  GameManager.Levelmanager.UI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
-            //GameManager.Levelmanager.UI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
-            // GameManager.Levelmanager.UI.FiveIcons[_current].sprite = _afterCaught[pFishType];
-            // }
+                // Fore Icon
+                GameManager.Levelmanager.UI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _afterCaught[pFishType].rect.width);
+                GameManager.Levelmanager.UI.FiveIcons[_current].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _afterCaught[pFishType].rect.height);
+                GameManager.Levelmanager.UI.FiveIcons[_current].sprite = _afterCaught[pFishType];
+            }
             //ToggleCurrentState("Next", false);
             _current += 1;
             //ToggleCurrentState("Next", true);
@@ -130,11 +136,11 @@ public class Combo : MonoBehaviour
     {
         _current = 0;
         HideFillsAndIcons();
-        _comboSize = Random.Range(3, 5);
+        _comboSize = Random.Range(3, _maxComboSize+1);
         _typeSet.Clear();
         for (int i = 0; i < _comboSize; i++)
         {
-            _typeSet.Add(Random.Range(0, 3));
+            _typeSet.Add(Random.Range(0, _maxTypeSize));
         }
 
         if (_comboSize == 3)
@@ -159,17 +165,17 @@ public class Combo : MonoBehaviour
                 GameManager.Levelmanager._baseUI.FourIcons[i].enabled = true;*/
             }
         }
-        //if (_comboSize == 5)
-       // {
-          //  for (int i = 0; i < _comboSize; i++)
-         //   {
-             //   SetIcon(GameManager.Levelmanager.UI.FiveIcons, i);
+        if (_comboSize == 5)
+        {
+            for (int i = 0; i < _comboSize; i++)
+            {
+                SetIcon(GameManager.Levelmanager.UI.FiveIcons, i);
                 /*GameManager.Levelmanager._baseUI.FiveIcons[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _beforeCaught[_typeSet[i]].rect.width);
                 GameManager.Levelmanager._baseUI.FiveIcons[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _beforeCaught[_typeSet[i]].rect.height);
                 GameManager.Levelmanager._baseUI.FiveIcons[i].sprite = _beforeCaught[_typeSet[i]];
                 GameManager.Levelmanager._baseUI.FiveIcons[i].enabled = true;*/
-           // }
-       // }
+            }
+        }
         //Debug.Log(_comboSize + " Combosize " + _typeSet.Count);
     }
     private void SetIcon(Image[] pIcons, int pIndex)
@@ -241,7 +247,7 @@ public class Combo : MonoBehaviour
 
     public int  GetCurrentType()
     {
-        return _typeSet[_current];
+        return _typeSet[_current < _typeSet.Count ? _current : _typeSet.Count-1];
     }
     /*public void CheckComboProgress(fish.FishType pFishType)
     {
