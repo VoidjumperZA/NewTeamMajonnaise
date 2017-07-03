@@ -210,11 +210,11 @@ public class BaseUI : MonoBehaviour {
    
     private IEnumerator ShowThenFadeOceanBar()
     {
-        GameObject go = Instantiate(bubbleParticleEffect, GameObject.FindGameObjectWithTag("BubbleParticleSpawn").transform.position, Quaternion.identity);
-        go.transform.SetParent(Camera.main.transform);
+        //GameObject go = Instantiate(bubbleParticleEffect, GameObject.FindGameObjectWithTag("BubbleParticleSpawn").transform.position, Quaternion.identity);
+        //go.transform.SetParent(Camera.main.transform);
         //ParticleSystem.ShapeModule shapeModule = go.GetComponent<ParticleSystem>().shape;
         //shapeModule.radius -= Time.deltaTime;
-        Destroy(go, 4);
+        //Destroy(go, 4);
         yield return new WaitForSeconds(timeOceanBarIsShown);
         oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
     }
