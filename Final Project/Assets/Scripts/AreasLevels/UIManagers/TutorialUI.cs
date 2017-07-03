@@ -204,10 +204,11 @@ public class TutorialUI : BaseUI
             }
             else if (!touchedReelUpHook)
             {
+
                 //GameObject[] fish = ComboUI.GetComponent<Combo>().GetCurrentType();
-                //MakeGlow(_rateOfGlow, fish);
-                
-              
+
+                MakeGlow(_rateOfGlow, FishSpawn.GetFishOfType(GameManager.combo.GetCurrentType()));
+                              
             }
             else if (!movedBoat)
             {
@@ -511,6 +512,8 @@ public class TutorialUI : BaseUI
     }
     public IEnumerator MoveToPoint()
     {
+
+        yield return new WaitForSeconds(2f);
         Vector3 finalPosition = ComboUI.transform.position;
         Vector3 initialPosition = new Vector3(ComboUI.transform.position.x, Screen.height / 2, 0);
         Vector3 initialSize = ComboUI.transform.localScale * 1.5f;
