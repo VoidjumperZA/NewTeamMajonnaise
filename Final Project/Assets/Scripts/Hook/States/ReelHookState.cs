@@ -33,18 +33,18 @@ public class ReelHookState : AbstractHookState {
             _rope.RemoveLink();
         }
         
+        if (_rope.GetLinks().Count <= 10)
+        {
+            GameManager.Hook.GetWaterDropEffect().SetActive(true);
+            GameManager.Hook.GetWaterDropEffect().GetComponent<WaterdropDistortion>().Start();
+            GameManager.Hook.GetWaterDropEffect().GetComponent<WaterdropDistortion>().Activate();
+        }
 
         if (_rope.GetLinks().Count == 3)
         {
             _rope.SwitchActiveLink(0, true, _rope.GetObjectToFollow().transform, _rope.GetLinks()[0].transform);
             _hook.gameObject.transform.position = _boat.gameObject.transform.position;
             SetState(hook.HookState.SetFree);
-        }
-        if (_rope.GetLinks().Count <= 10)
-        {
-            GameManager.Hook.GetWaterDropEffect().SetActive(true);
-            GameManager.Hook.GetWaterDropEffect().GetComponent<WaterdropDistortion>().Start();
-            GameManager.Hook.GetWaterDropEffect().GetComponent<WaterdropDistortion>().Activate();
         }
     }
     public override void Refresh()

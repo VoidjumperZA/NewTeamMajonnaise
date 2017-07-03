@@ -21,7 +21,7 @@ public class StationaryBoatState : AbstractBoatState {
             basic.GlobalUI.ShowHandSwipe(true);
         }*/
        
-        if(GameManager.inTutorial)
+        if (GameManager.inTutorial)
         {
             
             if(GetTouchedDeployHook() && !GetSecondTimeFishing())
