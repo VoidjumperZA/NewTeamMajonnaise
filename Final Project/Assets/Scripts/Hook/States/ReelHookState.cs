@@ -49,7 +49,8 @@ public class ReelHookState : AbstractHookState {
     }
     public override void Refresh()
     {
-        _rope = GameObject.Find("Rope").GetComponent<Rope>();
+
+        //_rope = GameObject.Find("Rope").GetComponent<Rope>();
         
     }
     public override hook.HookState StateType()
