@@ -203,7 +203,7 @@ public class TutorialUI : BaseUI
                 //Show combos for the first time
             }
             else if (!movedBoat)
-            {
+            {/*
                 //_reelHookAnim.enabled = false;
                 SetActive(false, _bubbleMoving.gameObject);
                 _reelHookImage.color = opaque;
@@ -212,7 +212,7 @@ public class TutorialUI : BaseUI
                 SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
                 AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
                 SetActive(true, arrows.gameObject,handMove.gameObject);
-                
+                */
             }
             else
             {

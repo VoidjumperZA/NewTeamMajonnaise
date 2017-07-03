@@ -65,7 +65,7 @@ public class BaseUI : MonoBehaviour {
     [SerializeField]
     protected GameObject oceanCleanUpBarChildText;*/
     /*[SerializeField]*/
-    protected float timeOceanBarIsShown = 4;
+    protected float timeOceanBarIsShown = 3;
     [SerializeField]
     protected float oceanBarFadeInSpeed;
     [SerializeField]
