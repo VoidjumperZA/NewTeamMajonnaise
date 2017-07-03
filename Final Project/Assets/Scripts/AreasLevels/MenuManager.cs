@@ -7,8 +7,8 @@ public class MenuManager : LevelManager
     [SerializeField] protected GameManager _gameManager;
     [Header("Boat")]
     [SerializeField] private boat _boat;
-    [Header("Radar")]
-    [SerializeField] private radar _radar;
+    [Header("Rope")]
+    [SerializeField] private Rope _rope;
     [Header("Hook")]
     [SerializeField] private hook _hook;
     /*[Header("SceneTransitionBoatPoints")]
@@ -21,7 +21,7 @@ public class MenuManager : LevelManager
 
     public override void Start () {
         GameManager.Boat = ReturnBoat();
-       // GameManager.Radar = ReturnRadar();
+        GameManager.rope = ReturnRope();
         GameManager.Hook = ReturnHook();
 
         _gameManager.InitializeReferenceInstances();
@@ -39,10 +39,10 @@ public class MenuManager : LevelManager
     {
         return _boat;
     }
-    /*private radar ReturnRadar()
+    private Rope ReturnRope()
     {
-        return _radar;
-    }*/
+        return _rope;
+    }
     private hook ReturnHook()
     {
         return _hook;

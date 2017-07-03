@@ -147,9 +147,9 @@ public class Rope : MonoBehaviour
             links.RemoveAt(removePos);
             //Debug.Log("Successfully removed link. Active link is " + activeLink + " while count is " + links.Count + " while active should be " + (links.Count - 1));
             //make sure to update the active link
+            lineRenderer.positionCount = links.Count;
+            SwitchActiveLink(activeLink == 0 ? activeLink : links.Count - 1, false);
         }
-        lineRenderer.positionCount = links.Count;
-        SwitchActiveLink(activeLink == 0 ? activeLink : links.Count - 1, false);
 
     }
 
