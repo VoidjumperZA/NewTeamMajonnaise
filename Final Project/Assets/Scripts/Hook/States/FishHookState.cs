@@ -169,10 +169,6 @@ public class FishHookState : AbstractHookState
         }
     }
     
-    public void ToggleHandClick(bool pBool)
-    {
-        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HandClickToggle(pBool);
-    }
     public void StopFishGlow(bool pBool)
     {
         if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.StopFishGlow(pBool);

@@ -126,9 +126,9 @@ public class BaseUI : MonoBehaviour {
         return false;
     }
     
-    public virtual void HandClickToggle(bool pBool)
+    public virtual bool GetMovedBoat()
     {
-      
+        return false;
     }
     public virtual void IntroduceCombo()
     {

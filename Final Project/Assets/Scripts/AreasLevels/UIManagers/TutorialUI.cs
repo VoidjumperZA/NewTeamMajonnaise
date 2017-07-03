@@ -217,11 +217,11 @@ public class TutorialUI : BaseUI
               SetActive(false, _bubbleMoving.gameObject);
               _reelHookImage.color = opaque;
 
-              //_reelHook.GetComponent<Image>().sprite = _bubbleImage;
+              //_reelHook.GetComponent<Image>().sprite = _bubbleImage;*/
               SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
               AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
-              SetActive(true, arrows.gameObject,handMove.gameObject);
-              */
+              //SetActive(true, arrows.gameObject,handMove.gameObject);
+              
                 
             }
             else
@@ -255,12 +255,13 @@ public class TutorialUI : BaseUI
         {
             if (!touchedReelUpHook)
             {
+                Debug.Log("!touched reel up");
                 //_reelHookAnim.enabled = true;
                 SetActive(true, _bubbleMoving.gameObject);
                 _reelHookImage.color = transparent;
                 SetActive(true, _handClick.gameObject);
             }
-            Debug.Log("Reel up active");
+            
             ReelUpActive = true;
         }
         DeployActive = false;
@@ -275,7 +276,8 @@ public class TutorialUI : BaseUI
         if (pClickedButton && !touchedReelUpHook) touchedReelUpHook = true; 
         DeployActive = true;
         ReelUpActive = false;
-        SetActive(false, _handClick.gameObject);
+        SetActive(false, _handClick.gameObject, _bubbleMoving.gameObject);
+        //_deployHookImage.color = opaque;
         /*SetActive(true, _dropHook.gameObject);
         SetActive(false, _reelHook.gameObject);*/
         GameManager.Hook.SetState(hook.HookState.Reel);
@@ -347,11 +349,7 @@ public class TutorialUI : BaseUI
         arrows.gameObject.SetActive(pBool);
         handMove.gameObject.SetActive(pBool);
     }
-    public override void HandClickToggle(bool pBool)
-    {
-        _handClick.gameObject.SetActive(pBool);
-    }
-
+    
     public void SetScreenPosition(GameObject pTheObject, GameObject pAccordingTo, Vector3 pOffset)
     {
         Vector3 accordingTo = Camera.main.WorldToScreenPoint(pAccordingTo.transform.position);
@@ -385,6 +383,10 @@ public class TutorialUI : BaseUI
     public override void SetMovedBoat(bool moved)
     {
         movedBoat = moved;
+    }
+    public override bool GetMovedBoat()
+    {
+        return movedBoat;
     }
     public override void StopTrashGlow(bool pBool)
     {
