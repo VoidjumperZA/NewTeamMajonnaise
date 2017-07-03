@@ -78,15 +78,15 @@ public class FishHookState : AbstractHookState
         {
             
             _hook.CreateSandSplash();
-            GameManager.Levelmanager.UI.OnReelHook();
+            GameManager.Levelmanager.UI.OnReelHook(false);
             //basic.combo.ClearPreviousCombo(false);
             //GameObject.Instantiate (basic.HookHit, _hook.HookTip.position, Quaternion.identity);
-           
-        /* if (!GameManager.Levelmanager.UI.GetFirstTimeFishing() && !TutorialUI.GetTouchedReelUp())
-            {
-                TutorialUI.SetReelUpHook(true);
 
-            }*/
+            /* if (!GameManager.Levelmanager.UI.GetFirstTimeFishing() && !TutorialUI.GetTouchedReelUp())
+                {
+                    TutorialUI.SetReelUpHook(true);
+
+                }*/
 
 
         }
@@ -128,7 +128,7 @@ public class FishHookState : AbstractHookState
 
             // basic.Camerahandler.CreateShakePoint();
 
-            GameManager.Levelmanager.UI.OnReelHook();
+            GameManager.Levelmanager.UI.OnReelHook(false);
             //basic.combo.ClearPreviousCombo(false);
             //Create a new list maybe
             //Change animation for the fish and state
@@ -150,7 +150,7 @@ public class FishHookState : AbstractHookState
             GameManager.Camerahandler.CreateShakePoint();
 
             StopTrashGlow(true);
-            GameManager.Levelmanager.UI.OnReelHook();
+            GameManager.Levelmanager.UI.OnReelHook(false);
             
             //basic.combo.ClearPreviousCombo(false);
 

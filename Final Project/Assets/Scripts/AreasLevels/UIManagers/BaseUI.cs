@@ -146,7 +146,11 @@ public class BaseUI : MonoBehaviour {
     {
 
     }
-    public virtual void OnReelHook()
+    public virtual void OnReelHook(bool pClickedButton = true)
+    {
+
+    }
+    public virtual void OnHookFloorTouch()
     {
 
     }
@@ -166,11 +170,19 @@ public class BaseUI : MonoBehaviour {
     {
         return _totalScoreText;
     }
-    public virtual void RestoreGlow(GameObject[] gameObjects)
+    public virtual void RestoreGlow(List<fish> fishes)
     {
 
     }
-    public virtual void MakeGlow(float rate, GameObject[] gameObjects)
+    public virtual void RestoreGlow(List<trash> trashes)
+    {
+
+    }
+    public virtual void MakeGlow(float rate, List<trash> trashes)
+    {
+
+    }
+    public virtual void MakeGlow(float rate, List<fish> fishes)
     {
 
     }

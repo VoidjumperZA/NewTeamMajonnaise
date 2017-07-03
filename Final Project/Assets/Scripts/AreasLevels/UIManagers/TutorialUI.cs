@@ -124,22 +124,22 @@ public class TutorialUI : BaseUI
             //Fish and trash glow until you catch it for the first time
             if (!gotTrash)
             {
-                GameObject[] trash = GameObject.FindGameObjectsWithTag("Trash");
-                MakeGlow(_rateOfGlow, trash);
+                //GameObject[] trash = GameObject.FindGameObjectsWithTag("Trash");
+                if (SeafloorSpawning.SpawnedTrash != null) MakeGlow(_rateOfGlow, SeafloorSpawning.SpawnedTrash);
             }
             else
             {
-                RestoreGlow(GameObject.FindGameObjectsWithTag("Trash"));
+                RestoreGlow(SeafloorSpawning.SpawnedTrash);
             }
             if (!gotFish)
             {
 
-                GameObject[] fish = GameObject.FindGameObjectsWithTag("Fish");
-                MakeGlow(_rateOfGlow, fish);
+                //GameObject[] fish = GameObject.FindGameObjectsWithTag("Fish");
+                if (FishSpawn.SpawnedFish != null) MakeGlow(_rateOfGlow, FishSpawn.SpawnedFish);
             }
             else
             {
-                RestoreGlow(GameObject.FindGameObjectsWithTag("Fish"));
+                RestoreGlow(FishSpawn.SpawnedFish);
             }
 
             //Updating trash slider
@@ -268,11 +268,23 @@ public class TutorialUI : BaseUI
         
         GameManager.Boat.SetState(boat.BoatState.Fish);
     }
-    public override void OnReelHook()
+    public override void OnReelHook(bool pClickedButton = true)
     {
         if (GameManager.Levelmanager.HasGameEnded()) return;
 
-        touchedReelUpHook = true; 
+        if (pClickedButton && !touchedReelUpHook) touchedReelUpHook = true; 
+        DeployActive = true;
+        ReelUpActive = false;
+        SetActive(false, _handClick.gameObject);
+        /*SetActive(true, _dropHook.gameObject);
+        SetActive(false, _reelHook.gameObject);*/
+        GameManager.Hook.SetState(hook.HookState.Reel);
+    }
+    public override void OnHookFloorTouch()
+    {
+        if (GameManager.Levelmanager.HasGameEnded()) return;
+
+        //touchedReelUpHook = true;
         DeployActive = true;
         ReelUpActive = false;
         SetActive(false, _handClick.gameObject);
@@ -390,12 +402,29 @@ public class TutorialUI : BaseUI
     {
         TransitionCurtain.GetComponent<Transition>().UpWards();
     }
-
-    public override void MakeGlow(float rate, GameObject[] gameObjects)
+    public override void MakeGlow(float rate, List<trash> trahses)
     {
-        foreach( GameObject obj in gameObjects)
+        foreach (trash pTrash in trahses)
         {
-            Renderer renderer = obj.GetComponentInChildren<Renderer>();
+            Renderer renderer = pTrash.gameObject.GetComponentInChildren<Renderer>();
+            Material mat = renderer.material;
+
+            float floor = 0.0f;
+            float ceiling = 0.4f;
+            float emission = floor + Mathf.PingPong(Time.time * rate, ceiling - floor);
+            //float emission = Mathf.PingPong(Time.time, 1.0f);
+            Color baseColor = Color.yellow; //Replace this with whatever you want for your base color at emission level '1'
+
+            Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
+
+            mat.SetColor("_EmissionColor", finalColor);
+        }
+    }
+    public override void MakeGlow(float rate, List<fish> fishes)
+    {
+        foreach (fish pFish in fishes)
+        {
+            Renderer renderer = pFish.gameObject.GetComponentInChildren<Renderer>();
             Material mat = renderer.material;
 
             float floor = 0.0f;
@@ -408,13 +437,20 @@ public class TutorialUI : BaseUI
 
             mat.SetColor("_EmissionColor", finalColor);
         } 
-
     }
-    public override void RestoreGlow(GameObject[] gameObjects)
+    public override void RestoreGlow(List<fish> fishes)
     {
-        foreach (GameObject obj in gameObjects)
+        foreach (fish pFish in fishes)
         {
-            Renderer renderer = obj.GetComponentInChildren<Renderer>();
+            Renderer renderer = pFish.gameObject.GetComponentInChildren<Renderer>();
+            renderer.material.SetColor("_EmissionColor", Color.black);
+        }
+    }
+    public override void RestoreGlow(List<trash> trashes)
+    {
+        foreach (trash ptrash in trashes)
+        {
+            Renderer renderer = ptrash.gameObject.GetComponentInChildren<Renderer>();
             renderer.material.SetColor("_EmissionColor", Color.black);
         }
     }

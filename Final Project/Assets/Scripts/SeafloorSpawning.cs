@@ -17,14 +17,16 @@ public class SeafloorSpawning : MonoBehaviour
     [SerializeField] private Transform _leftSpawner;
     [SerializeField] private Transform _rightSpawner;
     private List<Transform> trashSpawns;
+    public static List<trash> SpawnedTrash = new List<trash>();
 
 
     // Use this for initialization
     void Start()
     {
+        SpawnedTrash.Clear();
         for (int i = 0; i < amountOfTrashOnSeafloor; i++)
         {
-            Instantiate(trashPieces[Random.Range(0, trashPieces.Length)], new Vector3(Random.Range(_leftSpawner.position.x, _rightSpawner.position.x), _leftSpawner.transform.position.y - _leftSpawner.transform.lossyScale.y/2, 0), Quaternion.identity);
+            SpawnedTrash.Add(Instantiate(trashPieces[Random.Range(0, trashPieces.Length)], new Vector3(Random.Range(_leftSpawner.position.x, _rightSpawner.position.x), _leftSpawner.transform.position.y - _leftSpawner.transform.lossyScale.y/2, 0), Quaternion.identity).GetComponent<trash>());
         }
         GameManager.Scorehandler.SetTotalNumberOfTrashPieces(amountOfTrashOnSeafloor);
     }
