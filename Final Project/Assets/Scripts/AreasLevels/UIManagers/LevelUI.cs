@@ -9,7 +9,7 @@ public class LevelUI : BaseUI
     private bool highscoreShown = false;
     public override void Start()
     {
-
+        
         waterDistortion = GameManager.Camerahandler.GetWaterDropEffect();
         oceanCleanUpProgressBar.GetComponentInChildren<Text>().text = 0 + "%";
         oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
@@ -42,6 +42,12 @@ public class LevelUI : BaseUI
 
         HookScoreText.text = GameManager.Scorehandler.HookScore + "";
         HookScoreText.transform.position = GameManager.Scorehandler.HookScorePosition();
+
+        //Updating trash slider
+        if (oceanCleanUpProgressBar.GetComponent<Slider>().value > sliderValue)
+        {
+            oceanCleanUpProgressBar.GetComponent<Slider>().value -= Time.deltaTime * 10f;
+        }
 
         if (GameManager.Levelmanager.HasGameEnded() == true && highscoreShown == false)
         {
@@ -94,6 +100,8 @@ public class LevelUI : BaseUI
             Debug.Log("OnEnterScene was already called once for current instance");
             return;
         }
+        //Trash Slider
+        oceanCleanUpProgressBar.GetComponent<Slider>().value = 100;
         // Controls
         SetActive(true, _dropHook.gameObject);
         // Game Time
@@ -170,7 +178,7 @@ public class LevelUI : BaseUI
         _onLeaveScene = false;
     }
 
-    //
+    /*
     public void UpdateOceanProgressBar(bool pFirstTimeAnim)
     {
         //Get the percentage, set the bar value and the helper text
@@ -184,8 +192,8 @@ public class LevelUI : BaseUI
         /*if (pFirstTimeAnim)
         {
             oceanCleanUpProgressBar.GetComponent<OceanCleanUpUIAnimation>().AnimateFirstTimeMovement();
-        }*/
-    }
+        }
+    }*/
 
     //
     public override void HookScoreToggle(bool pBool)
@@ -204,7 +212,7 @@ public class LevelUI : BaseUI
     {
         TransitionCurtain.GetComponent<Transition>().UpWards();
     }
-
+    /*
     private IEnumerator ShowThenFadeOceanBar()
     {
         GameObject go = Instantiate(bubbleParticleEffect, GameObject.FindGameObjectWithTag("BubbleParticleSpawn").transform.position, Quaternion.identity);
@@ -230,7 +238,7 @@ public class LevelUI : BaseUI
         oceanCleanUpBarChildBackground.GetComponent<Image>().CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
         oceanCleanUpBarChildFrameBackground.CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
         oceanCleanUpBarChildStripe.CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
-        oceanCleanUpBarChildText.GetComponent<Text>().CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);*/
-    }
+        oceanCleanUpBarChildText.GetComponent<Text>().CrossFadeAlpha(0.0f, oceanBarFadeOutSpeed, false);
+    }*/
 
 }

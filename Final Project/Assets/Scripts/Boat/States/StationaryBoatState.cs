@@ -12,7 +12,7 @@ public class StationaryBoatState : AbstractBoatState {
     }
 	public override void Start ()
     {
-       // GameManager.Radar.SetState(radar.RadarState.Pulse);
+        // GameManager.Radar.SetState(radar.RadarState.Pulse);
         /*basic.Camerahandler.SetViewPoint(CameraHandler.CameraFocus.Ocean);
 
         if (basic.GlobalUI.InTutorial && basic.GlobalUI.ReelUpHookCompleted)
@@ -20,25 +20,39 @@ public class StationaryBoatState : AbstractBoatState {
             basic.GlobalUI.SetHandSwipePosition(basic.Boat.gameObject, new Vector3(30, -20, 0));
             basic.GlobalUI.ShowHandSwipe(true);
         }*/
+       
+        if(GameManager.inTutorial)
+        {
+            
+            if(GetTouchedDeployHook() && !GetSecondTimeFishing())
+            {
+               
+                IntroduceCombo();
+            }
+        }
     }
 	
 	public override void Update ()
     {
         //This condition stops the boat from moving until the tutorial explains that the boat can move
         //JOSH: ^ The first part of this check makes sure you're ONLY in the tutorial scence, elsewise this was happening in other scenes
-        if (SceneManager.GetActiveScene().buildIndex == 1 && TutorialUI.GetTouchedReelUp())
+        //SceneManager.GetActiveScene().buildIndex == 1
+        if (GameManager.inTutorial)
         {
-            if (Dragging() && mouseAboveHalf() == true)
+            if (GetTouchedReelUp())
             {
-                TutorialUI.SetMovedBoat(true);
-                SetState(boat.BoatState.Move);
+                if (Dragging() && mouseAboveHalf() == true)
+                {
+                    SetMovedBoat(true);
+                    SetState(boat.BoatState.Move);
+                }
             }
+           
         }
         else 
         {
             if (Dragging() && mouseAboveHalf() == true)
             {
-                TutorialUI.SetMovedBoat(true);
                 SetState(boat.BoatState.Move);
             }
         }
@@ -69,5 +83,33 @@ public class StationaryBoatState : AbstractBoatState {
         if ((!Input.GetMouseButton(0) && !mouse.Touching())) return false;
         Vector3 mouseWorldPoint = mouse.GetWorldPoint();
         return Mathf.Abs(mouseWorldPoint.x - _boat.gameObject.transform.position.x) > 0;
+    }
+
+    public void SetMovedBoat(bool pBool)
+    {
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.SetMovedBoat(pBool);
+    }
+    public bool GetTouchedReelUp()
+    {
+        if (GameManager.Levelmanager.UI) { return GameManager.Levelmanager.UI.GetTouchedReelUp(); }
+        else { return false; }
+         
+    }
+    
+    public bool GetSecondTimeFishing()
+    {
+        if (GameManager.Levelmanager.UI) { return GameManager.Levelmanager.UI.GetSecondTimeFishing(); }
+        else { return false; }
+    }
+
+    public void IntroduceCombo()
+    {
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.IntroduceCombo(); 
+        
+    }
+    public bool GetTouchedDeployHook()
+    {
+        if (GameManager.Levelmanager.UI) { return GameManager.Levelmanager.UI.GetTouchedDeployHook(); }
+        else { return false; }
     }
 }

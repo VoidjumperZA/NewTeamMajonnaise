@@ -5,18 +5,19 @@ using UnityEngine;
 
 public class ReelHookState : AbstractHookState {
     private boat _boat;
-    private Rope rope;
+    private Rope _rope;
     private int _reelSpeed;
 
-	public ReelHookState(hook pHook, boat pBoat, int pReelSpeed) : base(pHook)
+	public ReelHookState(hook pHook, boat pBoat, Rope pRope, int pReelSpeed) : base(pHook)
     {
         _boat = pBoat;
         _reelSpeed = pReelSpeed;
+        _rope = pRope;
     }
     public override void Start()
     {
-        rope = GameObject.Find("Rope").GetComponent<Rope>();
-        rope.SwitchActiveLink(rope.GetLinks().Count - 1, true, rope.GetLinks()[0].transform, rope.GetObjectToFollow().transform);
+        //rope = GameObject.Find("Rope").GetComponent<Rope>();
+        _rope.SwitchActiveLink(_rope.GetLinks().Count - 1, true, _rope.GetLinks()[0].transform, _rope.GetObjectToFollow().transform);
        // _boat.StartCoroutine(counter());
     }
 
@@ -29,17 +30,17 @@ public class ReelHookState : AbstractHookState {
         //Debug.Log("Line length: " + rope.GetLineLength() + "(" + Mathf.FloorToInt(rope.GetLineLength()) + ")\t|\tNumber of Links: " + rope.GetNumberOfLinks());
         for (int i = 0; i < _reelSpeed; i++)
         {
-            rope.RemoveLink();
+            _rope.RemoveLink();
         }
         
 
-        if (rope.GetLinks().Count == 3)
+        if (_rope.GetLinks().Count == 3)
         {
-            rope.SwitchActiveLink(0, true, rope.GetObjectToFollow().transform, rope.GetLinks()[0].transform);
+            _rope.SwitchActiveLink(0, true, _rope.GetObjectToFollow().transform, _rope.GetLinks()[0].transform);
             _hook.gameObject.transform.position = _boat.gameObject.transform.position;
             SetState(hook.HookState.SetFree);
         }
-        if (rope.GetLinks().Count <= 10)
+        if (_rope.GetLinks().Count <= 10)
         {
             GameManager.Hook.GetWaterDropEffect().SetActive(true);
             GameManager.Hook.GetWaterDropEffect().GetComponent<WaterdropDistortion>().Start();
@@ -48,7 +49,7 @@ public class ReelHookState : AbstractHookState {
     }
     public override void Refresh()
     {
-        rope = GameObject.Find("Rope").GetComponent<Rope>();
+        _rope = GameObject.Find("Rope").GetComponent<Rope>();
         
     }
     public override hook.HookState StateType()

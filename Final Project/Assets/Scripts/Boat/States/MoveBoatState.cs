@@ -48,6 +48,9 @@ public class MoveBoatState : AbstractBoatState
     }
     public override void Update()
     {
+    }
+    public override void FixedUpdate() {
+
         if (GameManager.Levelmanager.HasGameEnded()) return;
 
         _direction = (_velocity > 0) ? 1 : ((_velocity < 0) ? -1 : 0);
@@ -61,6 +64,7 @@ public class MoveBoatState : AbstractBoatState
             _boat.SetState(boat.BoatState.Stationary);
         }
     }
+
     private float GetXDifference()
     {
         float xDifference = 0;

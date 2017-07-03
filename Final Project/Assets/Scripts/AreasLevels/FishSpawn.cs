@@ -4,30 +4,22 @@ using UnityEngine;
 
 public class FishSpawn : MonoBehaviour
 {
-    private basic _basic { get { return GetComponent<basic>(); } }
     [Header("SpecialFish")]
     [SerializeField] private GameObject _specialFish;
     [SerializeField] private float _timeBeforeSpecialFishSpawn;
     private int _specialFishAmount = 0;
 
-
-
-
     [Header("Fish")]
     [SerializeField]
     private GameObject[] _fishPrefabs;
+
     [Header("Spawning Rates")]
-    [SerializeField]
-    private float higherSpawningRateLowerValue;
-    [SerializeField]
-    private float lowerSpawningRateHigherValue;
-    [SerializeField]
-    private int minimumPercentChangeInDensity;
-    [SerializeField]
-    private float timeBeforeSpawnFertilityDegrade;
+    [SerializeField] private float higherSpawningRateLowerValue;
+    [SerializeField] private float lowerSpawningRateHigherValue;
+    [SerializeField] private int minimumPercentChangeInDensity;
+    [SerializeField] private float timeBeforeSpawnFertilityDegrade;
     [Header("Misc Values")]
-    [SerializeField]
-    private int maximumNumberOfOnscreenFish;
+    [SerializeField] private int maximumNumberOfOnscreenFish;
     private float _timePassed;
     private bool _valid;
     [HideInInspector] public bool _boatSetUp = false;
@@ -164,9 +156,8 @@ public class FishSpawn : MonoBehaviour
 
         List<int> alreadyChosen = new List<int>();
         int rnd = -1;
-        if (_totalSpawned < _amountToSpawn)
+        if (_totalSpawned < _amountToSpawn && _totalSpawned < maximumNumberOfOnscreenFish)
         {
-            //Debug.Log(_totalSpawned + " / " + _amountToSpawn);
             bool again = true;
             while (again)
             {
@@ -193,6 +184,11 @@ public class FishSpawn : MonoBehaviour
         }
         
     }
+
+
+
+
+
 
     /// <summary>
     /// Removes one from the total number of fish spawned, to allow space for another.

@@ -76,26 +76,20 @@ public class FishHookState : AbstractHookState
         //Reel the hook in if you touch the floor
         if (other.gameObject.CompareTag("Floor"))
         {
-            //The game time is out before this condition can be true, I am going to leave it here just in case
-            /*if (basic.GlobalUI.InTutorial)
-            {
-                basic.GlobalUI.ShowHandSwipe(false);
-                basic.GlobalUI.SwipehandCompleted = true;
-            }*/
+            
             _hook.CreateSandSplash();
             GameManager.Levelmanager.UI.OnReelHook();
             //basic.combo.ClearPreviousCombo(false);
             //GameObject.Instantiate (basic.HookHit, _hook.HookTip.position, Quaternion.identity);
-            if (!TutorialUI.GetFirstTimeReelUp() && !TutorialUI.GetTouchedReelUp())
+           
+        /* if (!GameManager.Levelmanager.UI.GetFirstTimeFishing() && !TutorialUI.GetTouchedReelUp())
             {
                 TutorialUI.SetReelUpHook(true);
 
-            }
-            TutorialUI.SetFirstTimeReelUp(false);
-            ToggleHookSwipeAnim(false);
-           
+            }*/
 
-        } 
+
+        }
         //On contact with a fish
         if (other.gameObject.CompareTag("Fish"))
         {
@@ -103,8 +97,16 @@ public class FishHookState : AbstractHookState
             if (!theFish || !theFish.Visible) return;
             theFish.SetState(fish.FishState.FollowHook);
             GameManager.ShopList.CollectFish((int)theFish.GetFishType());
-            GameManager.combo.Collect((int)theFish.GetFishType());
+
+            if(!GameManager.inTutorial || GameManager.Levelmanager.UI.GetSecondTimeFishing())
+            {
+                GameManager.combo.Collect((int)theFish.GetFishType());
+            }
+            
+
             GameManager.Scorehandler.AddScore(theFish.GetFishType(), true, true);
+
+            StopFishGlow(true);
             /*if (!basic.GlobalUI.InTutorial)
             {
                 basic.combo.CheckComboProgress(theFish.fishType);
@@ -113,8 +115,9 @@ public class FishHookState : AbstractHookState
             {
                 basic.Shoppinglist.Show(true);
                 basic.Shoppinglist.Introduced = true;
-            }*/
+   
             //basic.Camerahandler.CreateShakePoint();
+        }*/
         }
         if (other.gameObject.CompareTag("Jellyfish"))
         {
@@ -142,17 +145,13 @@ public class FishHookState : AbstractHookState
             _hook.TrashOnHook.Add(theTrash);
 
             bool firstTime = GameManager.Scorehandler.CollectATrashPiece();
-            GameManager.Levelmanager.GetComponent<LevelUI>().UpdateOceanProgressBar(firstTime);
+            
+            GameManager.Levelmanager.UI.UpdateOceanProgressBar(firstTime);
             GameManager.Camerahandler.CreateShakePoint();
 
-            //The game time is out before this condition can be true, I am going to leave it here just in case
-            /*if (basic.GlobalUI.InTutorial)
-            {
-                basic.GlobalUI.ShowHandSwipe(false);
-                basic.GlobalUI.SwipehandCompleted = true;
-            }*/
+            StopTrashGlow(true);
             GameManager.Levelmanager.UI.OnReelHook();
-
+            
             //basic.combo.ClearPreviousCombo(false);
 
         }
@@ -169,12 +168,18 @@ public class FishHookState : AbstractHookState
             _touchingCliff = 1;
         }
     }
-    public void ToggleHookSwipeAnim(bool pBool)
-    {
-        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HookSwipeAnimToggle(pBool);
-    }
+    
     public void ToggleHandClick(bool pBool)
     {
         if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HandClickToggle(pBool);
     }
+    public void StopFishGlow(bool pBool)
+    {
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.StopFishGlow(pBool);
+    }
+    public void StopTrashGlow(bool pBool)
+    {
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.StopTrashGlow(pBool);
+    }
+  
 }

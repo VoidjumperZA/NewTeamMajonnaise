@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
 
     public static int NextScene = 2;
     public static bool GotSpecialFish = false;
+    public static bool inTutorial = false;
 
     private void Start () {
         DontDestroyOnLoad(gameObject);

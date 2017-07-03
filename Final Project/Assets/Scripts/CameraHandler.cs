@@ -116,6 +116,15 @@ public class CameraHandler : MonoBehaviour
         {
             ToggleBelowWater(true);
             ToggleHookScoreText(true);
+            //If in step 3 of tutorial
+            if (GameManager.inTutorial)
+            {
+                if (!GameManager.Levelmanager.UI.GetTouchedDeployHook())
+                {
+                    ToggleTutorialAnimation(true);
+                }
+            }
+            
         }
         else if (!_isAboveWater && _camera.transform.position.y >= val)
         {
@@ -138,11 +147,17 @@ public class CameraHandler : MonoBehaviour
         // HookScoreText UI
         _isAboveWater = !pBool;
     }
+
     public void ToggleHookScoreText(bool pBool)
     {
 
         if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HookScoreToggle(pBool);
     }
+    public void ToggleTutorialAnimation(bool pBool)
+    {
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HookSwipeAnimToggle(pBool);
+    }
+
     public void SetViewPoint(FocusPoint pFocusPoint, bool pOverrideTransform = false)
     {
         //Debug.Log("Calling camera to set to " + pFocusObject.ToString());

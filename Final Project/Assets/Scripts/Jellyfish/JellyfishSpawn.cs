@@ -30,7 +30,7 @@ public class JellyfishSpawn : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
     {
-        if (!basic.GlobalUI.InTutorial)
+        if (!GameManager.inTutorial)
         {
             //Debug.Log("Hello jellyfish");
             if(_numJellyfish < _maxNumJellyfish)
