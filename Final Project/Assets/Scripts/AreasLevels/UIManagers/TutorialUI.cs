@@ -198,25 +198,34 @@ public class TutorialUI : BaseUI
                     SetActive(false, arrows.gameObject, handMove.gameObject);
 
                 }
-                Debug.Log("second time fishing-tutorial ui");
+                
               
                 //Show combos for the first time
             }
+            else if (!touchedReelUpHook)
+            {
+                //GameObject[] fish = ComboUI.GetComponent<Combo>().GetCurrentType();
+                //MakeGlow(_rateOfGlow, fish);
+                
+              
+            }
             else if (!movedBoat)
-            {/*
-                //_reelHookAnim.enabled = false;
-                SetActive(false, _bubbleMoving.gameObject);
-                _reelHookImage.color = opaque;
+            {
+                /*
+              //_reelHookAnim.enabled = false;
+              SetActive(false, _bubbleMoving.gameObject);
+              _reelHookImage.color = opaque;
 
-                //_reelHook.GetComponent<Image>().sprite = _bubbleImage;
-                SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
-                AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
-                SetActive(true, arrows.gameObject,handMove.gameObject);
-                */
+              //_reelHook.GetComponent<Image>().sprite = _bubbleImage;
+              SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
+              AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
+              SetActive(true, arrows.gameObject,handMove.gameObject);
+              */
+                
             }
             else
             {
-               SetActive(false, arrows.gameObject,handMove.gameObject);
+                SetActive(false, arrows.gameObject, handMove.gameObject);
             }
         }
     }
@@ -484,7 +493,6 @@ public class TutorialUI : BaseUI
 
         while (true)
         {
-            Debug.Log("bucle");
             Vector3 position = ComboUI.transform.position;
             yield return new WaitForSeconds(waitTime);
             //use WaitForSecondsRealtime if you want it to be unaffected by timescale
