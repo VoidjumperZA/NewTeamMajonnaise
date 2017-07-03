@@ -249,7 +249,6 @@ public class TutorialUI : BaseUI
             _firstTimeFishing = true;
         }*/else if (!_secondTimefishing)
         {
-            Debug.Log("Second time fishing true");
             _secondTimefishing = true;
         }
         else
@@ -261,7 +260,7 @@ public class TutorialUI : BaseUI
                 _reelHookImage.color = transparent;
                 SetActive(true, _handClick.gameObject);
             }
-
+            Debug.Log("Reel up active");
             ReelUpActive = true;
         }
         DeployActive = false;
