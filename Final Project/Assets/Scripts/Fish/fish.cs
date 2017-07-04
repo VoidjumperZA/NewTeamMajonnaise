@@ -26,6 +26,8 @@ public class fish : general
     [SerializeField] private ParticleSystem _bubbles;
     [HideInInspector] public Animator Animator;
     [SerializeField] public GameObject[] Joints;
+    [Header("DestroyOnCatch")]
+    public List<GameObject> DestroyOnCatch;
 
     private float _revealDuration;
 

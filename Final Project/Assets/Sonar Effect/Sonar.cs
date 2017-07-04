@@ -138,7 +138,7 @@ public class Sonar : MonoBehaviour
     void OnRenderImage(RenderTexture src, RenderTexture dst)
     {
         //feed transform to shasder as material property
-        EffectMaterial.SetVector("_WorldSpaceScannerPos", ScannerOrigin.position);
+        if (ScannerOrigin) EffectMaterial.SetVector("_WorldSpaceScannerPos", ScannerOrigin.position);
         EffectMaterial.SetFloat("_ScanDistance", ScanDistance);
         RaycastCornerBlit(src, dst, EffectMaterial);
     }

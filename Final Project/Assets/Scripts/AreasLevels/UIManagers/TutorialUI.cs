@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TutorialUI : BaseUI
 {
@@ -171,7 +172,8 @@ public class TutorialUI : BaseUI
             }//Step 2 - Deploy hook button introduced
             else if (!touchedDeployHook)
 
-            {    
+            {    //Makes sure the former animation is deactivated
+                SetActive(false,_handClickNoDrops.gameObject);
                 //Activates button and hand animation
                 DeployActive = true;
                 _deployHookImage.color = transparent;
@@ -190,7 +192,7 @@ public class TutorialUI : BaseUI
 
                 //Show swiping animation to introduce how to move the hook
                 SetScreenPosition(arrows.gameObject, GameManager.Hook.gameObject, new Vector3(10, -20, 0));
-                AnimateSwipeHand(GetScreenPosition(GameManager.Hook.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
+                AnimateSwipeHand(GetScreenPosition(GameManager.Hook.gameObject, new Vector3(0, -20, 0)), 0.2f, arrows.rectTransform.rect.width/3);
 
                 //Make animation disappear when the player touches the screen
                 if (Input.GetMouseButton(0) || mouse.Touching())
@@ -218,16 +220,35 @@ public class TutorialUI : BaseUI
               _reelHookImage.color = opaque;
 
               //_reelHook.GetComponent<Image>().sprite = _bubbleImage;*/
+                //Hiding the fishing button until the player moves
+              _deployHookImage.GetComponentInParent<Button>().interactable = false;
+              _reelHookImage.color = opaque;
               SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
-              AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
+              AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.2f, arrows.rectTransform.rect.width / 3);
               //SetActive(true, arrows.gameObject,handMove.gameObject);
               
                 
             }
             else
             {
+                _deployHookImage.GetComponent<Button>().interactable = true;
                 SetActive(false, arrows.gameObject, handMove.gameObject);
             }
+        }
+        // HighScore showing part
+        if (GameManager.Levelmanager.HasGameEnded() == true && highscoreShown == false)
+        {
+            highscoreShown = true;
+            if (SceneManager.GetActiveScene().buildIndex != 4)
+            {
+                GameManager.Scorehandler.SavePersitentStats(GameManager.NextScene - 1);
+            }
+            else
+            {
+                GameManager.Scorehandler.SavePersitentStats(GameManager.NextScene);
+            }
+
+            displayHighScoreBoard();
         }
     }
     public override void OnDropHook()
@@ -241,7 +262,8 @@ public class TutorialUI : BaseUI
             touchedDeployHook = true;
             //_dropHookAnim.enabled = false;
             SetActive(false, _bubbleMoving.gameObject);
-            _deployHookImage.color = opaque;
+            
+            //_reelHookImage.color = opaque;
             //_dropHook.GetComponent<Image>().sprite = _bubbleImage;
         }/*else if (!_firstTimeFishing)
         {
@@ -255,9 +277,9 @@ public class TutorialUI : BaseUI
         {
             if (!touchedReelUpHook)
             {
-                Debug.Log("!touched reel up");
                 //_reelHookAnim.enabled = true;
                 SetActive(true, _bubbleMoving.gameObject);
+                Debug.Log("Making image transparent");
                 _reelHookImage.color = transparent;
                 SetActive(true, _handClick.gameObject);
             }
@@ -269,15 +291,22 @@ public class TutorialUI : BaseUI
         
         GameManager.Boat.SetState(boat.BoatState.Fish);
     }
-    public override void OnReelHook(bool pClickedButton = true)
+    public void OnPressedReelUp()
+    {
+        touchedReelUpHook = true;
+        Debug.Log("Touched reel up: " + touchedReelUpHook);
+        OnReelHook();
+
+    }
+    public override void OnReelHook()
     {
         if (GameManager.Levelmanager.HasGameEnded()) return;
-
-        if (pClickedButton && !touchedReelUpHook) touchedReelUpHook = true; 
+       
+        //if (pClickedButton && !touchedReelUpHook) touchedReelUpHook = true; 
         DeployActive = true;
         ReelUpActive = false;
         SetActive(false, _handClick.gameObject, _bubbleMoving.gameObject);
-        //_deployHookImage.color = opaque;
+        _deployHookImage.color = opaque;
         /*SetActive(true, _dropHook.gameObject);
         SetActive(false, _reelHook.gameObject);*/
         GameManager.Hook.SetState(hook.HookState.Reel);
@@ -491,7 +520,7 @@ public class TutorialUI : BaseUI
         yield return new WaitForSeconds(1);
 
         //Show hand tapping the screen
-        SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0, -100, 0));
+        SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0,-Screen.height/3, 0));
         SetActive(true, _handClickNoDrops.gameObject);
     }
 
@@ -508,6 +537,8 @@ public class TutorialUI : BaseUI
 
     public override void IntroduceCombo()
     {
+        //The player can't fish until the combos have beeing introduced
+        _deployHookImage.GetComponentInParent<Button>().interactable = false;
         StartCoroutine(MoveToPoint());
         
     }
@@ -549,5 +580,7 @@ public class TutorialUI : BaseUI
                 break;
             }
         }
+        //Reactivates the button for fishing after the combos have been introduced
+        _deployHookImage.GetComponentInParent<Button>().interactable = true;
     }
     }

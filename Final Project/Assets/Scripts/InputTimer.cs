@@ -43,7 +43,8 @@ public class InputTimer : MonoBehaviour
             if (timeLeft < 0)
             {
                 Debug.Log("Time up");
-                SceneManager.LoadScene(0);
+                GameManager.Levelloader.LoadAndDestroy(0);
+                //SceneManager.LoadScene(0);
             }
             //Count down time
             else

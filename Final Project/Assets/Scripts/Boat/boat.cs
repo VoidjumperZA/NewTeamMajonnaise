@@ -7,7 +7,7 @@ public class boat : general
     // States
     private Dictionary<BoatState, AbstractBoatState> _stateCache = new Dictionary<BoatState, AbstractBoatState>();
     private AbstractBoatState _abstractState = null;
-    public enum BoatState { None, LeaveScene, EnterScene, EnterBoundary, LeaveBoundary, RotateInBoundary, Stationary, Move, Rotate, Fish}
+    public enum BoatState { None, LeaveScene, RotateScene, EnterScene, EnterBoundary, LeaveBoundary, RotateInBoundary, Stationary, Move, Rotate, Fish}
     [SerializeField] private BoatState _boatState = BoatState.None;
     // Radar
     private radar _radar = null;
@@ -65,7 +65,8 @@ public class boat : general
         _stateCache[BoatState.Stationary] = new StationaryBoatState(this);
         _stateCache[BoatState.Move] = new MoveBoatState(this, _acceleration, _maxVelocity, _deceleration);
         _stateCache[BoatState.Rotate] = new RotateBoatState(this, _rotationDuration, _boatModel);
-        _stateCache[BoatState.LeaveScene] = new LeaveSceneBoatState(this, _acceleration, _maxVelocity, _deceleration);
+        _stateCache[BoatState.LeaveScene] = new LeaveSceneBoatState(this, _acceleration, _maxVelocity, _deceleration, _boatModel);
+        _stateCache[BoatState.RotateScene] = new RotateSceneBoatState(this, _rotationDuration, _boatModel);
         _stateCache[BoatState.EnterScene] = new EnterSceneBoatState(this, _acceleration, _maxVelocity, _deceleration);
         _stateCache[BoatState.EnterBoundary] = new EnterBoundaryBoatState(this, _acceleration, _maxVelocity, _deceleration);
         _stateCache[BoatState.LeaveBoundary] = new LeaveBoundaryBoatState(this, _acceleration, _maxVelocity, _deceleration);

@@ -10,6 +10,7 @@ public class FollowHookFishState : AbstractFishState
     }
     public override void Start()
     {
+        foreach (GameObject gobj in _fish.DestroyOnCatch) GameObject.Destroy(gobj);
         //GameObject.Destroy(_fish.ScannableScript);
         //_fish.FishRenderer.enabled = true;
         //if (_fish.FishOutliner) _fish.FishOutliner.enabled = false;
@@ -19,6 +20,7 @@ public class FollowHookFishState : AbstractFishState
             GameManager.Hook.SpecialFish = _fish;
             GameManager.Hook.ToggleArrowActive(false);
             GameManager.Levelmanager.SetBouyToLightsToPass();
+            Debug.Log("Assigned Special fish");
         }
         _fish.Animator.enabled = false;
 

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotateInBoundaryBoatState : AbstractBoatState
+public class RotateSceneBoatState : AbstractBoatState
 {
     private float _rotationCounter = 0;
     private float _rotationDuration;
@@ -13,7 +12,7 @@ public class RotateInBoundaryBoatState : AbstractBoatState
     private Quaternion _leftRotation;
     private GameObject _boatModel;
 
-    public RotateInBoundaryBoatState(boat pBoat, float pRotationDuration, GameObject pBoatModel) : base(pBoat)
+    public RotateSceneBoatState(boat pBoat, float pRotationDuration, GameObject pBoatModel) : base(pBoat)
     {
         _rotationDuration = pRotationDuration;
         _boatModel = pBoatModel;
@@ -28,7 +27,7 @@ public class RotateInBoundaryBoatState : AbstractBoatState
     {
         _rotationCounter = 0;
         _startRotation = _boatModel.transform.rotation;
-        _endRotation = (_startRotation == _rightRotation) ? _leftRotation : _rightRotation;
+        _endRotation = _rightRotation;
     }
     public override void Update()
     {
@@ -41,8 +40,7 @@ public class RotateInBoundaryBoatState : AbstractBoatState
         else
         {
             _boatModel.transform.rotation = _endRotation;
-            _boat.transform.Translate(_boatModel.transform.right);
-            SetState(boat.BoatState.Move);
+            SetState(boat.BoatState.LeaveScene);
         }
     }
     public override void Refresh()
@@ -51,6 +49,6 @@ public class RotateInBoundaryBoatState : AbstractBoatState
     }
     public override boat.BoatState StateType()
     {
-        return boat.BoatState.RotateInBoundary;
+        return boat.BoatState.RotateScene;
     }
 }

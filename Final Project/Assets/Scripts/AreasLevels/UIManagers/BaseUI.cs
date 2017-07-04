@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class BaseUI : MonoBehaviour {
     public Canvas canvas;
+    protected bool highscoreShown = false;
+
     protected bool _onEnterScene = true;
     protected bool _onLeaveScene = true;
 
@@ -146,7 +148,7 @@ public class BaseUI : MonoBehaviour {
     {
 
     }
-    public virtual void OnReelHook(bool pClickedButton = true)
+    public virtual void OnReelHook()
     {
 
     }
@@ -217,5 +219,37 @@ public class BaseUI : MonoBehaviour {
         //Destroy(go, 4);
         yield return new WaitForSeconds(timeOceanBarIsShown);
         oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
+    }
+    protected void displayHighScoreBoard()
+    {
+        //First clean the defaults
+        for (int i = 0; i < cleanUpScoreText.Length; i++)
+        {
+            cleanUpScoreText[i].text = "";
+        }
+
+        //Possibly skip the tutorial feild0
+        int textIndex = 0;
+        rawHighScoreText.text = "" + GameManager.Scorehandler.GetBankedScore();
+        int[] percentage = new int[cleanUpScoreText.Length];
+        int[] cleanUpScore = new int[cleanUpScoreText.Length];
+        int cleanUpSum = 0;
+        for (int i = 0; i < cleanUpScoreText.Length; i++)
+        {
+            percentage[i] = PersistentStats.GetPercentForArea(i + 1);// GameManager.Scorehandler.CalculatePercentageOceanCleaned(true);
+            Debug.Log("For text " + (i + 1) + " I got a percent from Persitent of " + percentage[i]);
+            if (percentage[i] != -1)
+            {
+                cleanUpScore[i] = percentage[i] * GameManager.Scorehandler.GetTrashScoreModifier();
+                Color colour = Color.Lerp(oceanDirtyColour, oceanCleanColour, percentage[i] * 0.01f);
+                cleanUpScoreText[textIndex].text = " (" + (textIndex + 1) + ") " + percentage[i] + "%  x" + GameManager.Scorehandler.GetTrashScoreModifier();
+                cleanUpScoreText[textIndex].color = colour;
+                cleanUpSum += cleanUpScore[i];
+                textIndex++;
+            }
+
+        }
+        sumTotalHighScoreText.text = "" + (GameManager.Scorehandler.GetBankedScore() + cleanUpSum);
+        highScoreBoard.SetActive(true);
     }
 }
