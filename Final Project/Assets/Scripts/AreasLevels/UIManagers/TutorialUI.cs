@@ -171,7 +171,8 @@ public class TutorialUI : BaseUI
             }//Step 2 - Deploy hook button introduced
             else if (!touchedDeployHook)
 
-            {    
+            {    //Makes sure the former animation is deactivated
+                SetActive(false,_handClickNoDrops.gameObject);
                 //Activates button and hand animation
                 DeployActive = true;
                 _deployHookImage.color = transparent;
@@ -218,7 +219,9 @@ public class TutorialUI : BaseUI
               _reelHookImage.color = opaque;
 
               //_reelHook.GetComponent<Image>().sprite = _bubbleImage;*/
-                _reelHookImage.color = opaque;
+                //Hiding the fishing button until the player moves
+              _deployHookImage.GetComponentInParent<Button>().interactable = false;
+              _reelHookImage.color = opaque;
               SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
               AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.2f, arrows.rectTransform.rect.width / 3);
               //SetActive(true, arrows.gameObject,handMove.gameObject);
@@ -227,6 +230,7 @@ public class TutorialUI : BaseUI
             }
             else
             {
+                _deployHookImage.GetComponentInParent<Button>().interactable = true;
                 SetActive(false, arrows.gameObject, handMove.gameObject);
             }
         }
@@ -242,7 +246,7 @@ public class TutorialUI : BaseUI
             touchedDeployHook = true;
             //_dropHookAnim.enabled = false;
             SetActive(false, _bubbleMoving.gameObject);
-            Debug.Log("Making image opaque");
+            
             //_reelHookImage.color = opaque;
             //_dropHook.GetComponent<Image>().sprite = _bubbleImage;
         }/*else if (!_firstTimeFishing)
@@ -517,6 +521,8 @@ public class TutorialUI : BaseUI
 
     public override void IntroduceCombo()
     {
+        //The player can't fish until the combos have beeing introduced
+        _deployHookImage.GetComponentInParent<Button>().interactable = false;
         StartCoroutine(MoveToPoint());
         
     }
@@ -558,5 +564,7 @@ public class TutorialUI : BaseUI
                 break;
             }
         }
+        //Reactivates the button for fishing after the combos have been introduced
+        _deployHookImage.GetComponentInParent<Button>().interactable = true;
     }
     }
