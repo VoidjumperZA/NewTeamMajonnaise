@@ -15,7 +15,12 @@ public class LevelLoader : MonoBehaviour
     public void LoadSceneAndDestroy(int pIndex)
     {
         //Needs to destroy boat / hook / game manager, etc if replaying the game
-        foreach (GameObject go in _objectsToDestroyOnRestart) Destroy(go);
+        foreach (GameObject go in _objectsToDestroyOnRestart)
+        {
+            Debug.Log(go.name);
+            Destroy(go);
+        }
+        GameManager.NextScene = 2;
         SceneManager.LoadScene(pIndex);
     }
     public void LoadSceneAsync(int pIndex, float pWaitTime)
@@ -34,5 +39,9 @@ public class LevelLoader : MonoBehaviour
 
         // COMMENT if the async load is not complete but the start button was pressed, show the loading screen and loading progress bar. When its complete return.
         
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O)) LoadSceneAndDestroy(0);
     }
 }
