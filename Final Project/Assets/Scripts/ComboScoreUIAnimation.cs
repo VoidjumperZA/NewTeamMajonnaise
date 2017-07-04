@@ -32,11 +32,11 @@ public class ComboScoreUIAnimation : MonoBehaviour {
         {
             Vector3 hookPosition = Camera.main.WorldToScreenPoint(GameManager.Hook.transform.position);
             Vector3 assetPosition = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-            float speed = 0.05f;// combo.GetComboScoreUIMovementSpeed();
+            float speed = 0.0875f;// combo.GetComboScoreUIMovementSpeed();
 
             Vector3 differenceVector = (hookPosition - gameObject.transform.position);
             if (differenceVector.magnitude >= speed) gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, hookPosition, speed);
-            if (differenceVector.magnitude < 0.1f)
+            if (differenceVector.magnitude < 0.4f)
             {
                 fading = true;
                 GameManager.Scorehandler.AddComboScore();
@@ -47,7 +47,7 @@ public class ComboScoreUIAnimation : MonoBehaviour {
         //Fading out
         else
         {
-            float alphaFade = 0.03f;
+            float alphaFade = 0.05f;
             //TEXT FADING
             //Create a new colour that is equal to the text
             Color faded = selfText.GetComponent<Text>().color;
