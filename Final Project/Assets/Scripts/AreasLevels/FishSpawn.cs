@@ -102,7 +102,14 @@ public class FishSpawn : MonoBehaviour
             {
                 SpawnSpecialFish(Random.Range(0, 2));
                 _specialFishAmount += 1;
+                Debug.Log("SpecialFishSpawned");
             }
+            // Do not spawn fish in tutorial
+            if (GameManager.inTutorial)
+                if (GameManager.Levelmanager.UI.GetSecondTimeFishing() && !GameManager.Levelmanager.UI.GetTouchedReelUp())
+                    return;
+            // -----------------------------
+
             //Always count down time
             _timePassed -= Time.deltaTime;
             //Once our spawn timer is up
