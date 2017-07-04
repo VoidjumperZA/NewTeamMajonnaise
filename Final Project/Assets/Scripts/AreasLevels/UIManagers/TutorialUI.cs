@@ -35,6 +35,8 @@ public class TutorialUI : BaseUI
     [Header("Hide screen")]
     [SerializeField]
     private Image _hide1;
+    [SerializeField]
+    private Image _hide2;
 
     //private Animator _dropHookAnim;
     //private Animator _reelHookAnim;
@@ -52,6 +54,8 @@ public class TutorialUI : BaseUI
     private bool gotTrash;
     private bool gotFish;
     private bool _fadeIn;
+    private bool _fadeIn3;
+    private bool _fadeIn2;
 
     //Activate/Deactivate reel up and deploy hook
     private  bool ReelUpActive;
@@ -88,6 +92,8 @@ public class TutorialUI : BaseUI
         gotTrash = false;
         gotFish = false;
         _fadeIn = true;
+        _fadeIn2 = true;
+        _fadeIn3 = true;
         //SwipeAnimation
         //index = 0;
         
@@ -100,7 +106,7 @@ public class TutorialUI : BaseUI
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
         //Animations
-        SetActive(false, handMove.gameObject,_handClick.gameObject, arrows.gameObject,_handClickNoDrops.gameObject,_hide1.gameObject); 
+        SetActive(false, handMove.gameObject,_handClick.gameObject, arrows.gameObject,_handClickNoDrops.gameObject,_hide1.gameObject,_hide2.gameObject); 
         SetActive(false, _bubbleMoving.gameObject);
        
         //Debug.Log("TutorialUI - Start();");
@@ -157,14 +163,15 @@ public class TutorialUI : BaseUI
                 if (Input.GetMouseButton(0) || mouse.Touching())
                 {
                     touchedScreen = true;
-                    StartCoroutine(FadeOut());
+                    StartCoroutine(FadeOut(_hide1,_handClickNoDrops));
                     
                 }
                 else
                 {
                     if (_fadeIn)
                     {
-                        StartCoroutine(FadeIn());
+                        SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0, -Screen.height / 3, 0));
+                        StartCoroutine(FadeIn(_hide1,_handClickNoDrops));
                         _fadeIn = false;
                     }
                     
@@ -173,8 +180,9 @@ public class TutorialUI : BaseUI
             else if (!touchedDeployHook)
 
             {    //Makes sure the former animation is deactivated
-                SetActive(false,_handClickNoDrops.gameObject);
+                //SetActive(false,_handClickNoDrops.gameObject);
                 //Activates button and hand animation
+                StartCoroutine(FadeIn(_hide2,_handClick));
                 DeployActive = true;
                 _deployHookImage.color = transparent;
                 SetActive(true, _bubbleMoving.gameObject);
@@ -260,6 +268,7 @@ public class TutorialUI : BaseUI
         if (!touchedDeployHook)
         {
             touchedDeployHook = true;
+            //FadeOut(_hide1, _handClick);
             //_dropHookAnim.enabled = false;
             SetActive(false, _bubbleMoving.gameObject);
             
@@ -277,11 +286,22 @@ public class TutorialUI : BaseUI
         {
             if (!touchedReelUpHook)
             {
+                if (_fadeIn3)
+                {
+                    
+                    _fadeIn3 = false;
+                    StartCoroutine(FadeIn(_hide2, _handClick));
+                    _reelHookImage.color = transparent;
+                    SetActive(true, _bubbleMoving.gameObject);
+                }
+               
                 //_reelHookAnim.enabled = true;
-                SetActive(true, _bubbleMoving.gameObject);
-                Debug.Log("Making image transparent");
-                _reelHookImage.color = transparent;
-                SetActive(true, _handClick.gameObject);
+                
+                /*,_hide2.gameObject*/
+                
+                
+                //SetActive(true, _handClick.gameObject);
+                
             }
             
             ReelUpActive = true;
@@ -293,8 +313,10 @@ public class TutorialUI : BaseUI
     }
     public void OnPressedReelUp()
     {
+        
+        if (!touchedReelUpHook) { StartCoroutine(FadeOut(_hide2, _handClick)); }
         touchedReelUpHook = true;
-        Debug.Log("Touched reel up: " + touchedReelUpHook);
+        //Debug.Log("Touched reel up: " + touchedReelUpHook);
         OnReelHook();
 
     }
@@ -305,7 +327,7 @@ public class TutorialUI : BaseUI
         //if (pClickedButton && !touchedReelUpHook) touchedReelUpHook = true; 
         DeployActive = true;
         ReelUpActive = false;
-        SetActive(false, _handClick.gameObject, _bubbleMoving.gameObject);
+        SetActive(false, /*_handClick.gameObject,*/ _bubbleMoving.gameObject);
         _deployHookImage.color = opaque;
         /*SetActive(true, _dropHook.gameObject);
         SetActive(false, _reelHook.gameObject);*/
@@ -510,29 +532,30 @@ public class TutorialUI : BaseUI
         
     }
 
-    private IEnumerator FadeIn()
+    
+
+    private IEnumerator FadeIn(Image image1, Image image2)
     {
-        //Hide a part of the screen
-        SetActive(true, _hide1.gameObject);
-        _hide1.GetComponent<CanvasRenderer>().SetAlpha(0.0f);
-        _hide1.CrossFadeAlpha(1.0f, 0.5f, false);
-        
+        SetActive(true, image1.gameObject);
+        image1.GetComponent<CanvasRenderer>().SetAlpha(0.0f);
+        image1.CrossFadeAlpha(1.0f, 0.5f, false);
+
         yield return new WaitForSeconds(1);
 
         //Show hand tapping the screen
-        SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0,-Screen.height/3, 0));
-        SetActive(true, _handClickNoDrops.gameObject);
+        
+        SetActive(true, image2.gameObject);
     }
 
-    private IEnumerator FadeOut()
+  
+
+    private IEnumerator FadeOut(Image image1,Image image2)
     {
-        _hide1.CrossFadeAlpha(0, 0.5f, false);
-        
         yield return new WaitForSeconds(0.5f);
 
-        //Deactivates former animation
-        SetActive(false, _handClickNoDrops.gameObject, _hide1.gameObject);
-        SetActive(false, _hide1.gameObject);
+        image2.CrossFadeAlpha(0, 0.5f, false);
+        image1.CrossFadeAlpha(0, 0.5f, false);
+
     }
 
     public override void IntroduceCombo()
