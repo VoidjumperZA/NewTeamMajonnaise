@@ -50,6 +50,8 @@ public class ScoreHandler : MonoBehaviour {
     }
 	public Vector3 HookScorePosition()
     {
+        if (!GameManager.Hook || !Camera.main) return Vector3.zero;
+
         Vector3 hookPosOnScreen = Camera.main.WorldToScreenPoint(GameManager.Hook.transform.position);
         Vector3 offsetPosition = new Vector3(hookPosOnScreen.x + hookScoreXOffset, hookPosOnScreen.y + hookScoreYOffset, 0.0f);
         return offsetPosition;

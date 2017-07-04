@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
    // public static radar Radar;
     public static trailer Trailer;
     // Same per Scene
-    private static LevelLoader _levelloader;
+    public static LevelLoader Levelloader;
     public static CameraHandler Camerahandler;
     public static GameTimer Gametimer;
     public static ScoreHandler Scorehandler;
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour {
     }
     private void AssignReferences()
     {
-        _levelloader = GetComponent<LevelLoader>(); if (!_levelloader) Debug.Log("GameManager - LevelLoader script = NULL");
+        Levelloader = GetComponent<LevelLoader>(); if (!Levelloader) Debug.Log("GameManager - LevelLoader script = NULL");
         Camerahandler = GetComponent<CameraHandler>(); if (!Camerahandler) Debug.Log("GameManager - CameraHandler script = NULL");
         Gametimer = GetComponent<GameTimer>(); if (!Gametimer) Debug.Log("GameManager - GameTimer = NULL");
         Scorehandler = GetComponent<ScoreHandler>(); if (!Scorehandler) Debug.Log("GameManager - ScoreHandler = NULL");
@@ -71,11 +71,11 @@ public class GameManager : MonoBehaviour {
     }
     public static void LoadScene(int pIndex)
     {
-        _levelloader.LoadScene(pIndex);
+        Levelloader.LoadScene(pIndex);
     }
     public static void LoadSceneAsync(int pIndex, float pWaitTime)
     {
-        _levelloader.LoadSceneAsync(pIndex, pWaitTime);
+        Levelloader.LoadSceneAsync(pIndex, pWaitTime);
     }
     public static void UIOnEnterScene()
     {

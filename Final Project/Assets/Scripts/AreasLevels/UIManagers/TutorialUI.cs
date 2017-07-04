@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TutorialUI : BaseUI
 {
@@ -228,6 +229,21 @@ public class TutorialUI : BaseUI
             {
                 SetActive(false, arrows.gameObject, handMove.gameObject);
             }
+        }
+        // HighScore showing part
+        if (GameManager.Levelmanager.HasGameEnded() == true && highscoreShown == false)
+        {
+            highscoreShown = true;
+            if (SceneManager.GetActiveScene().buildIndex != 4)
+            {
+                GameManager.Scorehandler.SavePersitentStats(GameManager.NextScene - 1);
+            }
+            else
+            {
+                GameManager.Scorehandler.SavePersitentStats(GameManager.NextScene);
+            }
+
+            displayHighScoreBoard();
         }
     }
     public override void OnDropHook()
