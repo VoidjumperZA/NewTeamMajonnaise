@@ -98,11 +98,23 @@ public class FishSpawn : MonoBehaviour
         if (_valid == true)
         {
             _timeBeforeSpecialFishSpawn -= Time.deltaTime;
-            if (GameManager.Levelmanager.UI.GetMovedBoat() && _timeBeforeSpecialFishSpawn <= 0 && _specialFishAmount == 0 && GameManager.NextScene < 4)
+            if (_timeBeforeSpecialFishSpawn <= 0 && _specialFishAmount == 0 && GameManager.NextScene < 4)
             {
-                SpawnSpecialFish(Random.Range(0, 2));
-                _specialFishAmount += 1;
-                Debug.Log("SpecialFishSpawned");
+                if (GameManager.inTutorial)
+                {
+                    if (GameManager.Levelmanager.UI.GetMovedBoat())
+                    {
+                        SpawnSpecialFish(Random.Range(0, 2));
+                        _specialFishAmount += 1;
+                        Debug.Log("SpecialFishSpawned");
+                    }
+                }
+                else
+                {
+                    SpawnSpecialFish(Random.Range(0, 2));
+                    _specialFishAmount += 1;
+                    Debug.Log("SpecialFishSpawned");
+                }
             }
             // Do not spawn fish in tutorial
             if (GameManager.inTutorial)
