@@ -13,8 +13,8 @@ public class SimpleLookAtObect : MonoBehaviour {
 	void Update () {
         if (target != null)
         {
-
-            gameObject.transform.LookAt(target.transform);
+            gameObject.transform.rotation = Quaternion.LookRotation((target.transform.position - gameObject.transform.position).normalized, Vector3.forward);
+            //gameObject.transform.LookAt(target.transform);
         }
         else
         {
