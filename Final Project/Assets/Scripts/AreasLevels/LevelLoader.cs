@@ -12,6 +12,10 @@ public class LevelLoader : MonoBehaviour
     {
         SceneManager.LoadScene(pIndex);
     }
+    public void LoadAndDestroy(int pIndex)
+    {
+        GameManager.Levelloader.LoadSceneAndDestroy(pIndex);
+    }
     public void LoadSceneAndDestroy(int pIndex)
     {
         //Needs to destroy boat / hook / game manager, etc if replaying the game
@@ -42,6 +46,6 @@ public class LevelLoader : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O)) LoadSceneAndDestroy(0);
+        if (Input.GetKeyDown(KeyCode.O)) LoadAndDestroy(0);
     }
 }
