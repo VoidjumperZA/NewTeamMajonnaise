@@ -231,7 +231,7 @@ public class TutorialUI : BaseUI
             }
             else
             {
-                _deployHookImage.GetComponentInParent<Button>().interactable = true;
+                _deployHookImage.GetComponent<Button>().interactable = true;
                 SetActive(false, arrows.gameObject, handMove.gameObject);
             }
         }

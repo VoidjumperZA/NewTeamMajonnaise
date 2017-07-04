@@ -98,7 +98,7 @@ public class FishSpawn : MonoBehaviour
         if (_valid == true)
         {
             _timeBeforeSpecialFishSpawn -= Time.deltaTime;
-            if (_timeBeforeSpecialFishSpawn <= 0 && _specialFishAmount == 0 && GameManager.NextScene < 4)
+            if (GameManager.Levelmanager.UI.GetMovedBoat() && _timeBeforeSpecialFishSpawn <= 0 && _specialFishAmount == 0 && GameManager.NextScene < 4)
             {
                 SpawnSpecialFish(Random.Range(0, 2));
                 _specialFishAmount += 1;
