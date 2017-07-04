@@ -21,7 +21,7 @@ public class StationaryBoatState : AbstractBoatState {
             basic.GlobalUI.ShowHandSwipe(true);
         }*/
        
-        if(GameManager.inTutorial)
+        if (GameManager.inTutorial)
         {
             
             if(GetTouchedDeployHook() && !GetSecondTimeFishing())
@@ -45,6 +45,10 @@ public class StationaryBoatState : AbstractBoatState {
                 {
                     SetMovedBoat(true);
                     SetState(boat.BoatState.Move);
+                }
+                else if(!GetMovedBoat())
+                {
+                    ToggleHandSwipeAnimation(true);
                 }
             }
            
@@ -102,6 +106,12 @@ public class StationaryBoatState : AbstractBoatState {
         else { return false; }
     }
 
+    public bool GetMovedBoat()
+    {
+        if (GameManager.Levelmanager.UI) { return GameManager.Levelmanager.UI.GetMovedBoat(); }
+        else { return false; }
+    }
+
     public void IntroduceCombo()
     {
         if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.IntroduceCombo(); 
@@ -111,5 +121,11 @@ public class StationaryBoatState : AbstractBoatState {
     {
         if (GameManager.Levelmanager.UI) { return GameManager.Levelmanager.UI.GetTouchedDeployHook(); }
         else { return false; }
+    }
+
+    public void ToggleHandSwipeAnimation(bool pBool)
+    {
+        if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.HookSwipeAnimToggle(pBool); 
+        
     }
 }

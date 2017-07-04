@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class ScoreUIAnimation : MonoBehaviour {
     [SerializeField]
     private Text selfText;
-    [SerializeField]
-    private Image selfImage;
+    //[SerializeField]
+    //private Image selfImage;
     [SerializeField]
     private float shrinkSpeed;
     [SerializeField]
@@ -42,15 +42,15 @@ public class ScoreUIAnimation : MonoBehaviour {
 
         //IMAGE FADING
         //Use that same colour, but set it to the image's colour this time
-        faded = selfImage.GetComponent<Image>().color;
+        //faded = selfImage.GetComponent<Image>().color;
         //Minus the faded value
         faded.a = faded.a - alphaFade;
         //And set it back
-        selfImage.GetComponent<Image>().color = faded;
+        //selfImage.GetComponent<Image>().color = faded;
 
 
         //If we are x percent of our oringal scale, or nearly invisible, just despawn this object
-        if (gameObject.transform.localScale.x <= originalScale * percentScale || selfImage.GetComponent<Image>().color.a < 0.1f)
+        if (gameObject.transform.localScale.x <= originalScale * percentScale /*|| selfImage.GetComponent<Image>().color.a < 0.1f*/)
         {
             //Debug.Log("UI is below size or opacity threshold.");
             Destroy(gameObject);

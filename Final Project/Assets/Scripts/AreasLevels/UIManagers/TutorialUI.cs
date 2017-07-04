@@ -99,7 +99,7 @@ public class TutorialUI : BaseUI
         // Shopping List
         SetActive(false, _shoppingList.gameObject);
         //Animations
-        SetActive(false, handMove.gameObject,_handClick.gameObject, arrows.gameObject,_handClickNoDrops.gameObject,_hide1.gameObject);
+        SetActive(false, handMove.gameObject,_handClick.gameObject, arrows.gameObject,_handClickNoDrops.gameObject,_hide1.gameObject); 
         SetActive(false, _bubbleMoving.gameObject);
        
         //Debug.Log("TutorialUI - Start();");
@@ -124,22 +124,22 @@ public class TutorialUI : BaseUI
             //Fish and trash glow until you catch it for the first time
             if (!gotTrash)
             {
-                GameObject[] trash = GameObject.FindGameObjectsWithTag("Trash");
-                MakeGlow(_rateOfGlow, trash);
+                //GameObject[] trash = GameObject.FindGameObjectsWithTag("Trash");
+                if (SeafloorSpawning.SpawnedTrash != null) MakeGlow(_rateOfGlow, SeafloorSpawning.SpawnedTrash);
             }
             else
             {
-                RestoreGlow(GameObject.FindGameObjectsWithTag("Trash"));
+                RestoreGlow(SeafloorSpawning.SpawnedTrash);
             }
-            if (!gotFish)
+            if (!gotFish && !_secondTimefishing)
             {
 
-                GameObject[] fish = GameObject.FindGameObjectsWithTag("Fish");
-                MakeGlow(_rateOfGlow, fish);
+                //GameObject[] fish = GameObject.FindGameObjectsWithTag("Fish");
+                if (FishSpawn.SpawnedFish != null) MakeGlow(_rateOfGlow, FishSpawn.SpawnedFish);
             }
             else
             {
-                RestoreGlow(GameObject.FindGameObjectsWithTag("Fish"));
+                RestoreGlow(FishSpawn.SpawnedFish);
             }
 
             //Updating trash slider
@@ -198,25 +198,35 @@ public class TutorialUI : BaseUI
                     SetActive(false, arrows.gameObject, handMove.gameObject);
 
                 }
-                Debug.Log("second time fishing-tutorial ui");
+                
               
                 //Show combos for the first time
             }
-            else if (!movedBoat)
-            {/*
-                //_reelHookAnim.enabled = false;
-                SetActive(false, _bubbleMoving.gameObject);
-                _reelHookImage.color = opaque;
+            else if (!touchedReelUpHook)
+            {
 
-                //_reelHook.GetComponent<Image>().sprite = _bubbleImage;
-                SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
-                AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
-                SetActive(true, arrows.gameObject,handMove.gameObject);
-                */
+                //GameObject[] fish = ComboUI.GetComponent<Combo>().GetCurrentType();
+
+                MakeGlow(_rateOfGlow, FishSpawn.GetFishOfType(GameManager.combo.GetCurrentType()));
+                              
+            }
+            else if (!movedBoat)
+            {
+                /*
+              //_reelHookAnim.enabled = false;
+              SetActive(false, _bubbleMoving.gameObject);
+              _reelHookImage.color = opaque;
+
+              //_reelHook.GetComponent<Image>().sprite = _bubbleImage;*/
+              SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
+              AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
+              //SetActive(true, arrows.gameObject,handMove.gameObject);
+              
+                
             }
             else
             {
-               SetActive(false, arrows.gameObject,handMove.gameObject);
+                SetActive(false, arrows.gameObject, handMove.gameObject);
             }
         }
     }
@@ -239,19 +249,19 @@ public class TutorialUI : BaseUI
             _firstTimeFishing = true;
         }*/else if (!_secondTimefishing)
         {
-            Debug.Log("Second time fishing true");
             _secondTimefishing = true;
         }
         else
         {
             if (!touchedReelUpHook)
             {
+                Debug.Log("!touched reel up");
                 //_reelHookAnim.enabled = true;
                 SetActive(true, _bubbleMoving.gameObject);
                 _reelHookImage.color = transparent;
                 SetActive(true, _handClick.gameObject);
             }
-
+            
             ReelUpActive = true;
         }
         DeployActive = false;
@@ -259,11 +269,24 @@ public class TutorialUI : BaseUI
         
         GameManager.Boat.SetState(boat.BoatState.Fish);
     }
-    public override void OnReelHook()
+    public override void OnReelHook(bool pClickedButton = true)
     {
         if (GameManager.Levelmanager.HasGameEnded()) return;
 
-        touchedReelUpHook = true; 
+        if (pClickedButton && !touchedReelUpHook) touchedReelUpHook = true; 
+        DeployActive = true;
+        ReelUpActive = false;
+        SetActive(false, _handClick.gameObject, _bubbleMoving.gameObject);
+        //_deployHookImage.color = opaque;
+        /*SetActive(true, _dropHook.gameObject);
+        SetActive(false, _reelHook.gameObject);*/
+        GameManager.Hook.SetState(hook.HookState.Reel);
+    }
+    public override void OnHookFloorTouch()
+    {
+        if (GameManager.Levelmanager.HasGameEnded()) return;
+
+        //touchedReelUpHook = true;
         DeployActive = true;
         ReelUpActive = false;
         SetActive(false, _handClick.gameObject);
@@ -326,11 +349,7 @@ public class TutorialUI : BaseUI
         arrows.gameObject.SetActive(pBool);
         handMove.gameObject.SetActive(pBool);
     }
-    public override void HandClickToggle(bool pBool)
-    {
-        _handClick.gameObject.SetActive(pBool);
-    }
-
+    
     public void SetScreenPosition(GameObject pTheObject, GameObject pAccordingTo, Vector3 pOffset)
     {
         Vector3 accordingTo = Camera.main.WorldToScreenPoint(pAccordingTo.transform.position);
@@ -365,6 +384,10 @@ public class TutorialUI : BaseUI
     {
         movedBoat = moved;
     }
+    public override bool GetMovedBoat()
+    {
+        return movedBoat;
+    }
     public override void StopTrashGlow(bool pBool)
     {
         gotTrash = pBool;
@@ -381,12 +404,29 @@ public class TutorialUI : BaseUI
     {
         TransitionCurtain.GetComponent<Transition>().UpWards();
     }
-
-    public override void MakeGlow(float rate, GameObject[] gameObjects)
+    public override void MakeGlow(float rate, List<trash> trahses)
     {
-        foreach( GameObject obj in gameObjects)
+        foreach (trash pTrash in trahses)
         {
-            Renderer renderer = obj.GetComponentInChildren<Renderer>();
+            Renderer renderer = pTrash.gameObject.GetComponentInChildren<Renderer>();
+            Material mat = renderer.material;
+
+            float floor = 0.0f;
+            float ceiling = 0.4f;
+            float emission = floor + Mathf.PingPong(Time.time * rate, ceiling - floor);
+            //float emission = Mathf.PingPong(Time.time, 1.0f);
+            Color baseColor = Color.yellow; //Replace this with whatever you want for your base color at emission level '1'
+
+            Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
+
+            mat.SetColor("_EmissionColor", finalColor);
+        }
+    }
+    public override void MakeGlow(float rate, List<fish> fishes)
+    {
+        foreach (fish pFish in fishes)
+        {
+            Renderer renderer = pFish.gameObject.GetComponentInChildren<Renderer>();
             Material mat = renderer.material;
 
             float floor = 0.0f;
@@ -399,13 +439,20 @@ public class TutorialUI : BaseUI
 
             mat.SetColor("_EmissionColor", finalColor);
         } 
-
     }
-    public override void RestoreGlow(GameObject[] gameObjects)
+    public override void RestoreGlow(List<fish> fishes)
     {
-        foreach (GameObject obj in gameObjects)
+        foreach (fish pFish in fishes)
         {
-            Renderer renderer = obj.GetComponentInChildren<Renderer>();
+            Renderer renderer = pFish.gameObject.GetComponentInChildren<Renderer>();
+            renderer.material.SetColor("_EmissionColor", Color.black);
+        }
+    }
+    public override void RestoreGlow(List<trash> trashes)
+    {
+        foreach (trash ptrash in trashes)
+        {
+            Renderer renderer = ptrash.gameObject.GetComponentInChildren<Renderer>();
             renderer.material.SetColor("_EmissionColor", Color.black);
         }
     }
@@ -466,6 +513,8 @@ public class TutorialUI : BaseUI
     }
     public IEnumerator MoveToPoint()
     {
+
+        yield return new WaitForSeconds(2f);
         Vector3 finalPosition = ComboUI.transform.position;
         Vector3 initialPosition = new Vector3(ComboUI.transform.position.x, Screen.height / 2, 0);
         Vector3 initialSize = ComboUI.transform.localScale * 1.5f;
@@ -484,7 +533,6 @@ public class TutorialUI : BaseUI
 
         while (true)
         {
-            Debug.Log("bucle");
             Vector3 position = ComboUI.transform.position;
             yield return new WaitForSeconds(waitTime);
             //use WaitForSecondsRealtime if you want it to be unaffected by timescale

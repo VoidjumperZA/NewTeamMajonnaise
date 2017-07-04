@@ -10,6 +10,7 @@ public class PiledUpTrashState : AbstractTrashState
     }
     public override void Start()
     {
+        SeafloorSpawning.SpawnedTrash.Remove(_trash);
         GameObject.Destroy(_trash.gameObject);
         // Now objects are being destroyed but need to be replaced with low poly model / other model on the boat.
         //basic.Trailer.StuffOnTrailer.Add(_trash);

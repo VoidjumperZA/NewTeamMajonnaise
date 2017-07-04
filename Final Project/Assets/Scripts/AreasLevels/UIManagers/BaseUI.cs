@@ -126,9 +126,9 @@ public class BaseUI : MonoBehaviour {
         return false;
     }
     
-    public virtual void HandClickToggle(bool pBool)
+    public virtual bool GetMovedBoat()
     {
-      
+        return false;
     }
     public virtual void IntroduceCombo()
     {
@@ -146,7 +146,11 @@ public class BaseUI : MonoBehaviour {
     {
 
     }
-    public virtual void OnReelHook()
+    public virtual void OnReelHook(bool pClickedButton = true)
+    {
+
+    }
+    public virtual void OnHookFloorTouch()
     {
 
     }
@@ -166,11 +170,19 @@ public class BaseUI : MonoBehaviour {
     {
         return _totalScoreText;
     }
-    public virtual void RestoreGlow(GameObject[] gameObjects)
+    public virtual void RestoreGlow(List<fish> fishes)
     {
 
     }
-    public virtual void MakeGlow(float rate, GameObject[] gameObjects)
+    public virtual void RestoreGlow(List<trash> trashes)
+    {
+
+    }
+    public virtual void MakeGlow(float rate, List<trash> trashes)
+    {
+
+    }
+    public virtual void MakeGlow(float rate, List<fish> fishes)
     {
 
     }
@@ -198,11 +210,11 @@ public class BaseUI : MonoBehaviour {
    
     private IEnumerator ShowThenFadeOceanBar()
     {
-        GameObject go = Instantiate(bubbleParticleEffect, GameObject.FindGameObjectWithTag("BubbleParticleSpawn").transform.position, Quaternion.identity);
-        go.transform.SetParent(Camera.main.transform);
+        //GameObject go = Instantiate(bubbleParticleEffect, GameObject.FindGameObjectWithTag("BubbleParticleSpawn").transform.position, Quaternion.identity);
+        //go.transform.SetParent(Camera.main.transform);
         //ParticleSystem.ShapeModule shapeModule = go.GetComponent<ParticleSystem>().shape;
         //shapeModule.radius -= Time.deltaTime;
-        Destroy(go, 4);
+        //Destroy(go, 4);
         yield return new WaitForSeconds(timeOceanBarIsShown);
         oceanCleanUpProgressBar.gameObject.transform.parent.gameObject.SetActive(false);
     }

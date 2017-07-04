@@ -47,6 +47,12 @@ public class FishSpawn : MonoBehaviour
         _fishInfo = _shoppingList.FishInfo;
         Initialize();
     }
+    public static List<fish>  GetFishOfType(int pType)
+    {
+        List<fish> temp = new List<fish>();
+        foreach (fish pFish in SpawnedFish) if (pFish.GetFishType() == (fish.FishType)pType) temp.Add(pFish);
+        return temp;
+    }
     // Use this for initialization
     private void Initialize()
     {
@@ -92,7 +98,7 @@ public class FishSpawn : MonoBehaviour
         if (_valid == true)
         {
             _timeBeforeSpecialFishSpawn -= Time.deltaTime;
-            if (_timeBeforeSpecialFishSpawn <= 0 && _specialFishAmount == 0)
+            if (_timeBeforeSpecialFishSpawn <= 0 && _specialFishAmount == 0 && GameManager.NextScene < 4)
             {
                 SpawnSpecialFish(Random.Range(0, 2));
                 _specialFishAmount += 1;

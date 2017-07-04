@@ -111,7 +111,7 @@ public class hook : general
         _stateCache[HookState.None] = new NoneHookState(this);
         _stateCache[HookState.FollowBoat] = new FollowBoatHookState(this, GameManager.Boat);
         _stateCache[HookState.Fish] = new FishHookState(this, _sideSpeed, _downSpeed, _fallSpeed);
-        _stateCache[HookState.Reel] = new ReelHookState(this, GameManager.Boat, _rope, _reelSpeedLinksPerFrame);
+        _stateCache[HookState.Reel] = new ReelHookState(this, GameManager.Boat, GameManager.rope, _reelSpeedLinksPerFrame);
         _stateCache[HookState.SetFree] = new SetFreeHookState(this);
         SetState(_hookState);
     }
