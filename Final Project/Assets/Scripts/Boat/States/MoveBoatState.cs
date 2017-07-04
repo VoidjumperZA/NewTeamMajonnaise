@@ -126,19 +126,22 @@ public class MoveBoatState : AbstractBoatState
         //Level Boundary
         if (other.gameObject.tag == "LeftDetector")
         {
+            SetState(boat.BoatState.RotateInBoundary);
+
             Debug.Log("Left");
             _polarity = 1;
-            GetState(boat.BoatState.EnterBoundary).SetVelocity(_velocity);
+            /*GetState(boat.BoatState.EnterBoundary).SetVelocity(_velocity);
             GetState(boat.BoatState.LeaveBoundary).LeftOrRight(true);
-            SetState(boat.BoatState.EnterBoundary);
+            SetState(boat.BoatState.EnterBoundary);*/
         }
         if (other.gameObject.tag == "RightDetector")
         {
+            SetState(boat.BoatState.RotateInBoundary);
             Debug.Log("Right");
             _polarity = -1;
-            GetState(boat.BoatState.EnterBoundary).SetVelocity(_velocity);
+            /*GetState(boat.BoatState.EnterBoundary).SetVelocity(_velocity);
             GetState(boat.BoatState.LeaveBoundary).LeftOrRight(false);
-            SetState(boat.BoatState.EnterBoundary);
+            SetState(boat.BoatState.EnterBoundary);*/
         }
     }
     private void DetectRotation(float pXDifference)

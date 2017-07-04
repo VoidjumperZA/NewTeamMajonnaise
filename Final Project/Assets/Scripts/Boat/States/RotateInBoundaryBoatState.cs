@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotateInBoundaryBoatState : AbstractBoatState {
+public class RotateInBoundaryBoatState : AbstractBoatState
+{
     private float _rotationCounter = 0;
     private float _rotationDuration;
     private Quaternion _startRotation;
@@ -12,7 +13,7 @@ public class RotateInBoundaryBoatState : AbstractBoatState {
     private Quaternion _leftRotation;
     private GameObject _boatModel;
 
-	public RotateInBoundaryBoatState(boat pBoat, float pRotationDuration, GameObject pBoatModel) : base(pBoat)
+    public RotateInBoundaryBoatState(boat pBoat, float pRotationDuration, GameObject pBoatModel) : base(pBoat)
     {
         _rotationDuration = pRotationDuration;
         _boatModel = pBoatModel;
@@ -40,7 +41,8 @@ public class RotateInBoundaryBoatState : AbstractBoatState {
         else
         {
             _boatModel.transform.rotation = _endRotation;
-            SetState(boat.BoatState.LeaveBoundary);
+            _boat.transform.Translate(_boatModel.transform.right);
+            SetState(boat.BoatState.Move);
         }
     }
     public override void Refresh()
