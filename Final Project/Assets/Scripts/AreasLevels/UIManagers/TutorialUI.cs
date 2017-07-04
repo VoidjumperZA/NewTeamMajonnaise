@@ -218,6 +218,7 @@ public class TutorialUI : BaseUI
               _reelHookImage.color = opaque;
 
               //_reelHook.GetComponent<Image>().sprite = _bubbleImage;*/
+                _reelHookImage.color = opaque;
               SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
               AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.2f, arrows.rectTransform.rect.width / 3);
               //SetActive(true, arrows.gameObject,handMove.gameObject);
@@ -241,7 +242,8 @@ public class TutorialUI : BaseUI
             touchedDeployHook = true;
             //_dropHookAnim.enabled = false;
             SetActive(false, _bubbleMoving.gameObject);
-            _deployHookImage.color = opaque;
+            Debug.Log("Making image opaque");
+            //_reelHookImage.color = opaque;
             //_dropHook.GetComponent<Image>().sprite = _bubbleImage;
         }/*else if (!_firstTimeFishing)
         {
@@ -255,9 +257,9 @@ public class TutorialUI : BaseUI
         {
             if (!touchedReelUpHook)
             {
-                Debug.Log("!touched reel up");
                 //_reelHookAnim.enabled = true;
                 SetActive(true, _bubbleMoving.gameObject);
+                Debug.Log("Making image transparent");
                 _reelHookImage.color = transparent;
                 SetActive(true, _handClick.gameObject);
             }
@@ -272,6 +274,7 @@ public class TutorialUI : BaseUI
     public void OnPressedReelUp()
     {
         touchedReelUpHook = true;
+        Debug.Log("Touched reel up: " + touchedReelUpHook);
         OnReelHook();
 
     }
@@ -283,7 +286,7 @@ public class TutorialUI : BaseUI
         DeployActive = true;
         ReelUpActive = false;
         SetActive(false, _handClick.gameObject, _bubbleMoving.gameObject);
-        //_deployHookImage.color = opaque;
+        _deployHookImage.color = opaque;
         /*SetActive(true, _dropHook.gameObject);
         SetActive(false, _reelHook.gameObject);*/
         GameManager.Hook.SetState(hook.HookState.Reel);
