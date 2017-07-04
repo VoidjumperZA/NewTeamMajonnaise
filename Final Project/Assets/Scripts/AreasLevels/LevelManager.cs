@@ -25,13 +25,21 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] protected ShoppingList _shoppingList;
     [SerializeField] protected JellyFishSpawn _jellyFishSpawn;
     [SerializeField] protected Combo _combo;
-    [SerializeField] protected Light[] bouyLights;
+    protected Light[] bouyLights;
+    protected GameObject[] bouyObjects;
     [SerializeField] protected Color bouyColourPass;
     private bool gameEnded;
     [SerializeField]
     private List<GameObject> _objectsToDeactivateUnderWater;
     public virtual void Start()
     {
+        bouyObjects = GameObject.FindGameObjectsWithTag("BouyLight");
+        bouyLights = new Light[bouyObjects.Length];
+        for (int i = 0; i < bouyObjects.Length; i++)
+        {
+            bouyLights[i] = bouyObjects[i].GetComponent<Light>();
+        }
+        Debug.Log("BouyLights has " + bouyLights.Length + " elements.");
         SetUpCamera();
         SetUpBoat();
 
