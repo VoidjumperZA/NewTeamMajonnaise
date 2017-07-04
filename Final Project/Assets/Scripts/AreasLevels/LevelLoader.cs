@@ -21,7 +21,6 @@ public class LevelLoader : MonoBehaviour
         //Needs to destroy boat / hook / game manager, etc if replaying the game
         foreach (GameObject go in _objectsToDestroyOnRestart)
         {
-            Debug.Log(go.name);
             Destroy(go);
         }
         GameManager.NextScene = 2;

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class FishHookState : AbstractHookState
 {
+    private Vector3 previousPosition;
+    
     private float _fallSpeed;
     private Vector2 _prevInputVelocity;
     private Vector3 _totalVelocity;
@@ -35,6 +37,7 @@ public class FishHookState : AbstractHookState
         {
             ApplyVelocity(-_fallSpeed, mouse.Touching());
         }
+        Borders();
     }
 
     //
@@ -65,7 +68,10 @@ public class FishHookState : AbstractHookState
         _totalVelocity.x = (pSteering) ? acceleration.x * _touchingCliff : _totalVelocity.x * 0.9f;
         _totalVelocity.y = (pFallSpeed > acceleration.y) ? acceleration.y : pFallSpeed;
         _totalVelocity.z = acceleration.z;
+
+        previousPosition = _hook.gameObject.transform.position;
         _hook.gameObject.transform.Translate(_totalVelocity);
+        
         _inputDirection = Vector3.zero;
     }
 
@@ -176,6 +182,16 @@ public class FishHookState : AbstractHookState
     public void StopTrashGlow(bool pBool)
     {
         if (GameManager.Levelmanager.UI) GameManager.Levelmanager.UI.StopTrashGlow(pBool);
+    }
+    private void Borders()
+    {
+        if (GameManager.Fishspawner)
+        {
+            if (_hook.gameObject.transform.position.x < GameManager.Fishspawner.LeftBorderX || _hook.gameObject.transform.position.x > GameManager.Fishspawner.RightBorderX)
+            {
+                _hook.gameObject.transform.position = new Vector3(previousPosition.x, _hook.gameObject.transform.position.y, _hook.gameObject.transform.position.z);
+            }
+        }
     }
   
 }
