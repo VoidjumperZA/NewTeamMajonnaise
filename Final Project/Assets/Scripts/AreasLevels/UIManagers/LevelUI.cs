@@ -83,7 +83,7 @@ public class LevelUI : BaseUI
     }
 
     //
-    public override void OnReelHook(bool pClickedButton = true)
+    public override void OnReelHook()
     {
         if (GameManager.Levelmanager.HasGameEnded()) return;
 

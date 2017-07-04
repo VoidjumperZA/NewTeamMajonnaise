@@ -190,7 +190,7 @@ public class TutorialUI : BaseUI
 
                 //Show swiping animation to introduce how to move the hook
                 SetScreenPosition(arrows.gameObject, GameManager.Hook.gameObject, new Vector3(10, -20, 0));
-                AnimateSwipeHand(GetScreenPosition(GameManager.Hook.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
+                AnimateSwipeHand(GetScreenPosition(GameManager.Hook.gameObject, new Vector3(0, -20, 0)), 0.2f, arrows.rectTransform.rect.width/3);
 
                 //Make animation disappear when the player touches the screen
                 if (Input.GetMouseButton(0) || mouse.Touching())
@@ -219,7 +219,7 @@ public class TutorialUI : BaseUI
 
               //_reelHook.GetComponent<Image>().sprite = _bubbleImage;*/
               SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
-              AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.3f, 75.0f);
+              AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.2f, arrows.rectTransform.rect.width / 3);
               //SetActive(true, arrows.gameObject,handMove.gameObject);
               
                 
@@ -269,11 +269,17 @@ public class TutorialUI : BaseUI
         
         GameManager.Boat.SetState(boat.BoatState.Fish);
     }
-    public override void OnReelHook(bool pClickedButton = true)
+    public void OnPressedReelUp()
+    {
+        touchedReelUpHook = true;
+        OnReelHook();
+
+    }
+    public override void OnReelHook()
     {
         if (GameManager.Levelmanager.HasGameEnded()) return;
-
-        if (pClickedButton && !touchedReelUpHook) touchedReelUpHook = true; 
+       
+        //if (pClickedButton && !touchedReelUpHook) touchedReelUpHook = true; 
         DeployActive = true;
         ReelUpActive = false;
         SetActive(false, _handClick.gameObject, _bubbleMoving.gameObject);
@@ -491,7 +497,7 @@ public class TutorialUI : BaseUI
         yield return new WaitForSeconds(1);
 
         //Show hand tapping the screen
-        SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0, -100, 0));
+        SetScreenPosition(_handClickNoDrops.gameObject, GameManager.Boat.gameObject, new Vector3(0,-Screen.height/3, 0));
         SetActive(true, _handClickNoDrops.gameObject);
     }
 

@@ -146,7 +146,7 @@ public class BaseUI : MonoBehaviour {
     {
 
     }
-    public virtual void OnReelHook(bool pClickedButton = true)
+    public virtual void OnReelHook()
     {
 
     }
