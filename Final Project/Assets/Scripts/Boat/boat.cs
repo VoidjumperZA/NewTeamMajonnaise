@@ -20,6 +20,8 @@ public class boat : general
     private Quaternion rightFacingRotation;
     private Quaternion leftFacingRotation;
 
+    public int polarity = 1;
+
 
     public Transform ContainerSpawner;
     public override void Start()

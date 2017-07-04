@@ -43,13 +43,14 @@ public class InputTimer : MonoBehaviour
             if (timeLeft < 0)
             {
                 Debug.Log("Time up");
+                //GameManager.Levelmanager.EndGame();
                 GameManager.Levelloader.LoadAndDestroy(0);
                 //SceneManager.LoadScene(0);
             }
             //Count down time
             else
             {
-                if (GameManager.Levelmanager.HasGameEnded() == false && GameManager.Gametimer.IsTimerCounting() == true)
+                if (!GameManager.Levelmanager.HasGameEnded() && GameManager.Gametimer.IsTimerCounting())
                 {
 
                 timeLeft -= Time.deltaTime;

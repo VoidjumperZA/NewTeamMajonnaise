@@ -31,8 +31,12 @@ public class LeaveSceneBoatState : AbstractBoatState
     public override void Start()
     {
         float dot = Vector3.Dot(_boatModel.transform.right, Vector3.right);
-        Debug.Log(dot + " Dot");
-        if (dot < 0) SetState(boat.BoatState.RotateScene);
+        //Debug.Log(dot + " Dot");
+        if (dot < 0)
+        {
+            _boat.polarity *= -1;
+            SetState(boat.BoatState.RotateScene);
+        }
 
         _fromPosition = _boat.transform.position;
         _currentLerpTime = 0;
