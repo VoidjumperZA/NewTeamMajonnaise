@@ -14,7 +14,7 @@ public class MoveBoatState : AbstractBoatState
     private float _halfDestination;
 
     private int _prevPolarity = 1;
-    private int _polarity = 1;
+    //private int _polarity = 1;
     private bool _rotate = false;
     private float _direction;
 
@@ -126,31 +126,34 @@ public class MoveBoatState : AbstractBoatState
         //Level Boundary
         if (other.gameObject.tag == "LeftDetector")
         {
+            SetState(boat.BoatState.RotateInBoundary);
+
             Debug.Log("Left");
-            _polarity = 1;
-            GetState(boat.BoatState.EnterBoundary).SetVelocity(_velocity);
+            _boat.polarity = 1;
+            /*GetState(boat.BoatState.EnterBoundary).SetVelocity(_velocity);
             GetState(boat.BoatState.LeaveBoundary).LeftOrRight(true);
-            SetState(boat.BoatState.EnterBoundary);
+            SetState(boat.BoatState.EnterBoundary);*/
         }
         if (other.gameObject.tag == "RightDetector")
         {
+            SetState(boat.BoatState.RotateInBoundary);
             Debug.Log("Right");
-            _polarity = -1;
-            GetState(boat.BoatState.EnterBoundary).SetVelocity(_velocity);
+            _boat.polarity = -1;
+            /*GetState(boat.BoatState.EnterBoundary).SetVelocity(_velocity);
             GetState(boat.BoatState.LeaveBoundary).LeftOrRight(false);
-            SetState(boat.BoatState.EnterBoundary);
+            SetState(boat.BoatState.EnterBoundary);*/
         }
     }
     private void DetectRotation(float pXDifference)
     {
-        if (_polarity > 0 && pXDifference < 0)
+        if (_boat.polarity > 0 && pXDifference < 0)
         {
-            _polarity = -1;
+            _boat.polarity = -1;
             SetState(boat.BoatState.Rotate);
         }
-        if (_polarity < 0 && pXDifference > 0)
+        if (_boat.polarity < 0 && pXDifference > 0)
         {
-            _polarity = 1;
+            _boat.polarity = 1;
             SetState(boat.BoatState.Rotate);
         }
     }
@@ -158,7 +161,7 @@ public class MoveBoatState : AbstractBoatState
     {
         if (_rotate)
         {
-            _prevPolarity = _polarity;
+            _prevPolarity = _boat.polarity;
             _rotate = false;
             SetState(boat.BoatState.Rotate);
         }

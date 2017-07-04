@@ -37,6 +37,7 @@ public class SwimFishState : AbstractFishState
     {
         if (other.gameObject.tag == "FishDespawner" || other.gameObject.tag == "Floor")
         {
+            Debug.Log("Touched despawner");
             if (_fish.GetFishType() == fish.FishType.Special)
             {
                 GameManager.Fishspawner.QueueSpecialFish(_fish);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FishSpawn : MonoBehaviour
 {
@@ -36,8 +37,8 @@ public class FishSpawn : MonoBehaviour
     public static List<fish> SpawnedFish = new List<fish>();
     [SerializeField] private Transform _leftSpawner;
     [SerializeField] private Transform _rightSpawner;
-    [SerializeField] private Transform _leftDespawner;
-    [SerializeField] private Transform _rightDespawner;
+    [SerializeField] private Transform _leftDespawner; [HideInInspector] public float LeftBorderX { get { return _leftDespawner.position.x; } }
+    [SerializeField] private Transform _rightDespawner; [HideInInspector] public float RightBorderX { get { return _rightDespawner.position.x; } }
 
     private int _amountToSpawn = 0;
     private int _totalSpawned = 0;
@@ -98,11 +99,25 @@ public class FishSpawn : MonoBehaviour
         if (_valid == true)
         {
             _timeBeforeSpecialFishSpawn -= Time.deltaTime;
-            if (GameManager.Levelmanager.UI.GetMovedBoat() && _timeBeforeSpecialFishSpawn <= 0 && _specialFishAmount == 0 && GameManager.NextScene < 4)
+            //Debug.Log("becoming smaller " + _timeBeforeSpecialFishSpawn);
+            if (_timeBeforeSpecialFishSpawn <= 0 && _specialFishAmount == 0 && SceneManager.GetActiveScene().buildIndex < 4)
             {
-                SpawnSpecialFish(Random.Range(0, 2));
-                _specialFishAmount += 1;
-                Debug.Log("SpecialFishSpawned");
+                //Debug.Log("become smaller");
+                if (GameManager.inTutorial)
+                {
+                    if (GameManager.Levelmanager.UI.GetMovedBoat())
+                    {
+                        SpawnSpecialFish(Random.Range(0, 2));
+                        _specialFishAmount += 1;
+                        //Debug.Log("SpecialFishSpawned");
+                    }
+                }
+                else
+                {
+                    SpawnSpecialFish(Random.Range(0, 2));
+                    _specialFishAmount += 1;
+                    //Debug.Log("SpecialFishSpawned");
+                }
             }
             // Do not spawn fish in tutorial
             if (GameManager.inTutorial)
@@ -183,8 +198,9 @@ public class FishSpawn : MonoBehaviour
                        
                         _totalSpawned += 1;
                         _fishPerTypeSpawned[type] += 1;
-                        Vector3 spawnPos = (pPolarity == 0) ? _leftSpawner.position : _rightSpawner.position;
-                        spawnPos.y -= 5 + Random.Range(0, (pPolarity == 0) ? _rightDespawner.transform.lossyScale.y -5 : _leftDespawner.transform.lossyScale.y -5);
+                        Vector3 spawnPos = (pPolarity == 0) ? _leftDespawner.position : _rightDespawner.position;
+                        Vector3 spawnerScale = (pPolarity == 0) ? _rightDespawner.lossyScale : _leftDespawner.lossyScale;
+                        spawnPos.y += Random.Range(-spawnerScale.y / 2, spawnerScale.y / 2);
                         GameObject newFish = Instantiate(_fishPrefabs[type], spawnPos, Quaternion.LookRotation((pPolarity == 0) ? Vector3.right : -Vector3.right));
                         again = false;
                         SpawnedFish.Add(newFish.GetComponent<fish>());
