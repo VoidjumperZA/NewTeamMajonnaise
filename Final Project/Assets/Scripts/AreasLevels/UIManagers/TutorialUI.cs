@@ -182,12 +182,19 @@ public class TutorialUI : BaseUI
             {    //Makes sure the former animation is deactivated
                 //SetActive(false,_handClickNoDrops.gameObject);
                 //Activates button and hand animation
-                StartCoroutine(FadeIn(_hide2,_handClick));
-                DeployActive = true;
-                _deployHookImage.color = transparent;
-                SetActive(true, _bubbleMoving.gameObject);
-                _handClick.transform.position = _dropHook.transform.position + new Vector3(10, -10, 0);
-                SetActive(true, _handClick.gameObject);
+                if (_fadeIn2)
+                {
+                    _fadeIn2 = false;
+                    _handClick.transform.position = _dropHook.transform.position + new Vector3(_deployHookImage.rectTransform.rect.width/8,- _deployHookImage.rectTransform.rect.height/8, 0);
+                    
+                    StartCoroutine(FadeIn(_hide2, _handClick));
+                    _deployHookImage.color = transparent;
+                    SetActive(true, _bubbleMoving.gameObject);
+                    DeployActive = true;
+                }
+                
+                
+                //SetActive(true, _handClick.gameObject);
 
                 //Positions hand for swiping animation
                 SetScreenPosition(handMove.gameObject, GameManager.Hook.gameObject, new Vector3(0, 0, 0));
@@ -222,15 +229,15 @@ public class TutorialUI : BaseUI
             }
             else if (!movedBoat)
             {
-                /*
+                
               //_reelHookAnim.enabled = false;
-              SetActive(false, _bubbleMoving.gameObject);
+              //SetActive(false, _bubbleMoving.gameObject);
               _reelHookImage.color = opaque;
 
-              //_reelHook.GetComponent<Image>().sprite = _bubbleImage;*/
+              //_reelHook.GetComponent<Image>().sprite = _bubbleImage;
                 //Hiding the fishing button until the player moves
               _deployHookImage.GetComponentInParent<Button>().interactable = false;
-              _reelHookImage.color = opaque;
+              //_reelHookImage.color = opaque;
               SetScreenPosition(arrows.gameObject, GameManager.Boat.gameObject, new Vector3(0, 0, 0));
               AnimateSwipeHand(GetScreenPosition(GameManager.Boat.gameObject, new Vector3(0, -20, 0)), 0.2f, arrows.rectTransform.rect.width / 3);
               //SetActive(true, arrows.gameObject,handMove.gameObject);
@@ -268,11 +275,11 @@ public class TutorialUI : BaseUI
         if (!touchedDeployHook)
         {
             touchedDeployHook = true;
+            StartCoroutine(FadeOut(_hide2, _handClick));
             //FadeOut(_hide1, _handClick);
             //_dropHookAnim.enabled = false;
             SetActive(false, _bubbleMoving.gameObject);
-            
-            //_reelHookImage.color = opaque;
+            _reelHookImage.color = opaque;
             //_dropHook.GetComponent<Image>().sprite = _bubbleImage;
         }/*else if (!_firstTimeFishing)
         {
@@ -551,9 +558,9 @@ public class TutorialUI : BaseUI
 
     private IEnumerator FadeOut(Image image1,Image image2)
     {
+        SetActive(false, image2.gameObject);
         yield return new WaitForSeconds(0.5f);
 
-        image2.CrossFadeAlpha(0, 0.5f, false);
         image1.CrossFadeAlpha(0, 0.5f, false);
 
     }
