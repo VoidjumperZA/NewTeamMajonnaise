@@ -20,6 +20,7 @@ public class FollowHookFishState : AbstractFishState
             GameManager.Hook.SpecialFish = _fish;
             GameManager.Hook.ToggleArrowActive(false);
             GameManager.Levelmanager.SetBouyToLightsToPass();
+            Debug.Log("Assigned Special fish");
         }
         _fish.Animator.enabled = false;
 
