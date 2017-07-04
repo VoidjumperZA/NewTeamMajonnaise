@@ -17,16 +17,23 @@ public class LeaveSceneBoatState : AbstractBoatState
     private float _totalLerpTime = 4;
     private Vector3 _fromPosition;
 
-    public LeaveSceneBoatState(boat pBoat, float pAcceleration, float pMaxVelocity, float pDeceleration) : base(pBoat)
+    private GameObject _boatModel;
+
+    public LeaveSceneBoatState(boat pBoat, float pAcceleration, float pMaxVelocity, float pDeceleration, GameObject pBoatModel) : base(pBoat)
     {
         _acceleration = pAcceleration;
         _maxVelocity = pMaxVelocity;
         _deceleration = pDeceleration;
         //basic.Tempfishspawn._boatSetUp = true;
+        _boatModel = pBoatModel;
     }
 
     public override void Start()
     {
+        float dot = Vector3.Dot(_boatModel.transform.right, Vector3.right);
+        Debug.Log(dot + " Dot");
+        if (dot < 0) SetState(boat.BoatState.RotateScene);
+
         _fromPosition = _boat.transform.position;
         _currentLerpTime = 0;
     }
