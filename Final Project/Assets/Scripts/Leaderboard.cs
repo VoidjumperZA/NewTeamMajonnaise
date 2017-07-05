@@ -113,7 +113,7 @@ public static class Leaderboard
         }
         File.WriteAllText(path, data);
 
-        UnityEditor.AssetDatabase.ImportAsset(path);
+        //UnityEditor.AssetDatabase.ImportAsset(path);
         TextAsset file = (TextAsset)Resources.Load("saveData");
         Debug.Log(file.text);
         
