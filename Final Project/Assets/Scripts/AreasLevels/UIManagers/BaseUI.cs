@@ -228,6 +228,16 @@ public class BaseUI : MonoBehaviour {
             cleanUpScoreText[i].text = "";
         }
 
+        SetActive(false, _dropHook.gameObject, _reelHook.gameObject);
+        // Game Time
+        SetActive(false, _gameTimerText.gameObject);
+        // Score
+        SetActive(false, _totalScoreBoard.gameObject, _totalScoreText.gameObject, HookScoreText.gameObject);
+        // Shopping List
+        SetActive(false, _shoppingList.gameObject);
+        // Combo
+        SetActive(false, ComboUI);
+
         //Possibly skip the tutorial feild0
         int textIndex = 0;
         rawHighScoreText.text = "" + GameManager.Scorehandler.GetBankedScore();
@@ -253,5 +263,10 @@ public class BaseUI : MonoBehaviour {
         sumTotalHighScoreText.text = "" + (GameManager.Scorehandler.GetHighscoreAchieved());
 
         highScoreBoard.SetActive(true);
+    }
+
+    public void HideHighScoreBoard()
+        {
+        highScoreBoard.SetActive(false);
     }
 }

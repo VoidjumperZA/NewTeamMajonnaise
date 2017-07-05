@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
-    public static GameManager Instance = null;
-    
+    public static GameManager Instance = null;    
     public static boat Boat;
     public static hook Hook;
     public static Rope rope;
-   // public static radar Radar;
+    public static VirtualKeyboard virtualKeyboard;
+    // public static radar Radar;
     public static trailer Trailer;
     // Same per Scene
     public static LevelLoader Levelloader;

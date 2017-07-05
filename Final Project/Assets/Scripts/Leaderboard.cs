@@ -85,9 +85,15 @@ public static class Leaderboard
 
         Debug.Log("SORTED");
         sortedScores.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+        List<KeyValuePair<string, int>> temp = new List<KeyValuePair<string, int>>();
+        for (int i = 0; i < sortedScores.Count; i++)
+        {
+            temp.Add(sortedScores[i]); 
+        }
 
         for (int i = 0; i < sortedScores.Count; i++)
         {
+            sortedScores[i] = temp[(temp.Count - 1) - i];
             Debug.Log("" + sortedScores[i].Key + ": " + sortedScores[i].Value);
             if (sortedScores[i].Key == playerName)
             {
@@ -143,8 +149,8 @@ public static class Leaderboard
             pAmount = sortedScores.Count;
         }
 
-        string[] topNames = new string[sortedScores.Count];
-        int[] topScores = new int[sortedScores.Count];
+        string[] topNames = new string[pAmount];
+        int[] topScores = new int[pAmount];
         for (int i = 0; i < pAmount; i++)
         {
             topNames[i] = sortedScores[i].Key;
