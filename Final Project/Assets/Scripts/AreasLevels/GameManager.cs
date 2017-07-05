@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
     public static bool inTutorial = false;
 
     private void Start () {
+        
         DontDestroyOnLoad(gameObject);
         AssignReferences();
         //Debug.Log("GameManager - Start();");

@@ -249,7 +249,9 @@ public class BaseUI : MonoBehaviour {
             }
 
         }
-        sumTotalHighScoreText.text = "" + (GameManager.Scorehandler.GetBankedScore() + cleanUpSum);
+        GameManager.Scorehandler.SetHighscoreAchieved(Mathf.FloorToInt(GameManager.Scorehandler.GetBankedScore()) + cleanUpSum);
+        sumTotalHighScoreText.text = "" + (GameManager.Scorehandler.GetHighscoreAchieved());
+
         highScoreBoard.SetActive(true);
     }
 }
