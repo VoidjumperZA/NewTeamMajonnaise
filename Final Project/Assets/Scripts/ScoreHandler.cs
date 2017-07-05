@@ -34,6 +34,7 @@ public class ScoreHandler : MonoBehaviour {
     private int totalNumberOfTrashPieces;
     private int collectedTrash;
     private int percentCleanedThisArea;
+    private int highscoreAchieved;
 
     // Use this for initialization
     void Start()
@@ -81,6 +82,15 @@ public class ScoreHandler : MonoBehaviour {
         }
     }
 
+    public int GetHighscoreAchieved()
+    {
+        return highscoreAchieved;
+    }
+
+    public void SetHighscoreAchieved(int pHighscore)
+    {
+        highscoreAchieved = pHighscore;
+    }
     public float GetScore()
     {
         return HookScore;
