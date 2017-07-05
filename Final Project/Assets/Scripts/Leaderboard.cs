@@ -63,6 +63,7 @@ public static class Leaderboard
             sortScores();
         }
         saveToFile();
+        GameManager.Boat.StartCoroutine(GameManager.Boat.GetComponent<DBconnection>().UploadScore(GameManager.Boat.GetComponent<Arguments>().getUserID(), GameManager.Boat.GetComponent<Arguments>().getGameID(), pScore));
         //search if username exists
         //if so replace score
         //if nnot check entries < 100
@@ -115,6 +116,7 @@ public static class Leaderboard
         UnityEditor.AssetDatabase.ImportAsset(path);
         TextAsset file = (TextAsset)Resources.Load("saveData");
         Debug.Log(file.text);
+        
     }
 
     private static void loadLeaderboardFromFile(TextAsset pSaveFile)

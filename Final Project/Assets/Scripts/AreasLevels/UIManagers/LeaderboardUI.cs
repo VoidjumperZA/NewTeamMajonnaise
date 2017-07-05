@@ -62,7 +62,7 @@ public class LeaderboardUI : MonoBehaviour
         playerNameText.color = playerNameColour;
         playerNumberText.color = playerNameColour;
         playerNameText.text = Leaderboard.GetPlayerName() + "   " + GameManager.Scorehandler.GetHighscoreAchieved();
-        playerNumberText.text = "" + Leaderboard.GetPlayerPosition() + ".";
+        playerNumberText.text = "" + (Leaderboard.GetPlayerPosition() + 1) + ".";
         numberToInstantiate.enabled = false;
         nameToInstantiate.enabled = false;
     }
